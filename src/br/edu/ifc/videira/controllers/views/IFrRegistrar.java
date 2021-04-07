@@ -309,7 +309,7 @@ public class IFrRegistrar extends JInternalFrame {
 						
 						//Pegar valor
 						try {
-							rg.setValor(Double.parseDouble(tfValor.getText().replaceAll("\\.", "").replaceAll(",", ".").replace("R$ ", "")));
+							rg.setValor(tfValor.getText());
 						} catch (Exception e2) {
 							JOptionPane.showMessageDialog(null, "O programa não conseguiu converter o valor em números, verifique os dados digitados", "Falha de conversão", JOptionPane.WARNING_MESSAGE);
 							e2.printStackTrace();

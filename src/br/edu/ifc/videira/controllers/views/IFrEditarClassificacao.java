@@ -76,7 +76,7 @@ public class IFrEditarClassificacao extends JInternalFrame {
 		btCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Validação para campo em branco
-				if(!tfClassificacao.getText().equals("")) {
+				if(!tfClassificacao.getText().isEmpty()) {
 					cf.setNome(tfClassificacao.getText());
 					try {
 						cfDao.cadastrarClassificacao(cf);
@@ -87,7 +87,7 @@ public class IFrEditarClassificacao extends JInternalFrame {
 					atualizarTabela();
 					limpar();
 				}else {
-					JOptionPane.showMessageDialog(null, "Informe o nome da descrição!", "Campo obrigatório em branco", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Informe o nome da classificação!", "Campo obrigatório em branco", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		});
@@ -193,11 +193,7 @@ public class IFrEditarClassificacao extends JInternalFrame {
 						limpar();
 						atualizarTabela();
 						
-					} else {
-						// Nesse caso a validação falhou
-						JOptionPane.showMessageDialog(null, "Operação cancelada", "Aviso",
-								JOptionPane.WARNING_MESSAGE);
-					}
+					}//Se não validar a autenticação o próprio método vai devolver a mensagem. 
 
 				} else {
 					JOptionPane.showMessageDialog(null, "É necessário selecionar uma linha da tabela para excluir.",

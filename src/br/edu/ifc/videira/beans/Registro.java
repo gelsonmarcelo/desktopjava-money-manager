@@ -33,8 +33,8 @@ public class Registro {
 		return valor;
 	}
 
-	public void setValor(double valor) {
-		this.valor = valor;
+	public void setValor(String valor) {
+		this.valor = Double.parseDouble(valor.replaceAll("\\.", "").replaceAll(",", ".").replace("R$ ", ""));
 	}
 
 	public String getDescricao() {

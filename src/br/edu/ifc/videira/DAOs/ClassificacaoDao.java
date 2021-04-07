@@ -166,7 +166,7 @@ public class ClassificacaoDao {
 	public void deletarClassificacao(Classificacao cf){
 		//Isso executará de qualquer forma, pois é onde exclui o registro
 		//Código que irá executar no banco
-		sql = "DELETE FROM instituicao WHERE idinstituicao = ?";
+		sql = "DELETE FROM classificacao WHERE idclassificacao = ?";
 		try {
 			//Declaração do PreparedStatement com sql
 			sqlPrep = Conexao.conectar().prepareStatement(sql);
@@ -174,10 +174,10 @@ public class ClassificacaoDao {
 			sqlPrep.setInt(1, cf.getCodigo());
 			//Executando Query
 			sqlPrep.execute();
-			JOptionPane.showMessageDialog(null, "Exlusão do instituição realizada com sucesso!");
+			JOptionPane.showMessageDialog(null, "Exlusão do classificação realizada com sucesso!");
 			sqlPrep.close();
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Ocorreu um erro, instituição pode não ter sido deletada, contate o desenvolvedor e informe o código ''!", "Erro inesperado", JOptionPane.ERROR_MESSAGE);			
+			JOptionPane.showMessageDialog(null, "Ocorreu um erro, classificação pode não ter sido deletada, contate o desenvolvedor e informe o código ''!", "Erro inesperado", JOptionPane.ERROR_MESSAGE);			
 			e.printStackTrace();
 		}
 	}

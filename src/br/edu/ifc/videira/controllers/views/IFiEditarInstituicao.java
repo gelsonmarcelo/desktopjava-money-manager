@@ -27,22 +27,24 @@ import br.edu.ifc.videira.DAOs.InstituicaoDao;
 import br.edu.ifc.videira.DAOs.UsuarioDao;
 import br.edu.ifc.videira.beans.Instituicao;
 import br.edu.ifc.videira.utils.JNumberFormatField;
+import javax.swing.JCheckBox;
 
 public class IFiEditarInstituicao extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
 	private JTextField tfInstituicao;
 	private JTable table;
-	private JTable tableSubs;
+//	private JTable tableSubs;
 	private List<Object> registros = new ArrayList<Object>();
 	private JComboBox<Object> cbTipo;
 	InstituicaoDao inDao = new InstituicaoDao();
 	Instituicao in = new Instituicao();
 	private JTextField tfCod;
-	private JTextField tfSubs;
+//	private JTextField tfSubs;
 	private JTextField tfSaldo;
 	private JButton btAtualizar;
 	private JButton btExcluir;
 	private JButton btCadastrar;
+	private JCheckBox cboxSaldoNegativo;
 	
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -70,12 +72,12 @@ public class IFiEditarInstituicao extends JInternalFrame {
 
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setFont(MainInternalFrame.fonte4);
-		lblNome.setBounds(23, 231, 135, 34);
+		lblNome.setBounds(23, 319, 135, 34);
 		getContentPane().add(lblNome);
 
 		tfInstituicao = new JTextField();
 		tfInstituicao.setFont(MainInternalFrame.fonte4);
-		tfInstituicao.setBounds(158, 232, 376, 34);
+		tfInstituicao.setBounds(158, 320, 376, 34);
 		getContentPane().add(tfInstituicao);
 		tfInstituicao.setColumns(10);
 		
@@ -85,8 +87,8 @@ public class IFiEditarInstituicao extends JInternalFrame {
 				//Validação para campo em branco
 				if(!tfInstituicao.getText().equals("") && !(cbTipo.getSelectedIndex()==0)) {
 					in.setNome(tfInstituicao.getText());
-					in.setIdTipo(Integer.parseInt(String.valueOf(cbTipo.getSelectedItem()).split("\\*")[0]));
-					in.setSaldo(Double.parseDouble(tfSaldo.getText().replaceAll("\\.", "").replaceAll(",", ".").replace("R$ ", "")));
+					in.setIdTipo(String.valueOf(cbTipo.getSelectedItem()));
+					in.setSaldo(tfSaldo.getText(), cboxSaldoNegativo.isSelected());
 					try {
 						inDao.cadastrarInstituicao(in);
 						JOptionPane.showMessageDialog(null, "Instituição cadastrada com sucesso!");
@@ -107,6 +109,23 @@ public class IFiEditarInstituicao extends JInternalFrame {
 		getContentPane().add(btCadastrar);
 		
 		btAtualizar = new JButton("Atualizar");
+		btAtualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				in.setNome(tfInstituicao.getText());
+				in.setIdTipo(String.valueOf(cbTipo.getSelectedItem()));
+				in.setSaldo(tfSaldo.getText(), cboxSaldoNegativo.isSelected());
+				in.setCodigo(tfCod.getText());
+				
+				try {
+					inDao.atualizarInstituicao(in);
+					atualizarTabela();
+					limpar();
+					
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		btAtualizar.setEnabled(false);
 		btAtualizar.setToolTipText("Necessita autentica\u00E7\u00E3o");
 		btAtualizar.setFont(MainInternalFrame.fonte4);
@@ -125,7 +144,7 @@ public class IFiEditarInstituicao extends JInternalFrame {
 					// operação e faz a autenticação do usuário
 					if (UsuarioDao.validar(true, false, null, null)) {
 						// Definindo o código da linha selecionada
-						in.setCodigo(Integer.parseInt(String.valueOf(table.getValueAt(table.getSelectedRow(), 0))));
+						in.setCodigo(String.valueOf(table.getValueAt(table.getSelectedRow(), 0)));
 						// Enviando para o método responsável na classe RegistroDao
 						inDao.deletarInstituicao(in);
 						
@@ -153,32 +172,32 @@ public class IFiEditarInstituicao extends JInternalFrame {
 		tfCod.setEnabled(false);
 		tfCod.setFont(MainInternalFrame.fonte4);
 		tfCod.setColumns(10);
-		tfCod.setBounds(23, 447, 31, 28);
+		tfCod.setBounds(0, 532, 31, 28);
 		getContentPane().add(tfCod);
 		
-		JLabel lbSubGrupos = new JLabel("Subs:");
-		lbSubGrupos.setEnabled(false);
-		lbSubGrupos.setFont(MainInternalFrame.fonte4);
-		lbSubGrupos.setBounds(23, 375, 135, 34);
-		getContentPane().add(lbSubGrupos);
+//		JLabel lbSubGrupos = new JLabel("Subs:");
+//		lbSubGrupos.setEnabled(false);
+//		lbSubGrupos.setFont(MainInternalFrame.fonte4);
+//		lbSubGrupos.setBounds(23, 375, 135, 34);
+//		getContentPane().add(lbSubGrupos);
 		
-		tfSubs = new JTextField();
-		tfSubs.setToolTipText("indispon\u00EDvel no momento.");
-		tfSubs.setEnabled(false);
-		tfSubs.setFont(MainInternalFrame.fonte4);
-		tfSubs.setColumns(10);
-		tfSubs.setBounds(158, 375, 376, 34);
-		getContentPane().add(tfSubs);
-		
-		JButton btAdicionar = new JButton("Add");
-		btAdicionar.setEnabled(false);
-		btAdicionar.setToolTipText("Indispon\u00EDvel");
-		btAdicionar.setFont(MainInternalFrame.fonte4);
-		btAdicionar.setBounds(79, 443, 75, 32);
-		getContentPane().add(btAdicionar);
+//		tfSubs = new JTextField();
+//		tfSubs.setToolTipText("indispon\u00EDvel no momento.");
+//		tfSubs.setEnabled(false);
+//		tfSubs.setFont(MainInternalFrame.fonte4);
+//		tfSubs.setColumns(10);
+//		tfSubs.setBounds(158, 375, 376, 34);
+//		getContentPane().add(tfSubs);
+//		
+//		JButton btAdicionar = new JButton("Add");
+//		btAdicionar.setEnabled(false);
+//		btAdicionar.setToolTipText("Indispon\u00EDvel");
+//		btAdicionar.setFont(MainInternalFrame.fonte4);
+//		btAdicionar.setBounds(79, 443, 75, 32);
+//		getContentPane().add(btAdicionar);
 		
 		JScrollPane spInstituicao = new JScrollPane();
-		spInstituicao.setBounds(23, 66, 511, 154);
+		spInstituicao.setBounds(23, 66, 511, 242);
 		getContentPane().add(spInstituicao);
 
 		table = new JTable();
@@ -187,6 +206,10 @@ public class IFiEditarInstituicao extends JInternalFrame {
 				tfCod.setText(String.valueOf(table.getValueAt(table.getSelectedRow(), 0)));
 				tfInstituicao.setText(String.valueOf(table.getValueAt(table.getSelectedRow(), 1)));
 				tfSaldo.setText(String.valueOf(table.getValueAt(table.getSelectedRow(), 2)));
+				if(Double.parseDouble(String.valueOf(table.getValueAt(table.getSelectedRow(), 2)))<0){
+					cboxSaldoNegativo.setSelected(true);
+				}
+				
 				if(tfSaldo.getText().equals("R$ 0,00")) {
 					btExcluir.setEnabled(true);
 					btExcluir.setToolTipText("");
@@ -227,42 +250,42 @@ public class IFiEditarInstituicao extends JInternalFrame {
 		table.getTableHeader().setReorderingAllowed(false);
 		table.setRowHeight(20);
 		
-		JScrollPane spSub = new JScrollPane();
-		spSub.setEnabled(false);
-		spSub.setBounds(158, 420, 376, 55);
-		getContentPane().add(spSub);
+//		JScrollPane spSub = new JScrollPane();
+//		spSub.setEnabled(false);
+//		spSub.setBounds(158, 420, 376, 55);
+//		getContentPane().add(spSub);
 
-		tableSubs = new JTable();
-		tableSubs.setEnabled(false);
-		tableSubs.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), Color.BLACK, Color.DARK_GRAY, Color.DARK_GRAY));
-		tableSubs.setFillsViewportHeight(true);
-		tableSubs.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tableSubs.setFont(MainInternalFrame.fonteTabela);
-		tableSubs.setAutoCreateRowSorter(true);
-		spSub.setViewportView(tableSubs);
-		tableSubs.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"C\u00F3digo", "Nome", "Saldo"
-			}
-		));
-		tableSubs.getColumnModel().getColumn(0).setPreferredWidth(10);
-		tableSubs.getColumnModel().getColumn(1).setPreferredWidth(200);
-		tableSubs.getColumnModel().getColumn(2).setPreferredWidth(25);
-		//Impede movimentação das colunas pelo usuário
-		tableSubs.getTableHeader().setReorderingAllowed(false);
-		tableSubs.setRowHeight(20);
+//		tableSubs = new JTable();
+//		tableSubs.setEnabled(false);
+//		tableSubs.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), Color.BLACK, Color.DARK_GRAY, Color.DARK_GRAY));
+//		tableSubs.setFillsViewportHeight(true);
+//		tableSubs.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//		tableSubs.setFont(MainInternalFrame.fonteTabela);
+//		tableSubs.setAutoCreateRowSorter(true);
+//		spSub.setViewportView(tableSubs);
+//		tableSubs.setModel(new DefaultTableModel(
+//			new Object[][] {
+//			},
+//			new String[] {
+//				"C\u00F3digo", "Nome", "Saldo"
+//			}
+//		));
+//		tableSubs.getColumnModel().getColumn(0).setPreferredWidth(10);
+//		tableSubs.getColumnModel().getColumn(1).setPreferredWidth(200);
+//		tableSubs.getColumnModel().getColumn(2).setPreferredWidth(25);
+//		//Impede movimentação das colunas pelo usuário
+//		tableSubs.getTableHeader().setReorderingAllowed(false);
+//		tableSubs.setRowHeight(20);
 		
 		tfSaldo = new JNumberFormatField();
 		tfSaldo.setFont(new Font("Calibri", Font.PLAIN, 20));
 		tfSaldo.setColumns(10);
-		tfSaldo.setBounds(158, 330, 195, 34);
+		tfSaldo.setBounds(158, 418, 135, 34);
 		getContentPane().add(tfSaldo);
 		
 		JLabel lblSaldo = new JLabel("Saldo R$:");
 		lblSaldo.setFont(new Font("Sitka Subheading", Font.PLAIN, 25));
-		lblSaldo.setBounds(23, 328, 135, 34);
+		lblSaldo.setBounds(23, 416, 135, 34);
 		getContentPane().add(lblSaldo);
 		
 		JButton btLimpar = new JButton("Limpar");
@@ -271,9 +294,9 @@ public class IFiEditarInstituicao extends JInternalFrame {
 				limpar();
 			}
 		});
-		btLimpar.setToolTipText("Necessita autentica\u00E7\u00E3o");
+		btLimpar.setToolTipText("");
 		btLimpar.setFont(new Font("Sitka Subheading", Font.PLAIN, 25));
-		btLimpar.setBounds(390, 332, 144, 32);
+		btLimpar.setBounds(390, 458, 144, 32);
 		getContentPane().add(btLimpar);
 				
 		cbTipo = new JComboBox<>();
@@ -285,13 +308,18 @@ public class IFiEditarInstituicao extends JInternalFrame {
 			JOptionPane.showMessageDialog(null, "Ocorreu um erro, contate o desenvolvedor e informe o código ''!", "Erro inesperado", JOptionPane.ERROR_MESSAGE);
 		}
 		cbTipo.setFont(MainInternalFrame.fonte5);
-		cbTipo.setBounds(158, 281, 376, 34);
+		cbTipo.setBounds(158, 369, 376, 34);
 		getContentPane().add(cbTipo);
 		
 		JLabel lblTipo = new JLabel("Tipo:");
 		lblTipo.setFont(new Font("Sitka Subheading", Font.PLAIN, 25));
-		lblTipo.setBounds(23, 281, 135, 34);
+		lblTipo.setBounds(23, 369, 135, 34);
 		getContentPane().add(lblTipo);
+		
+		cboxSaldoNegativo = new JCheckBox("Saldo negativo");
+		cboxSaldoNegativo.setFont(new Font("Sitka Subheading", Font.PLAIN, 20));
+		cboxSaldoNegativo.setBounds(299, 425, 235, 23);
+		getContentPane().add(cboxSaldoNegativo);
 		
 		
 		atualizarTabela();
@@ -321,6 +349,7 @@ public class IFiEditarInstituicao extends JInternalFrame {
 		tfInstituicao.setText("");
 		tfCod.setText("");
 		cbTipo.setSelectedIndex(0);
+		cboxSaldoNegativo.setSelected(false);
 		
 		btCadastrar.setEnabled(true);
 		btCadastrar.setToolTipText("");

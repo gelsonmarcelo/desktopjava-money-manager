@@ -9,7 +9,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import br.edu.ifc.videira.beans.Instituicao;
-import br.edu.ifc.videira.beans.Quem;
 import br.edu.ifc.videira.beans.Transferencia;
 import br.edu.ifc.videira.utils.Conexao;
 
@@ -30,10 +29,9 @@ public class InstituicaoDao {
 		try {
 			sql = "INSERT INTO instituicao (nome, saldo, idusuario, idtipo) VALUES (?,?," + UsuarioDao.idUser + ",?)";
 			sqlPrep = Conexao.conectar().prepareStatement(sql);
-			int contador = 1;
-			sqlPrep.setString(contador++, in.getNome()); // ou no lugar de "contador++" 1, 2, 3...
-			sqlPrep.setDouble(contador++, in.getSaldo());
-			sqlPrep.setInt(contador++, in.getIdTipo());
+			sqlPrep.setString(1, in.getNome());
+			sqlPrep.setDouble(2, in.getSaldo());
+			sqlPrep.setInt(3, in.getIdTipo());
 			sqlPrep.execute();
 			
 		} catch (Exception e) {
@@ -47,17 +45,17 @@ public class InstituicaoDao {
 	 * @param qm
 	 * @throws Exception
 	 */
-	public void atualizarPessoa(Quem qm) throws Exception {
+	public void atualizarInstituicao(Instituicao in) throws Exception {
 		try {
-			sql = "UPDATE quem SET nome=?, saldo=? WHERE idquem=?;";
-			PreparedStatement sqlPrep = Conexao.conectar().prepareStatement(sql);
-			int contador = 1;
-			sqlPrep.setString(contador++, qm.getNome());
-			sqlPrep.setDouble(contador++, qm.getSaldo());
-			sqlPrep.setInt(contador++, qm.getCodigo());
+			sql = "UPDATE instituicao SET nome=?, saldo=?, idtipo=? WHERE idinstituicao=?;";
+			sqlPrep = Conexao.conectar().prepareStatement(sql);
+			sqlPrep.setString(1, in.getNome());
+			sqlPrep.setDouble(2, in.getSaldo());
+			sqlPrep.setInt(3, in.getIdTipo());
+			sqlPrep.setInt(4, in.getCodigo());
 			sqlPrep.execute();
 			
-			JOptionPane.showMessageDialog(null, "Pessoa atualizada com sucesso!");
+			JOptionPane.showMessageDialog(null, "Instituição atualizada com sucesso!");
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,
 					"Infelizmente ocorreu um erro inesperado, se persistir contate o desenvolvedor:\n" + e.getMessage(),

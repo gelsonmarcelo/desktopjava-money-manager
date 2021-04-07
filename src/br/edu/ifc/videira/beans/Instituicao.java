@@ -11,8 +11,8 @@ public class Instituicao {
 		return codigo;
 	}
 
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+	public void setCodigo(String codigo) {
+		this.codigo = Integer.parseInt(codigo);
 	}
 
 	public String getNome() {
@@ -27,16 +27,19 @@ public class Instituicao {
 		return saldo;
 	}
 
-	public void setSaldo(double saldo) {
-		this.saldo = saldo;
+	public void setSaldo(String saldo, boolean saldoNegativo) {
+		this.saldo = Double.parseDouble(saldo.replaceAll("\\.", "").replaceAll(",", ".").replace("R$ ", ""));
+		if(saldoNegativo) {
+			this.saldo*=-1;
+		}
 	}
 
 	public int getIdTipo() {
 		return idTipo;
 	}
 
-	public void setIdTipo(int idTipo) {
-		this.idTipo = idTipo;
+	public void setIdTipo(String idTipo) {
+		this.idTipo = Integer.parseInt(idTipo.split("\\*")[0]);
 	}
 
 	public Instituicao() {

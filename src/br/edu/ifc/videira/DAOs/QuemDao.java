@@ -24,9 +24,9 @@ public class QuemDao {
 		try {
 			String sql = "INSERT INTO quem (nome, saldo, idusuario) VALUES (?,?," + UsuarioDao.idUser + ")";
 			java.sql.PreparedStatement sqlPrep = Conexao.conectar().prepareStatement(sql);
-			int contador = 1;
-			sqlPrep.setString(contador++, qm.getNome()); // ou no lugar de "contador++" 1, 2, 3...
-			sqlPrep.setDouble(contador++, qm.getSaldo());
+
+			sqlPrep.setString(1, qm.getNome());
+			sqlPrep.setDouble(2, qm.getSaldo());
 			sqlPrep.execute();
 
 			JOptionPane.showMessageDialog(null, "Pessoa cadastrada com sucesso!");

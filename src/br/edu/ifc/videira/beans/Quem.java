@@ -26,8 +26,12 @@ public class Quem {
 		return saldo;
 	}
 
-	public void setSaldo(double saldo) {
-		this.saldo = saldo;
+	public void setSaldo(String saldo, boolean saldoNegativo) {
+		this.saldo = Double.parseDouble(saldo.replaceAll("\\.", "").replaceAll(",", ".").replace("R$ ", ""));
+		if(saldoNegativo) {
+			this.saldo*=-1;
+//			System.out.println(this.saldo);
+		}
 	}
 
 	public Quem() {
