@@ -46,9 +46,8 @@ public class ClassificacaoDao {
 		try {
 			sql = "UPDATE classificacao SET nome=? WHERE idclassificacao=?;";
 			PreparedStatement sqlPrep = Conexao.conectar().prepareStatement(sql);
-			int contador = 1;
-			sqlPrep.setString(contador++, cf.getNome());
-			sqlPrep.setInt(contador++, cf.getCodigo());
+			sqlPrep.setString(1, cf.getNome());
+			sqlPrep.setInt(2, cf.getCodigo());
 			sqlPrep.execute();
 			JOptionPane.showMessageDialog(null, "Classificação atualizada com sucesso!");
 		} catch (Exception e) {
