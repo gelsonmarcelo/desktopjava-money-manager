@@ -37,3 +37,128 @@ END$$
 DELIMITER ;
 
 /*Triggers Instituição*/
+DROP TRIGGER IF EXISTS `mm`.`instituicao_AFTER_INSERT`;
+
+DELIMITER $$
+USE `mm`$$
+CREATE DEFINER=`root`@`localhost` TRIGGER `instituicao_AFTER_INSERT` AFTER INSERT ON `instituicao` FOR EACH ROW BEGIN
+	INSERT INTO mm.log values (default, 'Inserção', now(), concat("Registrada nova instituição <",new.nome, ">, saldo <R$ ", new.saldo, ">, tipo <", new.idtipo, ">, id <", new.idinstituicao, ">"), new.idusuario);
+END$$
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS `mm`.`instituicao_AFTER_UPDATE`;
+
+DELIMITER $$
+USE `mm`$$
+CREATE DEFINER=`root`@`localhost` TRIGGER `instituicao_AFTER_UPDATE` AFTER UPDATE ON `instituicao` FOR EACH ROW BEGIN
+	INSERT INTO mm.log values (default, 'Atualização', now(), concat("Instituição atualizada de nome <", old.nome, ">, saldo <", old.saldo, ">, tipo <", old.idtipo, "> para nome <", new.nome, ">, saldo <", new.saldo, ">, tipo <", new.idtipo, ">, com id <", new.idinstituicao, ">"), new.idusuario);
+END$$
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS `mm`.`instituicao_AFTER_DELETE`;
+
+DELIMITER $$
+USE `mm`$$
+CREATE DEFINER=`root`@`localhost` TRIGGER `instituicao_AFTER_DELETE` AFTER DELETE ON `instituicao` FOR EACH ROW BEGIN
+	INSERT INTO mm.log values (default, 'Exclusão', now(), concat("Instituição excluída nome <", old.nome, ">, saldo <", old.saldo, ">, tipo <", old.idtipo, "> com id <", old.idinstituicao, ">"), old.idusuario);
+END$$
+DELIMITER ;
+
+/*Quem/Pessoa*/
+DROP TRIGGER IF EXISTS `mm`.`quem_AFTER_INSERT`;
+
+DELIMITER $$
+USE `mm`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `mm`.`quem_AFTER_INSERT` AFTER INSERT ON `quem` FOR EACH ROW
+BEGIN
+	INSERT INTO mm.log values (
+		default, 
+		'Inserção', 
+		now(), 
+		concat("Registrada nova pessoa <", new.nome, ">, saldo <R$ ", new.saldo, ">, id <", new.idquem, ">"), 
+		new.idusuario
+    );
+END$$
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS `mm`.`quem_AFTER_UPDATE`;
+
+DELIMITER $$
+USE `mm`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `mm`.`quem_AFTER_UPDATE` AFTER UPDATE ON `quem` FOR EACH ROW
+BEGIN
+	INSERT INTO mm.log values (
+		default, 
+        'Atualização', 
+        now(), 
+        concat("Pessoa atualizada de nome <", old.nome, ">, saldo <", old.saldo, "> para nome <", new.nome, ">, saldo <", new.saldo, "> com id <", new.idquem, ">"), 
+        new.idusuario
+	);
+END$$
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS `mm`.`quem_AFTER_DELETE`;
+
+DELIMITER $$
+USE `mm`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `mm`.`quem_AFTER_DELETE` AFTER DELETE ON `quem` FOR EACH ROW
+BEGIN
+	INSERT INTO mm.log values (
+		default, 
+        'Exclusão', 
+        now(), 
+        concat("Pessoa excluída nome <", old.nome, ">, saldo <", old.saldo, "> com id <", old.idquem, ">"), 
+        old.idusuario
+	);
+END$$
+DELIMITER ;
+
+/*Registros*/
+DROP TRIGGER IF EXISTS `mm`.`registro_AFTER_INSERT`;
+
+DELIMITER $$
+USE `mm`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `mm`.`registro_AFTER_INSERT` AFTER INSERT ON `registro` FOR EACH ROW
+BEGIN
+	INSERT INTO mm.log values (
+		default, 
+		'Inserção', 
+		now(), 
+		concat("Registrada lançamento idtipo <", new.idtipo, ">, valor <R$ ", new.valor, ">, descrição <", new.descricao, ">, data <", new.data, ">, pessoa <", new.idquem, ">, classificação <", new.idclassificacao, "> com id <", new.idregistro, ">"), 
+		new.idusuario
+    );
+END$$
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS `mm`.`registro_AFTER_UPDATE`;
+
+DELIMITER $$
+USE `mm`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `mm`.`registro_AFTER_UPDATE` AFTER UPDATE ON `registro` FOR EACH ROW
+BEGIN
+	INSERT INTO mm.log values (
+		default, 
+        'Atualização', 
+        now(), 
+        concat("Lançamento atualizado de idtipo <", old.idtipo, ">, valor <R$ ", old.valor, ">, descrição <", old.descricao, ">, data <", old.data, ">, pessoa <", old.idquem, ">, classificação <", old.idclassificacao, ">
+        para idtipo <", new.idtipo, ">, valor <R$ ", new.valor, ">, descrição <", new.descricao, ">, data <", new.data, ">, pessoa <", new.idquem, ">, classificação <", new.idclassificacao, "> com id <", new.idregistro, ">"),
+        new.idusuario
+	);
+END$$
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS `mm`.`registro_AFTER_DELETE`;
+
+DELIMITER $$
+USE `mm`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `mm`.`registro_AFTER_DELETE` AFTER DELETE ON `registro` FOR EACH ROW
+BEGIN
+	INSERT INTO mm.log values (
+		default, 
+        'Exclusão', 
+        now(), 
+        concat("Lançamento excluído idtipo <", old.idtipo, ">, valor <R$ ", old.valor, ">, descrição <", old.descricao, ">, data <", old.data, ">, pessoa <", old.idquem, ">, classificação <", old.idclassificacao, ">"),
+        old.idusuario
+	);
+END$$
+DELIMITER ;

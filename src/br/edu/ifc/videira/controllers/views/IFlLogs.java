@@ -162,23 +162,11 @@ public class IFlLogs extends JInternalFrame {
 		spRegistros.setViewportView(table);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null, null},
 			},
 			new String[] {
 				"C\u00F3digo", "Opera\u00E7\u00E3o", "Momento", "Descri\u00E7\u00E3o", "Usu\u00E1rio"
 			}
-		) {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		} 
+		) 
 		);
 		table.getColumnModel().getColumn(0).setPreferredWidth(20);
 		table.getColumnModel().getColumn(1).setPreferredWidth(70);

@@ -27,7 +27,7 @@ public class LogDao {
 	public List<Object> buscarRegistros() throws SQLException, Exception {
 		List<Object> logs = new ArrayList<Object>();
 		try {
-			sql = "SELECT * FROM log WHERE usuario=" + UsuarioDao.idUser + " OR usuario=0";
+			sql = "SELECT * FROM log WHERE usuario=" + UsuarioDao.idUser + " OR usuario=0 ORDER BY id DESC";
 			state = Conexao.conectar().createStatement();
 			ResultSet rs = state.executeQuery(sql);
 
