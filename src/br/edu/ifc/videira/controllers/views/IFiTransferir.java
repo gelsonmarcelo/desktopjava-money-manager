@@ -26,12 +26,11 @@ public class IFiTransferir extends JInternalFrame {
 
 	public JComboBox<Object> cbOrigem;
 	public JComboBox<Object> cbDestino;
-	
+	private JButton btTransferir;
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public IFiTransferir() {
-		super("Transferir # " + (++IFuLogin.openFrameCount) + "º", 
-				false, // resizable
+		super("Transferir # " + (++IFuLogin.openFrameCount) + "º", false, // resizable
 				true, // closable
 				false, // maximizable
 				true);// iconifiable
@@ -67,78 +66,101 @@ public class IFiTransferir extends JInternalFrame {
 		tfValor.setColumns(10);
 		tfValor.setBounds(274, 99, 220, 34);
 		getContentPane().add(tfValor);
-		
-		JButton btTransferir = new JButton("Transferir");
+
+		btTransferir = new JButton("Transferir");
 		btTransferir.setEnabled(false);
 		btTransferir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				//Pegar instituição
+
+				// Pegar valor
 				try {
-					//Formatar para pegar apenas o ID a partir da opção selecionada.
-					tr.setIdInstituicaoOrigem(Integer.parseInt(String.valueOf(cbOrigem.getSelectedItem()).split("\\*")[0]));
-					tr.setIdInstituicaoDestino(Integer.parseInt(String.valueOf(cbDestino.getSelectedItem()).split("\\*")[0]));
-				} catch (Exception e2) {
-					JOptionPane.showMessageDialog(null, "Ocorreu um erro, contate o desenvolvedor e informe o código 'IN003'!", "Erro inesperado", JOptionPane.ERROR_MESSAGE);
-					e2.printStackTrace();
-					return;
-				}
-				
-				//Pegar valor
-				try {
-					tr.setValor(Double.parseDouble(tfValor.getText().replaceAll("\\.", "").replaceAll(",", ".").replace("R$ ", "")));
-					if(tr.getValor() <= 0) {
-						JOptionPane.showMessageDialog(null, "O valor para transferir deve ser maior que 0", "Verifique o valor informado", JOptionPane.WARNING_MESSAGE);
+					tr.setValor(tfValor.getText());
+					if (tr.getValor() <= 0) {
+						JOptionPane.showMessageDialog(null, "O valor para transferir deve ser maior que 0",
+								"Verifique o valor informado", JOptionPane.WARNING_MESSAGE);
 						return;
+					} else {
+						// Se a instituição de origem não tem saldo suficiente
+						if (Double.parseDouble(String.valueOf(cbOrigem.getSelectedItem()).split("\\*")[2]) < tr
+								.getValor()) {
+							if (JOptionPane.showConfirmDialog(null,
+									"O saldo da instituição de origem não é suficiente para transferir, se continuar a operação o saldo da instituição de origem ficará negativo.",
+									"Continuar?", JOptionPane.YES_NO_OPTION) != 0) {
+								return;
+							}
+						}
+						// Pegar instituição
+						try {
+							// Formatar para pegar apenas o ID a partir da opção selecionada.
+							tr.setIdInstituicaoOrigem(
+									Integer.parseInt(String.valueOf(cbOrigem.getSelectedItem()).split("\\*")[0]));
+							tr.setIdInstituicaoDestino(
+									Integer.parseInt(String.valueOf(cbDestino.getSelectedItem()).split("\\*")[0]));
+						} catch (Exception e2) {
+							JOptionPane.showMessageDialog(null,
+									"Ocorreu um erro, contate o desenvolvedor e informe o código 'IN003'!",
+									"Erro inesperado", JOptionPane.ERROR_MESSAGE);
+							e2.printStackTrace();
+							return;
+						}
+
+						// Processar
+						try {
+							inDao.transferir(tr);
+							// Limpar
+							limpar();
+						} catch (Exception e1) {
+							e1.printStackTrace();
+							return;
+						}
 					}
 				} catch (Exception e2) {
-					JOptionPane.showMessageDialog(null, "O programa não conseguiu converter o valor em números, verifique os dados digitados", "Falha de conversão", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null,
+							"O programa não conseguiu converter o valor em números, verifique os dados digitados",
+							"Falha de conversão", JOptionPane.WARNING_MESSAGE);
 					e2.printStackTrace();
-					//Limpa campo incorreto
+					// Limpa campo incorreto
 					tfValor.setText("");
 					return;
 				}
-				
-				//Processar
-				try {
-					inDao.transferir(tr);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					return;
-				}
-				
-				//Limpar
-				limpar();
 			}
 		});
 		btTransferir.setFont(MainInternalFrame.fonte4);
 		btTransferir.setBounds(100, 250, 155, 34);
+		btTransferir.setToolTipText("Selecione uma origem e um destino para habilitar");
 		getContentPane().add(btTransferir);
-		
+
 		cbDestino = new JComboBox();
 		cbDestino.addItemListener(new ItemListener() {
-			
-			//Habilita o botão de transferir apenas se o campo de destino foi preenchido, o que significa que o de origem já foi selecionado também.
+
+			// Habilita o botão de transferir apenas se o campo de destino foi preenchido, o
+			// que significa que o de origem já foi selecionado também.
 			public void itemStateChanged(ItemEvent e) {
-				if(!cbDestino.getSelectedItem().equals("")) {
+				if (!cbDestino.getSelectedItem().equals("")) {
 					btTransferir.setEnabled(true);
+					btTransferir.setToolTipText("Realizar a transferência de valores");
+				} else {
+					btTransferir.setEnabled(false);
+					btTransferir.setToolTipText("Selecione um destino válido para habilitar");
 				}
 			}
 		});
 		cbDestino.setEnabled(false);
-		//Preenchimento do comboBox com valores cadastrados no banco
+		// Preenchimento do comboBox com valores cadastrados no banco
 		try {
 			cbDestino.setModel(new DefaultComboBoxModel(inDao.buscarNomesInstituicao()));
 		} catch (Exception e1) {
 			e1.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Ocorreu um erro, contate o desenvolvedor e informe o código 'IN002'!", "Erro inesperado", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Ocorreu um erro, contate o desenvolvedor e informe o código 'IN002'!",
+					"Erro inesperado", JOptionPane.ERROR_MESSAGE);
 		}
 		cbDestino.setFont(MainInternalFrame.fonte5);
 		cbDestino.setBounds(146, 188, 348, 34);
+		cbDestino.setToolTipText("Para habilitar selecione uma origem primeiro");
 		getContentPane().add(cbDestino);
-		
+
 		JButton btLimpar = new JButton("Limpar");
+		btLimpar.setToolTipText("Limpar valores");
 		btLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				limpar();
@@ -147,56 +169,64 @@ public class IFiTransferir extends JInternalFrame {
 		btLimpar.setFont(MainInternalFrame.fonte4);
 		btLimpar.setBounds(319, 250, 155, 34);
 		getContentPane().add(btLimpar);
-		
+
 		cbOrigem = new JComboBox<>();
 		cbOrigem.addItemListener(new ItemListener() {
-			
-			//Isso fará com que seja impossível o usuário selecionar o mesmo item de origem e destino, dispensando a validação no momento do processamento.
+
+			// Isso fará com que seja impossível o usuário selecionar o mesmo item de origem
+			// e destino, dispensando a validação no momento do processamento.
 			public void itemStateChanged(ItemEvent arg0) {
-				//Remove item selecionado no combobox de origem
+				// Remove item selecionado no combobox de origem
 				cbDestino.removeItem(cbOrigem.getSelectedItem());
-				//Deixa combobox de destino acessível para o usuário selecionar
+				// Deixa combobox de destino acessível para o usuário selecionar
 				cbDestino.setEnabled(true);
-				//Desabilita o combobox de origem pois se o usuário alterar o combobox depois de já ter escolhido, vai ir apagando as opções do destino e não voltam mais.
+				// Desabilita o combobox de origem pois se o usuário alterar o combobox depois
+				// de já ter escolhido, vai ir apagando as opções do destino e não voltam mais.
 				cbOrigem.setEnabled(false);
+				cbDestino.setToolTipText("");
 			}
 		});
-		//Preenchimento do comboBox com valores cadastrados no banco
+		// Preenchimento do comboBox com valores cadastrados no banco
 		try {
 			cbOrigem.setModel(new DefaultComboBoxModel(inDao.buscarNomesInstituicao()));
 		} catch (Exception e1) {
 			e1.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Ocorreu um erro, contate o desenvolvedor e informe o código 'IN001'!", "Erro inesperado", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Ocorreu um erro, contate o desenvolvedor e informe o código 'IN001'!",
+					"Erro inesperado", JOptionPane.ERROR_MESSAGE);
 		}
 		cbOrigem.setFont(MainInternalFrame.fonte5);
 		cbOrigem.setBounds(146, 143, 348, 34);
 		getContentPane().add(cbOrigem);
-		
+
 		JLabel lbOrigem = new JLabel("Origem:");
 		lbOrigem.setFont(MainInternalFrame.fonte4);
 		lbOrigem.setBounds(52, 140, 97, 34);
 		getContentPane().add(lbOrigem);
 	}
-	
+
 	/**
 	 * Limpa os campos
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void limpar() {
-		
+
 		cbOrigem.setEnabled(true);
 		cbDestino.setEnabled(false);
-		
+		cbDestino.setToolTipText("Para habilitar selecione uma origem primeiro");
+		btTransferir.setEnabled(false);
+		btTransferir.setToolTipText("Selecione uma origem e um destino para habilitar");
+
 		tfValor.setText("");
-		
-		//Atualização no preenchimento do comboBox com valores atualizados
+
+		// Atualização no preenchimento do comboBox com valores atualizados
 		try {
-			//Busca nomes com valores atualizados
+			// Busca nomes com valores atualizados
 			cbDestino.setModel(new DefaultComboBoxModel(inDao.buscarNomesInstituicao()));
-			//Copia modelo atualizado para o segundo combobox
+			// Copia modelo atualizado para o segundo combobox
 			cbOrigem.setModel(new DefaultComboBoxModel(inDao.buscarNomesInstituicao()));
 		} catch (Exception e1) {
-			JOptionPane.showMessageDialog(null, "Ocorreu um erro, contate o desenvolvedor e informe o código 'IN004'!", "Erro inesperado", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Ocorreu um erro, contate o desenvolvedor e informe o código 'IN004'!",
+					"Erro inesperado", JOptionPane.ERROR_MESSAGE);
 			e1.printStackTrace();
 		}
 	}

@@ -141,16 +141,6 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 		miEditarInstituicao.addActionListener(this);
 		mnInstituicoes.add(miEditarInstituicao);
 
-		JMenu mnDividas = new JMenu("D\u00EDvidas");
-		mnDividas.setFont(fonte5);
-		menuBar.add(mnDividas);
-
-		JMenuItem miAbrir = new JMenuItem("Abir");
-		miAbrir.setFont(fonte5);
-		miAbrir.setActionCommand("verDividas");
-		miAbrir.addActionListener(this);
-		mnDividas.add(miAbrir);
-
 		JMenu mnContasMensais = new JMenu("Contas Mensais");
 		mnContasMensais.setFont(fonte5);
 		menuBar.add(mnContasMensais);
@@ -209,8 +199,6 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 			transferencia();
 		}else if ("editarInstituicao".equals(e.getActionCommand())) { // new
 			editarInstituicao();
-		}else if ("verDividas".equals(e.getActionCommand())) { // new
-			verDividas();
 		}else if ("verContas".equals(e.getActionCommand())) { // new
 			verContas();
 		}else if ("editarPessoas".equals(e.getActionCommand())) { // new
@@ -295,16 +283,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 	}
-	protected void verDividas() {
-		IFdDividas frame = new IFdDividas();
-		frame.setVisible(true);
-		desktop.add(frame);
-		try {
-			frame.setSelected(true);
-		} catch (java.beans.PropertyVetoException e) {
-			e.printStackTrace();
-		}
-	}
+	
 	protected void verContas() {
 		IFcVerContas frame = new IFcVerContas();
 		frame.setVisible(true);

@@ -8,8 +8,8 @@ public class Transferencia {
 	public double getValor() {
 		return valor;
 	}
-	public void setValor(double valor) {
-		this.valor = valor;
+	public void setValor(String valor) {
+		this.valor = Double.parseDouble(valor.replaceAll("\\.", "").replaceAll(",", ".").replace("R$ ", ""));
 	}
 	
 	public int getIdInstituicaoOrigem() {
