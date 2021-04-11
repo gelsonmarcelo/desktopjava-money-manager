@@ -32,7 +32,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 	static final Font fonte6 = new Font("Sitka Subheading", Font.PLAIN, 15);
 	static final Font fonte7 = new Font("Sitka Subheading", Font.PLAIN, 10);
 	static final Font fonte8 = new Font("Sitka Subheading", Font.PLAIN, 05);
-	static final Font fonteTabela = new Font("Trebuchet MS", Font.PLAIN, 14);
+	static final Font fonteTabela = new Font("Trebuchet MS", Font.PLAIN, 15);
 
 	public MainInternalFrame() {
 		/*

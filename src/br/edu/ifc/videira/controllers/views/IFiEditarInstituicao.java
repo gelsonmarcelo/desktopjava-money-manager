@@ -1,6 +1,5 @@
 package br.edu.ifc.videira.controllers.views;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,7 +19,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
 import javax.swing.table.DefaultTableModel;
 
 import br.edu.ifc.videira.DAOs.InstituicaoDao;
@@ -28,6 +26,7 @@ import br.edu.ifc.videira.DAOs.UsuarioDao;
 import br.edu.ifc.videira.beans.Instituicao;
 import br.edu.ifc.videira.utils.JNumberFormatField;
 import javax.swing.JCheckBox;
+import javax.swing.border.EmptyBorder;
 
 public class IFiEditarInstituicao extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
@@ -233,7 +232,7 @@ public class IFiEditarInstituicao extends JInternalFrame {
 				btCadastrar.setToolTipText("Limpe a seleção para habilitar");
 			}
 		});
-		table.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), Color.BLACK, Color.DARK_GRAY, Color.DARK_GRAY));
+		table.setBorder(new EmptyBorder(0, 0, 0, 0));
 		table.setFillsViewportHeight(true);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setFont(MainInternalFrame.fonteTabela);
