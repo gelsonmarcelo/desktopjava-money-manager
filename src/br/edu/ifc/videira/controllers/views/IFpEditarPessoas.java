@@ -102,7 +102,24 @@ public class IFpEditarPessoas extends JInternalFrame {
 		table.setFont(MainInternalFrame.fonteTabela);
 		spPessoas.setViewportView(table);
 		table.setModel(
-				new DefaultTableModel(new Object[][] {}, new String[] { "C\u00F3digo", "Nome", "Saldo", "Contato" }));
+				new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"C\u00F3digo", "Nome", "Saldo", "Contato"
+			}
+		) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		table.getColumnModel().getColumn(1).setPreferredWidth(383);
 		atualizarTabela();
 

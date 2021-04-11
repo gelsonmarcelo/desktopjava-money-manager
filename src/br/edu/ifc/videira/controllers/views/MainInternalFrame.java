@@ -33,6 +33,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 	static final Font fonte7 = new Font("Sitka Subheading", Font.PLAIN, 10);
 	static final Font fonte8 = new Font("Sitka Subheading", Font.PLAIN, 05);
 	static final Font fonteTabela = new Font("Trebuchet MS", Font.PLAIN, 15);
+	static final Font FonteJNumberFormatField = new Font("Calibri", Font.PLAIN, 20);
 
 	public MainInternalFrame() {
 		/*
@@ -107,13 +108,13 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 		mnRegistro.setFont(fonte5);
 		menuBar.add(mnRegistro);
 
-		JMenuItem miRegistrar = new JMenuItem("Registrar");
+		JMenuItem miRegistrar = new JMenuItem("Lançar");
 		miRegistrar.setFont(fonte5);
 		miRegistrar.setActionCommand("registrar");
 		miRegistrar.addActionListener(this);
 		mnRegistro.add(miRegistrar);
 
-		JMenuItem miVerRegistro = new JMenuItem("Ver despesas/receitas");
+		JMenuItem miVerRegistro = new JMenuItem("Ver lançamentos");
 		miVerRegistro.setFont(fonte5);
 		miVerRegistro.setActionCommand("verRegistros");
 		miVerRegistro.addActionListener(this);
@@ -144,6 +145,8 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 		JMenu mnContasMensais = new JMenu("Contas Mensais");
 		mnContasMensais.setFont(fonte5);
 		menuBar.add(mnContasMensais);
+		mnContasMensais.setEnabled(false);
+		mnContasMensais.setToolTipText("Não disponível");
 
 		JMenuItem miExibir= new JMenuItem("Exibir");
 		miExibir.setFont(fonte5);
@@ -305,8 +308,14 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 		}
 	}
 	protected void verLogs() {
-	    FlLogs frame = new FlLogs();
-	    frame.setVisible(true);
+		IFlLogs frame = new IFlLogs();
+		frame.setVisible(true);
+		desktop.add(frame);
+		try {
+			frame.setSelected(true);
+		} catch (java.beans.PropertyVetoException e) {
+			e.printStackTrace();
+		}
 	}
 	// Quit the application.
 	protected void quit() {

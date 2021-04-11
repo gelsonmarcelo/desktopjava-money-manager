@@ -244,8 +244,19 @@ public class IFiEditarInstituicao extends JInternalFrame {
 			new String[] {
 				"Codigo", "Nome", "Saldo", "Tipo"
 			}
-		));
-		table.getColumnModel().getColumn(0).setPreferredWidth(10);
+		) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table.getColumnModel().getColumn(0).setPreferredWidth(15);
 		table.getColumnModel().getColumn(1).setPreferredWidth(250);
 		table.getColumnModel().getColumn(2).setPreferredWidth(25);
 		table.getColumnModel().getColumn(3).setPreferredWidth(25);

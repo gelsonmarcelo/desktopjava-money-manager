@@ -168,7 +168,9 @@ public class IFrEditarClassificacao extends JInternalFrame {
 		// Impede movimentação das colunas pelo usuário
 		table.getTableHeader().setReorderingAllowed(false);
 		table.setModel(
-				new DefaultTableModel(new Object[][] {}, new String[] { "C\u00F3digo", "Classifica\u00E7\u00E3o" }) {
+				new DefaultTableModel(
+						new Object[][] {}, 
+						new String[] { "C\u00F3digo", "Classifica\u00E7\u00E3o" }) {
 					/**
 					 * 
 					 */

@@ -2,7 +2,6 @@ package br.edu.ifc.videira.controllers.views;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
@@ -58,7 +57,6 @@ public class IFrRegistrar extends JInternalFrame {
 				true, // closable
 				false, // maximizable
 				true);// iconifiable
-		getContentPane().setFont(new Font("IrisUPC", Font.PLAIN, 29));
 
 		// ...Create the GUI and put it in the window...
 		// ...Then set the window size or call pack...
@@ -68,27 +66,27 @@ public class IFrRegistrar extends JInternalFrame {
 		setLocation(IFuLogin.xOffset * IFuLogin.openFrameCount, IFuLogin.yOffset * IFuLogin.openFrameCount);
 		getContentPane().setLayout(null);
 
-		JLabel lblData = new JLabel("Data:");
+		JLabel lblData = new JLabel("*Data:");
 		lblData.setFont(MainInternalFrame.fonte5);
-		lblData.setBounds(260, 198, 95, 26);
+		lblData.setBounds(260, 208, 95, 26);
 		getContentPane().add(lblData);
 
-		JLabel lbTitle = new JLabel("Registrar");
+		JLabel lbTitle = new JLabel("Lan\u00E7ar Opera\u00E7\u00E3o");
 		lbTitle.setFont(MainInternalFrame.fonte1);
 		lbTitle.setBounds(0, 0, 984, 55);
 		lbTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(lbTitle);
 
-		JLabel lblValor = new JLabel("Valor:");
+		JLabel lblValor = new JLabel("*Valor:");
 		lblValor.setFont(MainInternalFrame.fonte5);
-		lblValor.setBounds(52, 198, 73, 26);
+		lblValor.setBounds(52, 208, 73, 26);
 		getContentPane().add(lblValor);
 
 		tfValor = new JNumberFormatField();
-		tfValor.setText("1000");
-		tfValor.setFont(new Font("Calibri", Font.PLAIN, 20));
+		tfValor.setText("");
+		tfValor.setFont(MainInternalFrame.FonteJNumberFormatField);
 		tfValor.setColumns(10);
-		tfValor.setBounds(52, 229, 129, 26);
+		tfValor.setBounds(52, 239, 129, 26);
 		getContentPane().add(tfValor);
 		
 
@@ -109,41 +107,41 @@ public class IFrRegistrar extends JInternalFrame {
 		btEditarQuem.setBounds(254, 303, 161, 26);
 		getContentPane().add(btEditarQuem);
 
-		JLabel lblTipoDeRegistro = new JLabel("Tipo de Registro:");
+		JLabel lblTipoDeRegistro = new JLabel("*Tipo de Registro:");
 		lblTipoDeRegistro.setFont(MainInternalFrame.fonte5);
-		lblTipoDeRegistro.setBounds(31, 66, 150, 27);
+		lblTipoDeRegistro.setBounds(52, 66, 161, 27);
 		getContentPane().add(lblTipoDeRegistro);
 
 		rbReceita = new JRadioButton("Receita");
 		grupoTipo.add(rbReceita);
 		rbReceita.setFont(MainInternalFrame.fonte5);
-		rbReceita.setBounds(52, 100, 119, 23);
+		rbReceita.setBounds(52, 126, 119, 23);
 		getContentPane().add(rbReceita);
 
 		rbDespesa = new JRadioButton("Despesa");
 		grupoTipo.add(rbDespesa);
 		rbDespesa.setFont(MainInternalFrame.fonte5);
-		rbDespesa.setBounds(52, 126, 119, 23);
+		rbDespesa.setBounds(52, 152, 119, 23);
 		getContentPane().add(rbDespesa);
 
 		rbDevem = new JRadioButton("Me devem");
 		grupoTipo.add(rbDevem);
 		rbDevem.setFont(MainInternalFrame.fonte5);
-		rbDevem.setBounds(190, 100, 155, 23);
+		rbDevem.setBounds(200, 126, 155, 23);
 		getContentPane().add(rbDevem);
 
 		rbDevo = new JRadioButton("Estou devendo");
 		grupoTipo.add(rbDevo);
 		rbDevo.setFont(MainInternalFrame.fonte5);
-		rbDevo.setBounds(190, 126, 155, 23);
+		rbDevo.setBounds(200, 152, 155, 23);
 		getContentPane().add(rbDevo);
 
 		JSeparator separator = new JSeparator();
 		separator.setBackground(Color.BLUE);
-		separator.setBounds(52, 168, 363, 9);
+		separator.setBounds(52, 188, 363, 9);
 		getContentPane().add(separator);
 
-		JLabel lblQuem = new JLabel("Quem:");
+		JLabel lblQuem = new JLabel("*Quem:");
 		lblQuem.setFont(MainInternalFrame.fonte5);
 		lblQuem.setBounds(52, 303, 73, 26);
 		getContentPane().add(lblQuem);
@@ -185,20 +183,6 @@ public class IFrRegistrar extends JInternalFrame {
 		getContentPane().add(cbInstituicao);
 		cbInstituicao.setFont(MainInternalFrame.fonte5);
 
-		JTextArea txAviso1 = new JTextArea();
-		txAviso1.setBackground(getBackground());
-		txAviso1.setEnabled(false);
-		txAviso1.setWrapStyleWord(true);
-		txAviso1.setFont(MainInternalFrame.fonte6);
-		txAviso1.setLineWrap(true);
-		txAviso1.setText("N\u00E3o precisa colocar os valores negativos!");
-		txAviso1.setBounds(64, 172, 320, 26);
-		getContentPane().add(txAviso1);
-
-		JLabel lbAvImg1 = new JLabel("Warning Img");
-		lbAvImg1.setBounds(21, 168, 33, 26);
-		getContentPane().add(lbAvImg1);
-
 		JLabel lblDescrio = new JLabel("Descri\u00E7\u00E3o:");
 		lblDescrio.setFont(MainInternalFrame.fonte5);
 		lblDescrio.setBounds(480, 126, 95, 26);
@@ -209,59 +193,33 @@ public class IFrRegistrar extends JInternalFrame {
 		getContentPane().add(spDescricao);
 
 		txDescricao = new JTextArea();
-		txDescricao.setText("oiii");
 		txDescricao.setFont(MainInternalFrame.fonte5);
 		spDescricao.setViewportView(txDescricao);
 		txDescricao.setWrapStyleWord(true);
 		txDescricao.setLineWrap(true);
 
-		JLabel lblClassificao = new JLabel("Classifica\u00E7\u00E3o:");
+		JLabel lblClassificao = new JLabel("*Classifica\u00E7\u00E3o:");
 		lblClassificao.setFont(MainInternalFrame.fonte5);
 		lblClassificao.setBounds(480, 66, 138, 26);
 		getContentPane().add(lblClassificao);
 
-		JLabel lblLocal = new JLabel("Institui\u00E7\u00E3o/Local:");
+		JLabel lblLocal = new JLabel("*Institui\u00E7\u00E3o/Local:");
 		lblLocal.setFont(MainInternalFrame.fonte5);
 		lblLocal.setBounds(480, 336, 155, 26);
 		getContentPane().add(lblLocal);
 
 		JButton btLimpar = new JButton("Limpar");
-		btLimpar.setToolTipText("Bot\u00E3o com imagem de limpeza, maybe it wont be a botton");
-		btLimpar.setFont(MainInternalFrame.fonte5);
-		btLimpar.setBounds(579, 426, 56, 41);
+		btLimpar.setToolTipText("Limpar todos os dados");
+		btLimpar.setFont(MainInternalFrame.fonte4);
+		btLimpar.setBounds(463, 427, 155, 41);
 		getContentPane().add(btLimpar);
-
-		JTextArea txAviso2 = new JTextArea();
-		txAviso2.setToolTipText("HIDDEN");
-		txAviso2.setWrapStyleWord(true);
-		txAviso2.setText("O registro ser\u00E1 calculado para X que ficar\u00E1 com R$ XX .");
-		txAviso2.setLineWrap(true);
-		txAviso2.setFont(MainInternalFrame.fonte6);
-		txAviso2.setEnabled(false);
-		txAviso2.setBackground(SystemColor.menu);
-		txAviso2.setBounds(64, 381, 399, 19);
-		getContentPane().add(txAviso2);
-
-		JLabel lbAvImg2 = new JLabel("Warning Img");
-		lbAvImg2.setBounds(21, 374, 33, 26);
-		getContentPane().add(lbAvImg2);
-
-		JLabel lbInf2 = new JLabel("Bot\u00E3o que mostra as informa\u00E7\u00F5es tooltip");
-		lbInf2.setToolTipText("tooltip");
-		lbInf2.setBounds(447, 67, 33, 26);
-		getContentPane().add(lbInf2);
-
-		JLabel lbInf1 = new JLabel("Bot\u00E3o que mostra as informa\u00E7\u00F5es tooltip /\\");
-		lbInf1.setToolTipText("tooltip");
-		lbInf1.setBounds(21, 307, 33, 26);
-		getContentPane().add(lbInf1);
 
 		dcData = new JDateChooser();
 		//Pega o campo de edição do DateChooser para trabalhá-lo 
 		JTextFieldDateEditor editor = (JTextFieldDateEditor) dcData.getDateEditor();
 		//Deixa máscara do editor visível e não permite o usuário digitar letras ou caracteres que não sejam números
 		editor.setMaskVisible(true);
-		dcData.setBounds(254, 229, 161, 26);
+		dcData.setBounds(254, 239, 161, 26);
 		dcData.setFont(new Font("Calibri", Font.PLAIN, 20));
 		getContentPane().add(dcData);
 		
@@ -271,21 +229,25 @@ public class IFrRegistrar extends JInternalFrame {
 		cbSub.setFont(MainInternalFrame.fonte5);
 		cbSub.setBounds(644, 373, 283, 27);
 		getContentPane().add(cbSub);
+		cbSub.setVisible(false);
 		
 		JLabel lbSub = new JLabel("Sub Local:");
 		lbSub.setFont(MainInternalFrame.fonte5);
 		lbSub.setBounds(480, 373, 155, 26);
+		lbSub.setEnabled(false);
 		getContentPane().add(lbSub);
+		lbSub.setVisible(false);
 		
 		//### - Se for selecionado preciso mudar o campo da data para apenas dia do vencimento e verificar informações que precisa ocultar
 		JRadioButton rbConta = new JRadioButton("Conta Mensal");
 		rbConta.setEnabled(false);
 		rbConta.setToolTipText("Registra uma conta para lembretes mensais");
 		rbConta.setFont(MainInternalFrame.fonte5);
-		rbConta.setBounds(190, 68, 155, 23);
+		rbConta.setBounds(108, 100, 155, 23);
 		getContentPane().add(rbConta);
 				
-		JButton btRegistrar = new JButton("Concluir Registro");
+		JButton btRegistrar = new JButton("Finalizar");
+		btRegistrar.setToolTipText("Terminar lan\u00E7amento");
 		btRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Validação de campos em branco
@@ -372,19 +334,31 @@ public class IFrRegistrar extends JInternalFrame {
 			}
 		});
 		btRegistrar.setFont(MainInternalFrame.fonte4);
-		btRegistrar.setBounds(346, 426, 229, 41);
+		btRegistrar.setBounds(296, 426, 155, 41);
 		getContentPane().add(btRegistrar);
 		
 		tfCodigoEdicao = new JTextField("-1");
 		tfCodigoEdicao.setEditable(false);
-		tfCodigoEdicao.setHorizontalAlignment(SwingConstants.CENTER);
 		tfCodigoEdicao.setToolTipText("Clique no bot\u00E3o de limpar, do lado direito, para deixar de editar esse registro");
 		tfCodigoEdicao.setEnabled(false);
-		tfCodigoEdicao.setForeground(Color.GRAY);
-		tfCodigoEdicao.setFont(new Font("Calibri", Font.PLAIN, 20));
-		tfCodigoEdicao.setColumns(10);
-		tfCodigoEdicao.setBounds(289, 430, 56, 32);
+		tfCodigoEdicao.setBounds(0, 460, 56, 32);
+		tfCodigoEdicao.setVisible(false);
 		getContentPane().add(tfCodigoEdicao);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBackground(Color.BLUE);
+		separator_1.setBounds(52, 286, 363, 9);
+		getContentPane().add(separator_1);
+		
+		JSeparator separator_2 = new JSeparator();
+		separator_2.setBackground(Color.BLUE);
+		separator_2.setBounds(480, 106, 447, 9);
+		getContentPane().add(separator_2);
+		
+		JSeparator separator_3 = new JSeparator();
+		separator_3.setBackground(Color.BLUE);
+		separator_3.setBounds(480, 310, 447, 9);
+		getContentPane().add(separator_3);
 		
 	}
 	

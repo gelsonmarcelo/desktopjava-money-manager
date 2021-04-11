@@ -24,7 +24,6 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.table.DefaultTableModel;
@@ -40,6 +39,7 @@ import br.edu.ifc.videira.DAOs.QuemDao;
 import br.edu.ifc.videira.DAOs.RegistroDao;
 import br.edu.ifc.videira.DAOs.UsuarioDao;
 import br.edu.ifc.videira.beans.Registro;
+import br.edu.ifc.videira.utils.JNumberFormatField;
 
 public class IFrVerRegistros extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
@@ -57,7 +57,7 @@ public class IFrVerRegistros extends JInternalFrame {
 	protected TableRowSorter<TableModel> filtro = null;
 	protected JLabel lbAvisoSelecao;
 	final SimpleDateFormat formatoAmericano = new SimpleDateFormat("yyyy-MM-dd");
-	private JTextField tfSaldo;
+	private JNumberFormatField tfSaldo;
 	private JButton btEditarRegistro;
 	// final SimpleDateFormat formatoBrasileiro = new
 	// SimpleDateFormat("dd-MM-yyyy");
@@ -211,32 +211,37 @@ public class IFrVerRegistros extends JInternalFrame {
 		getContentPane().add(spRegistros);
 
 		table = new JTable();
-		table.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), Color.BLACK, Color.DARK_GRAY,
-				Color.DARK_GRAY));
 		table.setFillsViewportHeight(true);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setFont(MainInternalFrame.fonteTabela);
 		table.setAutoCreateRowSorter(true);
 		spRegistros.setViewportView(table);
-		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "C\u00F3digo", "Registro", "Valor",
-				"Quem", "Descri\u00E7\u00E3o", "Data", "Institui\u00E7\u00E3o", "Classifica\u00E7\u00E3o" }) {
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"C\u00F3digo", "Registro", "Valor", "Quem", "Descri\u00E7\u00E3o", "Data", "Institui\u00E7\u00E3o", "Classifica\u00E7\u00E3o"
+			}
+		) {
+			/**
+			 * 
+			 */
 			private static final long serialVersionUID = 1L;
-			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false, false };
-
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false, false, false, false, false
+			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
-		});
-		// Impede movimentação das colunas pelo usuário
-		table.getTableHeader().setReorderingAllowed(false);
-		// Define uma margem maior para as células da tabela, estavam colando nas
-		// paredes
-		table.getColumnModel().setColumnMargin(5);
+		} 
+		);
 		table.getColumnModel().getColumn(0).setPreferredWidth(15);
 		table.getColumnModel().getColumn(1).setPreferredWidth(50);
 		table.getColumnModel().getColumn(2).setPreferredWidth(25);
 		table.getColumnModel().getColumn(4).setPreferredWidth(150);
 		table.getColumnModel().getColumn(5).setPreferredWidth(25);
+		// Impede movimentação das colunas pelo usuário
+		table.getTableHeader().setReorderingAllowed(false);
 		table.setRowHeight(20);
 
 		btExcluirRegistro = new JButton("Excluir registro");
@@ -410,7 +415,7 @@ public class IFrVerRegistros extends JInternalFrame {
 					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Favor corrigir as datas informadas!",
-							"Data inserida vazia/inválida", JOptionPane.WARNING_MESSAGE);
+							"Data vazia/inválida", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		});
@@ -451,11 +456,10 @@ public class IFrVerRegistros extends JInternalFrame {
 		lbSaldo.setBounds(10, 568, 54, 32);
 		getContentPane().add(lbSaldo);
 
-		tfSaldo = new JTextField("");
-		tfSaldo.setBackground(new Color(224, 255, 255));
+		tfSaldo = new JNumberFormatField();
+		tfSaldo.setBackground(Color.WHITE);
 		tfSaldo.setEditable(false);
-		tfSaldo.setForeground(Color.BLACK);
-		tfSaldo.setFont(new Font("Calibri", Font.PLAIN, 20));
+		tfSaldo.setFont(MainInternalFrame.FonteJNumberFormatField);
 		tfSaldo.setColumns(10);
 		tfSaldo.setBounds(68, 571, 173, 27);
 		getContentPane().add(tfSaldo);

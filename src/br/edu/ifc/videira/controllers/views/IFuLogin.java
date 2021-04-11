@@ -108,7 +108,7 @@ public class IFuLogin extends JInternalFrame {
 				/**
 				 * ###
 				 */
-				JOptionPane.showMessageDialog(null, "HAHAHAHA Fudeu-se! Isto ainda não está pronto, contate o desenvolvedor, ele sabe o que fazer!");
+				JOptionPane.showMessageDialog(null, "Isto ainda não está pronto, contate o desenvolvedor, ele sabe o que fazer!");
 			}
 		});
 		lbSenhaPerdida.setFont(MainInternalFrame.fonte6);
