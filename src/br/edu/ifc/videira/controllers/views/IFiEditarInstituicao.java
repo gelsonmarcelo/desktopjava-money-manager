@@ -103,7 +103,7 @@ public class IFiEditarInstituicao extends JInternalFrame {
 				}
 			}
 		});
-		btCadastrar.setToolTipText("Necessita autentica\u00E7\u00E3o");
+		btCadastrar.setToolTipText("Preencha os dados para cadastrar uma nova instituição");
 		btCadastrar.setFont(MainInternalFrame.fonte4);
 		btCadastrar.setBounds(23, 501, 144, 32);
 		getContentPane().add(btCadastrar);
@@ -127,7 +127,7 @@ public class IFiEditarInstituicao extends JInternalFrame {
 			}
 		});
 		btAtualizar.setEnabled(false);
-		btAtualizar.setToolTipText("Necessita autentica\u00E7\u00E3o");
+		btAtualizar.setToolTipText("Selecione uma linha da tabela para atualizar");		
 		btAtualizar.setFont(MainInternalFrame.fonte4);
 		btAtualizar.setBounds(209, 501, 144, 32);
 		getContentPane().add(btAtualizar);
@@ -163,7 +163,7 @@ public class IFiEditarInstituicao extends JInternalFrame {
 				}
 			}
 		});
-		btExcluir.setToolTipText("Necessita autentica\u00E7\u00E3o");
+		btExcluir.setToolTipText("Selecione uma linha da tabela para excluir");
 		btExcluir.setFont(MainInternalFrame.fonte4);
 		btExcluir.setBounds(390, 501, 144, 32);
 		getContentPane().add(btExcluir);
@@ -173,6 +173,7 @@ public class IFiEditarInstituicao extends JInternalFrame {
 		tfCod.setFont(MainInternalFrame.fonte4);
 		tfCod.setColumns(10);
 		tfCod.setBounds(0, 532, 31, 28);
+		tfCod.setVisible(false);
 		getContentPane().add(tfCod);
 		
 //		JLabel lbSubGrupos = new JLabel("Subs:");
@@ -208,11 +209,13 @@ public class IFiEditarInstituicao extends JInternalFrame {
 				tfSaldo.setText(String.valueOf(table.getValueAt(table.getSelectedRow(), 2)));
 				if(Double.parseDouble(String.valueOf(table.getValueAt(table.getSelectedRow(), 2)))<0){
 					cboxSaldoNegativo.setSelected(true);
+				}else {
+					cboxSaldoNegativo.setSelected(false);
 				}
 				
 				if(tfSaldo.getText().equals("R$ 0,00")) {
 					btExcluir.setEnabled(true);
-					btExcluir.setToolTipText("");
+					btExcluir.setToolTipText("Excluir instituição");
 				}else {
 					btExcluir.setEnabled(false);
 					btExcluir.setToolTipText("É necessário que a instituição esteja com saldo zerado para excluir!");
@@ -225,8 +228,9 @@ public class IFiEditarInstituicao extends JInternalFrame {
 				}
 				
 				btAtualizar.setEnabled(true);
+				btAtualizar.setToolTipText("Atualizar instituição");
 				btCadastrar.setEnabled(false);
-				btCadastrar.setToolTipText("Limpe a seleção para reativar");
+				btCadastrar.setToolTipText("Limpe a seleção para habilitar");
 			}
 		});
 		table.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), Color.BLACK, Color.DARK_GRAY, Color.DARK_GRAY));
@@ -294,7 +298,7 @@ public class IFiEditarInstituicao extends JInternalFrame {
 				limpar();
 			}
 		});
-		btLimpar.setToolTipText("");
+		btLimpar.setToolTipText("Limpar sele\u00E7\u00E3o/valores");
 		btLimpar.setFont(new Font("Sitka Subheading", Font.PLAIN, 25));
 		btLimpar.setBounds(390, 458, 144, 32);
 		getContentPane().add(btLimpar);
@@ -352,10 +356,10 @@ public class IFiEditarInstituicao extends JInternalFrame {
 		cboxSaldoNegativo.setSelected(false);
 		
 		btCadastrar.setEnabled(true);
-		btCadastrar.setToolTipText("");
+		btCadastrar.setToolTipText("Cadastrar nova instituição");
 		
 		btAtualizar.setEnabled(false);
-		btAtualizar.setToolTipText("Selecione uma linha da tabela para habilitar esse botão");
+		btAtualizar.setToolTipText("Selecione uma linha da tabela para atualizar");
 		
 		btExcluir.setEnabled(false);
 		btExcluir.setToolTipText("É necessário selecionar uma linha da tabela para excluir");
