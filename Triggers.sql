@@ -162,3 +162,20 @@ BEGIN
 	);
 END$$
 DELIMITER ;
+
+/*Usuário*/
+DROP TRIGGER IF EXISTS `mm`.`usuario_AFTER_UPDATE`;
+
+DELIMITER $$
+USE `mm`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `mm`.`usuario_AFTER_UPDATE` AFTER UPDATE ON `usuario` FOR EACH ROW
+BEGIN
+	INSERT INTO mm.log values (
+		default, 
+        'Atualização', 
+        now(), 
+        "Usuário realizou atualização nos seus dados",
+        new.idusuario
+	);
+END$$
+DELIMITER ;

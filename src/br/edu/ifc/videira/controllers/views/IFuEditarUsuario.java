@@ -41,80 +41,80 @@ public class IFuEditarUsuario extends JInternalFrame {
 		// ...Create the GUI and put it in the window...
 
 		// ...Then set the window size or call pack...
-		setSize(527, 429);
+		setSize(413, 374);
 
 		// Set the window's location.
 		setLocation(IFuLogin.xOffset * IFuLogin.openFrameCount, IFuLogin.yOffset * IFuLogin.openFrameCount);
 		getContentPane().setLayout(null);
 
 		JLabel lbTitle = new JLabel("Editar Usu\u00E1rio");
-		lbTitle.setFont(MainInternalFrame.fonte1);
-		lbTitle.setBounds(0, 0, 511, 55);
+		lbTitle.setFont(MainInternalFrame.fonte3);
+		lbTitle.setBounds(0, 0, 397, 55);
 		lbTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(lbTitle);
 
 		JLabel lblLogin = new JLabel("Login:");
 		lblLogin.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblLogin.setFont(MainInternalFrame.fonte4);
-		lblLogin.setBounds(10, 87, 197, 34);
+		lblLogin.setFont(MainInternalFrame.fonte5);
+		lblLogin.setBounds(10, 62, 160, 34);
 		getContentPane().add(lblLogin);
 
-		JLabel lblSenha = new JLabel("Senha atual:");
+		JLabel lblSenha = new JLabel("*Senha atual:");
 		lblSenha.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblSenha.setFont(MainInternalFrame.fonte4);
-		lblSenha.setBounds(10, 140, 197, 34);
+		lblSenha.setFont(MainInternalFrame.fonte5);
+		lblSenha.setBounds(10, 107, 160, 34);
 		getContentPane().add(lblSenha);
 
-		JLabel lblSalario = new JLabel("Sal\u00E1rio:");
+		JLabel lblSalario = new JLabel("*Sal\u00E1rio:");
 		lblSalario.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblSalario.setFont(MainInternalFrame.fonte4);
-		lblSalario.setBounds(10, 274, 197, 34);
+		lblSalario.setFont(MainInternalFrame.fonte5);
+		lblSalario.setBounds(10, 242, 160, 34);
 		getContentPane().add(lblSalario);
 
-		tfLogin = new JTextField("");
+		tfLogin = new JTextField(dadosUsuario[0]);
 		tfLogin.setEnabled(false);
 		
-		tfLogin.setFont(MainInternalFrame.fonte4);
-		tfLogin.setBounds(216, 87, 253, 34);
+		tfLogin.setFont(MainInternalFrame.fonte5);
+		tfLogin.setBounds(179, 62, 197, 34);
 		getContentPane().add(tfLogin);
 		tfLogin.setColumns(10);
 
 		tfSenha = new JPasswordField();
-		tfSenha.setFont(MainInternalFrame.fonte4);
+		tfSenha.setFont(MainInternalFrame.fonte5);
 		tfSenha.setColumns(10);
-		tfSenha.setBounds(216, 140, 253, 34);
+		tfSenha.setBounds(179, 107, 197, 34);
 		getContentPane().add(tfSenha);
 
 		tfSalario = new JTextField(dadosUsuario[1]);
-		tfSalario.setFont(MainInternalFrame.fonte4);
+		tfSalario.setFont(MainInternalFrame.fonte5);
 		tfSalario.setToolTipText(
 				"Seu sal\u00E1rio ser\u00E1 usado para calcular porcentagens de gastos e realizar estat\u00EDsticas");
 		tfSalario.setColumns(10);
-		tfSalario.setBounds(216, 274, 181, 34);
+		tfSalario.setBounds(180, 242, 130, 34);
 		getContentPane().add(tfSalario);
 		
 		tfNovaSenha = new JPasswordField();
-		tfNovaSenha.setFont(MainInternalFrame.fonte4);
+		tfNovaSenha.setFont(MainInternalFrame.fonte5);
 		tfNovaSenha.setColumns(10);
-		tfNovaSenha.setBounds(216, 185, 253, 34);
+		tfNovaSenha.setBounds(179, 152, 197, 34);
 		getContentPane().add(tfNovaSenha);
 		
-		JLabel lbNovaSenha = new JLabel("Nova senha:");
+		JLabel lbNovaSenha = new JLabel("*Nova senha:");
 		lbNovaSenha.setHorizontalAlignment(SwingConstants.RIGHT);
-		lbNovaSenha.setFont(MainInternalFrame.fonte4);
-		lbNovaSenha.setBounds(10, 184, 197, 34);
+		lbNovaSenha.setFont(MainInternalFrame.fonte5);
+		lbNovaSenha.setBounds(10, 152, 160, 34);
 		getContentPane().add(lbNovaSenha);
 		
 		tfConfirmaSenha = new JPasswordField();
-		tfConfirmaSenha.setFont(MainInternalFrame.fonte4);
+		tfConfirmaSenha.setFont(MainInternalFrame.fonte5);
 		tfConfirmaSenha.setColumns(10);
-		tfConfirmaSenha.setBounds(216, 230, 253, 34);
+		tfConfirmaSenha.setBounds(180, 197, 196, 34);
 		getContentPane().add(tfConfirmaSenha);
 		
-		JLabel lblConfirmarSenha = new JLabel("Confirmar senha:");
+		JLabel lblConfirmarSenha = new JLabel("*Confirmar senha:");
 		lblConfirmarSenha.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblConfirmarSenha.setFont(MainInternalFrame.fonte4);
-		lblConfirmarSenha.setBounds(10, 230, 197, 34);
+		lblConfirmarSenha.setFont(MainInternalFrame.fonte5);
+		lblConfirmarSenha.setBounds(0, 197, 170, 34);
 		getContentPane().add(lblConfirmarSenha);
 		
 		JButton btSalvar = new JButton("Salvar");
@@ -157,8 +157,8 @@ public class IFuEditarUsuario extends JInternalFrame {
 				}
 			}
 		});
-		btSalvar.setFont(MainInternalFrame.fonte4);
-		btSalvar.setBounds(72, 339, 155, 34);
+		btSalvar.setFont(MainInternalFrame.fonte5);
+		btSalvar.setBounds(58, 287, 155, 34);
 		getContentPane().add(btSalvar);
 		
 		JButton btCancelar = new JButton("Cancelar");
@@ -167,8 +167,8 @@ public class IFuEditarUsuario extends JInternalFrame {
 				dispose();
 			}
 		});
-		btCancelar.setFont(MainInternalFrame.fonte4);
-		btCancelar.setBounds(262, 339, 155, 34);
+		btCancelar.setFont(MainInternalFrame.fonte5);
+		btCancelar.setBounds(221, 287, 155, 34);
 		getContentPane().add(btCancelar);
 	}
 }

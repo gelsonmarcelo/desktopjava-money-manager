@@ -21,25 +21,25 @@ public class LoginPanel extends JPanel {
 		setLayout(null);
 		
 		JLabel lbUsuario = new JLabel("Usu\u00E1rio:");
-		lbUsuario.setFont(new Font("IrisUPC", Font.PLAIN, 27));
-		lbUsuario.setBounds(10, 26, 138, 27);
+		lbUsuario.setFont(new Font("Sitka Subheading", Font.PLAIN, 20));
+		lbUsuario.setBounds(10, 22, 82, 27);
 		add(lbUsuario);
 		
 		tfUsuario = new JTextField();
-		tfUsuario.setFont(new Font("Calibri", Font.PLAIN, 20));
+		tfUsuario.setFont(new Font("Sitka Subheading", Font.PLAIN, 15));
 		tfUsuario.setColumns(10);
-		tfUsuario.setBounds(10, 49, 215, 26);
+		tfUsuario.setBounds(10, 45, 219, 26);
 		add(tfUsuario);
 		
 		JLabel lblSenha = new JLabel("Senha:");
-		lblSenha.setFont(new Font("IrisUPC", Font.PLAIN, 27));
-		lblSenha.setBounds(10, 86, 138, 27);
+		lblSenha.setFont(new Font("Sitka Subheading", Font.PLAIN, 20));
+		lblSenha.setBounds(10, 82, 82, 27);
 		add(lblSenha);
 		
 		psSenha = new JPasswordField();
-		psSenha.setFont(new Font("Calibri", Font.PLAIN, 20));
+		psSenha.setFont(new Font("Sitka Subheading", Font.PLAIN, 15));
 		psSenha.setColumns(10);
-		psSenha.setBounds(10, 109, 215, 26);
+		psSenha.setBounds(10, 108, 219, 26);
 		add(psSenha);
 	}
 }

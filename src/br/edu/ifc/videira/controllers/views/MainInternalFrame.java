@@ -216,6 +216,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 	// Create a new internal frame.
 	protected void login() {
 		IFuLogin frame = new IFuLogin();
+		menuBar.setVisible(false);
 		frame.setVisible(true);
 		frame.centralizarJanela();
 		desktop.add(frame);

@@ -12,7 +12,7 @@ import br.edu.ifc.videira.utils.Conexao;
 import br.edu.ifc.videira.utils.LoginPanel;
 
 public class UsuarioDao {
-	public static int idUser=8;//###########Mudar para 0 quando terminar testes
+	public static int idUser=0;
 	/**
 	 * Acessa o banco levando usuario e senha para realizar a autenticação, pode ou não chamar um OptionPane para solicitação dos dados, para autenticações básicas.
 	 * @param abrirJanela
@@ -39,9 +39,7 @@ public class UsuarioDao {
 				//Define as entradas do usuário como valor das variáveis
 				usuario = lg.tfUsuario.getText();
 				senha = String.valueOf(lg.psSenha.getPassword());
-				
-				//###-Comparar valores de login e senha com o banco
-				sucesso=true;
+
 			}else { //Caso contrário ele cancelou a autenticação
 				JOptionPane.showMessageDialog(null,
 						"Operação cancelada pelo usuário.",
@@ -93,10 +91,9 @@ public class UsuarioDao {
 		try {
 			String sql = "INSERT INTO usuario (login, senha, salario) VALUES (?,?,?)";
 			java.sql.PreparedStatement sqlPrep = Conexao.conectar().prepareStatement(sql);
-			int contador = 1;
-			sqlPrep.setString(contador++, us.getLogin());
-			sqlPrep.setString(contador++, us.getSenha());
-			sqlPrep.setDouble(contador++, us.getSalario());
+			sqlPrep.setString(1, us.getLogin());
+			sqlPrep.setString(2, us.getSenha());
+			sqlPrep.setDouble(3, us.getSalario());
 			sqlPrep.execute();
 			return true;
 			
@@ -110,9 +107,7 @@ public class UsuarioDao {
 	 * Atualiza informações do usuário
 	 */
 	public void atualizarUsuario(Usuario us) {
-		//### - terminar este método, terei que adicionar campo de login e novo login para autenticar 
-		//com login e senha se permitira a mudanca
-		//ou abrir uma joptionpane com campos de login e senha, na vdd o login nao poderia alterar... vamos pensar
+
 		try {
 			String sql = "UPDATE usuario SET senha=?, salario=? WHERE idusuario=" + idUser;
 			PreparedStatement sqlPrep = Conexao.conectar().prepareStatement(sql);
