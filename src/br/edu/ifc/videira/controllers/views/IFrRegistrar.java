@@ -26,6 +26,8 @@ import br.edu.ifc.videira.DAOs.RegistroDao;
 import br.edu.ifc.videira.beans.Registro;
 import br.edu.ifc.videira.utils.JNumberFormatField;
 import javax.swing.JTextField;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class IFrRegistrar extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
@@ -49,6 +51,7 @@ public class IFrRegistrar extends JInternalFrame {
 	public JRadioButton rbDespesa;
 	public JRadioButton rbDevem;
 	public JRadioButton rbDevo;
+	private JButton btRegistrar;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public IFrRegistrar() {
@@ -83,6 +86,14 @@ public class IFrRegistrar extends JInternalFrame {
 		getContentPane().add(lblValor);
 
 		tfValor = new JNumberFormatField();
+		tfValor.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					dcData.getCalendarButton().doClick();
+				}
+			}
+		});
 		tfValor.setText("");
 		tfValor.setFont(MainInternalFrame.FonteJNumberFormatField);
 		tfValor.setColumns(10);
@@ -147,6 +158,15 @@ public class IFrRegistrar extends JInternalFrame {
 		getContentPane().add(lblQuem);
 
 		cbQuem = new JComboBox<>();
+		cbQuem.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					cbClassificacao.showPopup();
+					cbClassificacao.grabFocus();
+				}
+			}
+		});
 		//Preenchimento do comboBox com valores cadastrados no banco
 		try {
 			cbQuem.setModel(new DefaultComboBoxModel(qmDao.buscarNomesQuem(false)));
@@ -159,6 +179,14 @@ public class IFrRegistrar extends JInternalFrame {
 		getContentPane().add(cbQuem);
 		
 		cbClassificacao = new JComboBox<>();
+		cbClassificacao.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					txDescricao.grabFocus();
+				}
+			}
+		});
 		//Preenchimento do comboBox com valores cadastrados no banco
 		try {
 			cbClassificacao.setModel(new DefaultComboBoxModel(clDao.buscarNomesClassificacoes()));
@@ -167,10 +195,18 @@ public class IFrRegistrar extends JInternalFrame {
 			JOptionPane.showMessageDialog(null, "Ocorreu um erro, contate o desenvolvedor e informe o código 'VR004'!", "Erro inesperado", JOptionPane.ERROR_MESSAGE);
 		}
 		cbClassificacao.setFont(MainInternalFrame.fonte5);
-		cbClassificacao.setBounds(628, 66, 299, 27);
+		cbClassificacao.setBounds(656, 66, 271, 27);
 		getContentPane().add(cbClassificacao);
 		
 		cbInstituicao = new JComboBox<>();
+		cbInstituicao.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					btRegistrar.doClick();
+				}
+			}
+		});
 		//Preenchimento do comboBox com valores cadastrados no banco
 		try {
 			cbInstituicao.setModel(new DefaultComboBoxModel(inDao.buscarNomesInstituicao()));
@@ -178,8 +214,8 @@ public class IFrRegistrar extends JInternalFrame {
 			e1.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Ocorreu um erro, contate o desenvolvedor e informe o código 'VR006'!", "Erro inesperado", JOptionPane.ERROR_MESSAGE);
 		}
-		cbInstituicao.setToolTipText("Colocar os valores do lado das institui\u00E7\u00F5es");
-		cbInstituicao.setBounds(644, 335, 283, 27);
+		cbInstituicao.setToolTipText("");
+		cbInstituicao.setBounds(656, 335, 271, 27);
 		getContentPane().add(cbInstituicao);
 		cbInstituicao.setFont(MainInternalFrame.fonte5);
 
@@ -193,6 +229,15 @@ public class IFrRegistrar extends JInternalFrame {
 		getContentPane().add(spDescricao);
 
 		txDescricao = new JTextArea();
+		txDescricao.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					cbInstituicao.showPopup();
+					cbInstituicao.grabFocus();
+				}
+			}
+		});
 		txDescricao.setFont(MainInternalFrame.fonte5);
 		spDescricao.setViewportView(txDescricao);
 		txDescricao.setWrapStyleWord(true);
@@ -205,16 +250,30 @@ public class IFrRegistrar extends JInternalFrame {
 
 		JLabel lblLocal = new JLabel("*Institui\u00E7\u00E3o/Local:");
 		lblLocal.setFont(MainInternalFrame.fonte5);
-		lblLocal.setBounds(480, 336, 155, 26);
+		lblLocal.setBounds(480, 336, 170, 26);
 		getContentPane().add(lblLocal);
 
 		JButton btLimpar = new JButton("Limpar");
+		btLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				limpar();
+			}
+		});
 		btLimpar.setToolTipText("Limpar todos os dados");
 		btLimpar.setFont(MainInternalFrame.fonte4);
 		btLimpar.setBounds(463, 427, 155, 41);
 		getContentPane().add(btLimpar);
 
 		dcData = new JDateChooser();
+		dcData.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					cbQuem.showPopup();
+					cbQuem.grabFocus();
+				}
+			}
+		});
 		//Pega o campo de edição do DateChooser para trabalhá-lo 
 		JTextFieldDateEditor editor = (JTextFieldDateEditor) dcData.getDateEditor();
 		//Deixa máscara do editor visível e não permite o usuário digitar letras ou caracteres que não sejam números
@@ -227,7 +286,7 @@ public class IFrRegistrar extends JInternalFrame {
 		cbSub.setEnabled(false);
 		cbSub.setToolTipText("Indispon\u00EDvel");
 		cbSub.setFont(MainInternalFrame.fonte5);
-		cbSub.setBounds(644, 373, 283, 27);
+		cbSub.setBounds(656, 373, 271, 27);
 		getContentPane().add(cbSub);
 		cbSub.setVisible(false);
 		
@@ -246,7 +305,7 @@ public class IFrRegistrar extends JInternalFrame {
 		rbConta.setBounds(108, 100, 155, 23);
 		getContentPane().add(rbConta);
 				
-		JButton btRegistrar = new JButton("Finalizar");
+		btRegistrar = new JButton("Finalizar");
 		btRegistrar.setToolTipText("Terminar lan\u00E7amento");
 		btRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

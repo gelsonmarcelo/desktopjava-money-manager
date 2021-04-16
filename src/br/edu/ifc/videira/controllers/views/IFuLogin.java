@@ -82,6 +82,7 @@ public class IFuLogin extends JInternalFrame {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					btAcessar.setText("Aguarde...");
 					btAcessar.doClick();
 				}
 			}
@@ -105,6 +106,7 @@ public class IFuLogin extends JInternalFrame {
 					JOptionPane.showMessageDialog(null, "A autenticação de usuário falhou. Login ou senha incorretos!",
 							"Falha", JOptionPane.WARNING_MESSAGE);
 				}
+				btAcessar.setText("Acessar");
 			}
 		});
 		btAcessar.setFont(MainInternalFrame.fonte5);
