@@ -16,6 +16,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import br.edu.ifc.videira.DAOs.UsuarioDao;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class IFuLogin extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
@@ -24,6 +26,7 @@ public class IFuLogin extends JInternalFrame {
 
 	private JTextField tfLogin;
 	private JTextField psSenha;
+	private JButton btAcessar;
 
 	public IFuLogin() {
 		super("Login", false, // resizable
@@ -58,18 +61,37 @@ public class IFuLogin extends JInternalFrame {
 		getContentPane().add(lblSenha);
 
 		tfLogin = new JTextField();
+		/*
+		 * Quando o foco está nessa campo de Login e pressionar enter o foco vai para o próximo campo
+		 */
+		tfLogin.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
+					psSenha.grabFocus();
+				}
+			}
+		});
 		tfLogin.setFont(MainInternalFrame.fonte5);
 		tfLogin.setBounds(134, 73, 197, 34);
 		getContentPane().add(tfLogin);
 		tfLogin.setColumns(10);
 
 		psSenha = new JPasswordField();
+		psSenha.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					btAcessar.doClick();
+				}
+			}
+		});
 		psSenha.setFont(MainInternalFrame.fonte5);
 		psSenha.setColumns(10);
 		psSenha.setBounds(134, 126, 197, 32);
 		getContentPane().add(psSenha);
 
-		JButton btAcessar = new JButton("Acessar");
+		btAcessar = new JButton("Acessar");
 		btAcessar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				/**

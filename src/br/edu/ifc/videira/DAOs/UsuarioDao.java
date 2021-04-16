@@ -51,7 +51,13 @@ public class UsuarioDao {
 		
 		//Parte que leva os dados para verifiação no Bando de Dados
 		try {
-			String sql = "SELECT * FROM usuario WHERE login=? AND senha=? limit 1";
+			String sql;
+			//Se o idUser for diferente de 0 significa que o usuário já está autenticado no sistema, senão é o primeiro login
+			if (idUser != 0) {
+				sql = "SELECT * FROM usuario WHERE login=? AND senha=? AND idusuario=" + idUser + " limit 1";
+			}else {
+				sql = "SELECT * FROM usuario WHERE login=? AND senha=? limit 1";
+			}
 			java.sql.PreparedStatement sqlPrep = Conexao.conectar().prepareStatement(sql);
 			sqlPrep.setString(1, usuario);
 			sqlPrep.setString(2, senha);

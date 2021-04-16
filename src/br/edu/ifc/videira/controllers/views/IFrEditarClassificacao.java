@@ -220,6 +220,7 @@ public class IFrEditarClassificacao extends JInternalFrame {
 		btCadastrar.setToolTipText("Cadastrar uma nova classificação");
 		btExcluir.setEnabled(false);
 		btExcluir.setToolTipText("Selecione uma classificação da tabela para excluir");
+		table.clearSelection();
 	}
 
 	/**
