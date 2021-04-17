@@ -3,9 +3,11 @@ package br.edu.ifc.videira.controllers.views;
 import javax.swing.JDesktopPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JMenuBar;
 import javax.swing.JFrame;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -15,15 +17,18 @@ import java.awt.*;
 import javax.swing.border.BevelBorder;
 
 import br.edu.ifc.videira.DAOs.UsuarioDao;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class MainInternalFrame extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	public static JDesktopPane desktop;
+	private String tema = "com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme";
 	private JMenuItem miEncerrar; // Não podem ser locais pq contém atalhos
 	private JMenuItem miEditarDados;
 	public static JMenuBar menuBar = new JMenuBar();
-	
-	//Fontes
+
+	// Fontes
 	static final Font fonte1 = new Font("Sitka Subheading", Font.PLAIN, 40);
 	static final Font fonte2 = new Font("Sitka Subheading", Font.PLAIN, 35);
 	static final Font fonte3 = new Font("Sitka Subheading", Font.PLAIN, 30);
@@ -40,15 +45,9 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 		 * Fazer internal frames pegarem decoração do sistema
 		 */
 		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
+			UIManager.setLookAndFeel(tema);
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, "Falha ao carregar tema", "Falha", JOptionPane.WARNING_MESSAGE);
 		}
 
 		// Make the big window be indented 50 pixels from each edge
@@ -63,9 +62,104 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 		login(); // create first "window"
 		setContentPane(desktop);
 		desktop.setBackground(Color.WHITE);
+
+		JComboBox<Object> cbTema = new JComboBox<Object>();
+		cbTema.setFont(new Font("Sitka Subheading", Font.PLAIN, 20));
+		cbTema.setBounds(10, 11, 363, 26);
+		cbTema.setModel(new DefaultComboBoxModel<Object>(new String[] { "_____________Core Themes_________________",
+				"Flat Light * com.formdev.flatlaf.FlatLightLaf", "Flat Dark * com.formdev.flatlaf.FlatDarkLaf",
+				"Flat IntelliJ * com.formdev.flatlaf.FlatIntelliJLaf",
+				"Flat Darcula * com.formdev.flatlaf.FlatDarculaLaf", "_____________IntelliJ Themes_________________",
+				"Arc * com.formdev.flatlaf.intellijthemes.FlatArcIJTheme",
+				"Arc - Orange * com.formdev.flatlaf.intellijthemes.FlatArcOrangeIJTheme",
+				"Arc Dark * com.formdev.flatlaf.intellijthemes.FlatArcDarkIJTheme",
+				"Arc Dark - Orange * com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme",
+				"Carbon * com.formdev.flatlaf.intellijthemes.FlatCarbonIJTheme",
+				"Cobalt 2 * com.formdev.flatlaf.intellijthemes.FlatCobalt2IJTheme",
+				"Cyan light * com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme",
+				"Dark Flat * com.formdev.flatlaf.intellijthemes.FlatDarkFlatIJTheme",
+				"Dark purple * com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme",
+				"Dracula * com.formdev.flatlaf.intellijthemes.FlatDraculaIJTheme",
+				"Gradianto Dark Fuchsia * com.formdev.flatlaf.intellijthemes.FlatGradiantoDarkFuchsiaIJTheme",
+				"Gradianto Deep Ocean * com.formdev.flatlaf.intellijthemes.FlatGradiantoDeepOceanIJTheme",
+				"Gradianto Midnight Blue * com.formdev.flatlaf.intellijthemes.FlatGradiantoMidnightBlueIJTheme",
+				"Gradianto Nature Green * com.formdev.flatlaf.intellijthemes.FlatGradiantoNatureGreenIJTheme",
+				"Gray * com.formdev.flatlaf.intellijthemes.FlatGrayIJTheme",
+				"Gruvbox Dark Hard * com.formdev.flatlaf.intellijthemes.FlatGruvboxDarkHardIJTheme",
+				"Gruvbox Dark Medium * com.formdev.flatlaf.intellijthemes.FlatGruvboxDarkMediumIJTheme",
+				"Gruvbox Dark Soft * com.formdev.flatlaf.intellijthemes.FlatGruvboxDarkSoftIJTheme",
+				"Hiberbee Dark * com.formdev.flatlaf.intellijthemes.FlatHiberbeeDarkIJTheme",
+				"High contrast * com.formdev.flatlaf.intellijthemes.FlatHighContrastIJTheme",
+				"Light Flat * com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme",
+				"Material Design Dark * com.formdev.flatlaf.intellijthemes.FlatMaterialDesignDarkIJTheme",
+				"Monocai * com.formdev.flatlaf.intellijthemes.FlatMonocaiIJTheme",
+				"Nord * com.formdev.flatlaf.intellijthemes.FlatNordIJTheme",
+				"One Dark * com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme",
+				"Solarized Dark * com.formdev.flatlaf.intellijthemes.FlatSolarizedDarkIJTheme",
+				"Solarized Light * com.formdev.flatlaf.intellijthemes.FlatSolarizedLightIJTheme",
+				"Spacegray * com.formdev.flatlaf.intellijthemes.FlatSpacegrayIJTheme",
+				"Vuesion * com.formdev.flatlaf.intellijthemes.FlatVuesionIJTheme",
+				"_____________Material Theme UI Lite_________________",
+				"Arc Dark (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatArcDarkIJTheme",
+				"Arc Dark Contrast (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatArcDarkContrastIJTheme",
+				"Atom One Dark (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkIJTheme",
+				"Atom One Dark Contrast (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme",
+				"Atom One Light (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneLightIJTheme",
+				"Atom One Light Contrast (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneLightContrastIJTheme",
+				"Dracula (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatDraculaIJTheme",
+				"Dracula Contrast (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatDraculaContrastIJTheme",
+				"GitHub (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubIJTheme",
+				"GitHub Contrast (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubContrastIJTheme",
+				"GitHub Dark (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme",
+				"GitHub Dark Contrast (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkContrastIJTheme",
+				"Light Owl (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatLightOwlIJTheme",
+				"Light Owl Contrast (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatLightOwlContrastIJTheme",
+				"Material Darker (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme",
+				"Material Darker Contrast (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerContrastIJTheme",
+				"Material Deep Ocean (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDeepOceanIJTheme",
+				"Material Deep Ocean Contrast (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDeepOceanContrastIJTheme",
+				"Material Lighter (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterIJTheme",
+				"Material Lighter Contrast (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialLighterContrastIJTheme",
+				"Material Oceanic (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialOceanicIJTheme",
+				"Material Oceanic Contrast (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialOceanicContrastIJTheme",
+				"Material Palenight (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialPalenightIJTheme",
+				"Material Palenight Contrast (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialPalenightContrastIJTheme",
+				"Monokai Pro (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMonokaiProIJTheme",
+				"Monokai Pro Contrast (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMonokaiProContrastIJTheme",
+				"Moonlight (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMoonlightIJTheme",
+				"Moonlight Contrast (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMoonlightContrastIJTheme",
+				"Night Owl (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatNightOwlIJTheme",
+				"Night Owl Contrast (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatNightOwlContrastIJTheme",
+				"Solarized Dark (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatSolarizedDarkIJTheme",
+				"Solarized Dark Contrast (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatSolarizedDarkContrastIJTheme",
+				"Solarized Light (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatSolarizedLightIJTheme",
+				"Solarized Light Contrast (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatSolarizedLightContrastIJTheme" }));
+		cbTema.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				try {
+					tema = cbTema.getSelectedItem().toString().split("\\* ")[1];
+
+					UIManager.setLookAndFeel(tema);
+
+				} catch (Exception ex) {
+					try {
+						UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+					} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+							| UnsupportedLookAndFeelException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					JOptionPane.showMessageDialog(null, "Falha ao carregar tema", "Falha", JOptionPane.WARNING_MESSAGE);
+				}
+
+				SwingUtilities.updateComponentTreeUI(desktop);
+			}
+		});
+		desktop.add(cbTema);
+
 		menuBar.setFont(fonte5);
 		setJMenuBar(createMenuBar());
-		
+
 		setTitle("Money Manager 2.0");
 	}
 
@@ -89,20 +183,20 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 		miLogout.setFont(fonte5);
 		miLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UsuarioDao.idUser=0;
+				UsuarioDao.idUser = 0;
 				login();
 			}
 		});
 		mnUsuario.add(miLogout);
-		
-				// Set up the second menu item.
-				miEncerrar = new JMenuItem("Encerrar");
-				miEncerrar.setFont(fonte5);
-				miEncerrar.setMnemonic(KeyEvent.VK_Q);
-				miEncerrar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.ALT_MASK));
-				miEncerrar.setActionCommand("quit");
-				miEncerrar.addActionListener(this);
-				mnUsuario.add(miEncerrar);
+
+		// Set up the second menu item.
+		miEncerrar = new JMenuItem("Encerrar");
+		miEncerrar.setFont(fonte5);
+		miEncerrar.setMnemonic(KeyEvent.VK_Q);
+		miEncerrar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.ALT_MASK));
+		miEncerrar.setActionCommand("quit");
+		miEncerrar.addActionListener(this);
+		mnUsuario.add(miEncerrar);
 
 		JMenu mnRegistro = new JMenu("Registro");
 		mnRegistro.setFont(fonte5);
@@ -148,7 +242,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 		mnContasMensais.setEnabled(false);
 		mnContasMensais.setToolTipText("Não disponível");
 
-		JMenuItem miExibir= new JMenuItem("Exibir");
+		JMenuItem miExibir = new JMenuItem("Exibir");
 		miExibir.setFont(fonte5);
 		miExibir.setActionCommand("verContas");
 		miExibir.addActionListener(this);
@@ -192,21 +286,21 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
-		}else if ("registrar".equals(e.getActionCommand())) { // new
+		} else if ("registrar".equals(e.getActionCommand())) { // new
 			registrar();
-		}else if ("verRegistros".equals(e.getActionCommand())) { // new
+		} else if ("verRegistros".equals(e.getActionCommand())) { // new
 			verRegistros();
-		}else if ("editarClassificacao".equals(e.getActionCommand())) { // new
+		} else if ("editarClassificacao".equals(e.getActionCommand())) { // new
 			editarClassificacao();
-		}else if ("transferencia".equals(e.getActionCommand())) { // new
+		} else if ("transferencia".equals(e.getActionCommand())) { // new
 			transferencia();
-		}else if ("editarInstituicao".equals(e.getActionCommand())) { // new
+		} else if ("editarInstituicao".equals(e.getActionCommand())) { // new
 			editarInstituicao();
-		}else if ("verContas".equals(e.getActionCommand())) { // new
+		} else if ("verContas".equals(e.getActionCommand())) { // new
 			verContas();
-		}else if ("editarPessoas".equals(e.getActionCommand())) { // new
+		} else if ("editarPessoas".equals(e.getActionCommand())) { // new
 			editarPessoas();
-		}else if ("verLogs".equals(e.getActionCommand())) { // new
+		} else if ("verLogs".equals(e.getActionCommand())) { // new
 			verLogs();
 		} else { // quit
 			quit();
@@ -216,6 +310,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 	// Create a new internal frame.
 	protected void login() {
 		IFuLogin frame = new IFuLogin();
+		frame.setLocation(219, 0);
 		menuBar.setVisible(false);
 		frame.setVisible(true);
 		frame.centralizarJanela();
@@ -237,6 +332,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 	}
+
 	protected void registrar() {
 		IFrRegistrar frame = new IFrRegistrar();
 		frame.setVisible(true);
@@ -247,6 +343,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 	}
+
 	protected void verRegistros() {
 		IFrVerRegistros frame = new IFrVerRegistros();
 		frame.setVisible(true);
@@ -257,6 +354,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 	}
+
 	protected void editarClassificacao() {
 		IFrEditarClassificacao frame = new IFrEditarClassificacao();
 		frame.setVisible(true);
@@ -267,6 +365,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 	}
+
 	protected void transferencia() {
 		IFiTransferir frame = new IFiTransferir();
 		frame.setVisible(true);
@@ -277,6 +376,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 	}
+
 	protected void editarInstituicao() {
 		IFiEditarInstituicao frame = new IFiEditarInstituicao();
 		frame.setVisible(true);
@@ -287,7 +387,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 	}
-	
+
 	protected void verContas() {
 		IFcVerContas frame = new IFcVerContas();
 		frame.setVisible(true);
@@ -298,6 +398,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 	}
+
 	protected void editarPessoas() {
 		IFpEditarPessoas frame = new IFpEditarPessoas();
 		frame.setVisible(true);
@@ -308,6 +409,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 	}
+
 	protected void verLogs() {
 		IFlLogs frame = new IFlLogs();
 		frame.setVisible(true);
@@ -318,6 +420,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 	}
+
 	// Quit the application.
 	protected void quit() {
 		System.exit(0);
@@ -329,7 +432,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 	 */
 	private static void createAndShowGUI() {
 		// Make sure we have nice window decorations.
-//		JFrame.setDefaultLookAndFeelDecorated(false);
+		// JFrame.setDefaultLookAndFeelDecorated(false);
 
 		// Create and set up the window.
 		MainInternalFrame frame = new MainInternalFrame();
@@ -337,7 +440,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 
 		// Display the window.
 		frame.setVisible(true);
-		
+
 		// Set maximized
 		frame.setExtendedState(MAXIMIZED_BOTH);
 	}
