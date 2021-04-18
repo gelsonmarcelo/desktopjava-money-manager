@@ -152,7 +152,7 @@ public class QuemDao {
 				nomeQuem[0] = "Todos";
 				nomeQuem[1] = "Receitas";
 				nomeQuem[2] = "Despesas";
-				nomeQuem[3] = "________* Pessoas *_________";
+				nomeQuem[3] = "________ * Pessoas * _________";
 				//Inicia no 4 a colocar os nomes
 				i = 4;
 			}else {

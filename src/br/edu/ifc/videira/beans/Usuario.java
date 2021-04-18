@@ -6,6 +6,7 @@ public class Usuario {
 	private String login;
 	private String senha;
 	private double salario;
+	private String tema;
 	
 	public int getCodigo() {
 		return codigo;
@@ -40,6 +41,14 @@ public class Usuario {
 	}
 
 	public Usuario() {
+	}
+
+	public String getTema() {
+		return tema;
+	}
+
+	public void setTema(String tema) {
+		this.tema = tema;
 	}
 
 }

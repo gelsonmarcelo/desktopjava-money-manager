@@ -17,8 +17,9 @@ import java.awt.*;
 import javax.swing.border.BevelBorder;
 
 import br.edu.ifc.videira.DAOs.UsuarioDao;
+import br.edu.ifc.videira.utils.ComboBoxModel;
+
 import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 
 public class MainInternalFrame extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
@@ -27,6 +28,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 	private JMenuItem miEncerrar; // Não podem ser locais pq contém atalhos
 	private JMenuItem miEditarDados;
 	public static JMenuBar menuBar = new JMenuBar();
+	UsuarioDao usDao = new UsuarioDao();
 
 	// Fontes
 	static final Font fonte1 = new Font("Sitka Subheading", Font.PLAIN, 40);
@@ -39,6 +41,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 	static final Font fonte8 = new Font("Sitka Subheading", Font.PLAIN, 05);
 	static final Font fonteTabela = new Font("Trebuchet MS", Font.PLAIN, 15);
 	static final Font FonteJNumberFormatField = new Font("Calibri", Font.PLAIN, 20);
+	public static JComboBox<Object> cbTema;
 
 	public MainInternalFrame() {
 		/*
@@ -47,7 +50,8 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 		try {
 			UIManager.setLookAndFeel(tema);
 		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(null, "Falha ao carregar tema", "Falha", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Falha ao carregar tema\n" + ex.getMessage(), "Falha",
+					JOptionPane.WARNING_MESSAGE);
 		}
 
 		// Make the big window be indented 50 pixels from each edge
@@ -63,13 +67,14 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 		setContentPane(desktop);
 		desktop.setBackground(Color.WHITE);
 
-		JComboBox<Object> cbTema = new JComboBox<Object>();
-		cbTema.setFont(new Font("Sitka Subheading", Font.PLAIN, 20));
-		cbTema.setBounds(10, 11, 363, 26);
-		cbTema.setModel(new DefaultComboBoxModel<Object>(new String[] { "_____________Core Themes_________________",
-				"Flat Light * com.formdev.flatlaf.FlatLightLaf", "Flat Dark * com.formdev.flatlaf.FlatDarkLaf",
+		/* cbTema.setModel(new DefaultComboBoxModel<Object>( */
+		cbTema = new JComboBox<Object>(new ComboBoxModel(new String[] {
+				"________ * Core Themes * ________",
+				"Flat Light * com.formdev.flatlaf.FlatLightLaf", 
+				"Flat Dark * com.formdev.flatlaf.FlatDarkLaf",
 				"Flat IntelliJ * com.formdev.flatlaf.FlatIntelliJLaf",
-				"Flat Darcula * com.formdev.flatlaf.FlatDarculaLaf", "_____________IntelliJ Themes_________________",
+				"Flat Darcula * com.formdev.flatlaf.FlatDarculaLaf", 
+				"________ * IntelliJ Themes * ________",
 				"Arc * com.formdev.flatlaf.intellijthemes.FlatArcIJTheme",
 				"Arc - Orange * com.formdev.flatlaf.intellijthemes.FlatArcOrangeIJTheme",
 				"Arc Dark * com.formdev.flatlaf.intellijthemes.FlatArcDarkIJTheme",
@@ -99,7 +104,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 				"Solarized Light * com.formdev.flatlaf.intellijthemes.FlatSolarizedLightIJTheme",
 				"Spacegray * com.formdev.flatlaf.intellijthemes.FlatSpacegrayIJTheme",
 				"Vuesion * com.formdev.flatlaf.intellijthemes.FlatVuesionIJTheme",
-				"_____________Material Theme UI Lite_________________",
+				"________ * Material Theme UI Lite * ________",
 				"Arc Dark (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatArcDarkIJTheme",
 				"Arc Dark Contrast (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatArcDarkContrastIJTheme",
 				"Atom One Dark (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkIJTheme",
@@ -134,6 +139,8 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 				"Solarized Dark Contrast (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatSolarizedDarkContrastIJTheme",
 				"Solarized Light (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatSolarizedLightIJTheme",
 				"Solarized Light Contrast (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatSolarizedLightContrastIJTheme" }));
+		cbTema.setFont(new Font("Sitka Subheading", Font.PLAIN, 20));
+		cbTema.setBounds(10, 11, 363, 26);
 		cbTema.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				try {
@@ -141,17 +148,20 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 
 					UIManager.setLookAndFeel(tema);
 
+					usDao.salvarTema(tema);
+
 				} catch (Exception ex) {
+					tema = "com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme";
 					try {
-						UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+						UIManager.setLookAndFeel(tema);
 					} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 							| UnsupportedLookAndFeelException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					JOptionPane.showMessageDialog(null, "Falha ao carregar tema", "Falha", JOptionPane.WARNING_MESSAGE);
+					System.out.println("Falha ao carregar tema.");
 				}
-
+				// Atualizar sistema com o tema
 				SwingUtilities.updateComponentTreeUI(desktop);
 			}
 		});

@@ -23,6 +23,7 @@ public class IFuLogin extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
 	static int openFrameCount = 0;
 	static final int xOffset = 10, yOffset = 0;
+	UsuarioDao usDao = new UsuarioDao();
 
 	private JTextField tfLogin;
 	private JTextField psSenha;
@@ -101,6 +102,9 @@ public class IFuLogin extends JInternalFrame {
 				if (UsuarioDao.validar(false, true, tfLogin.getText(), psSenha.getText())) {
 					MainInternalFrame.menuBar.setVisible(true);
 					JOptionPane.showMessageDialog(null, "Id do usuário: " + UsuarioDao.idUser);
+					//Define o tema trazido do banco com base no usuário
+					MainInternalFrame.cbTema.setSelectedItem(usDao.recuperarTema());
+					
 					dispose();
 				} else {
 					JOptionPane.showMessageDialog(null, "A autenticação de usuário falhou. Login ou senha incorretos!",

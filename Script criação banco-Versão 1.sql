@@ -233,3 +233,5 @@ INSERT INTO `classificacao` (`idclassificacao`, `nome`) VALUES (11, 'Vestuário'
 
 COMMIT;
 
+/*Atualização na tabela Usuário adicionando coluna do tema*/
+ALTER TABLE `mm`.`usuario` ADD COLUMN `tema` VARCHAR(100) NULL AFTER `salario`;

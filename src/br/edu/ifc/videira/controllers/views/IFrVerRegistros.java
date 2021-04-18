@@ -12,7 +12,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
@@ -39,6 +38,7 @@ import br.edu.ifc.videira.DAOs.QuemDao;
 import br.edu.ifc.videira.DAOs.RegistroDao;
 import br.edu.ifc.videira.DAOs.UsuarioDao;
 import br.edu.ifc.videira.beans.Registro;
+import br.edu.ifc.videira.utils.ComboBoxModel;
 import br.edu.ifc.videira.utils.JNumberFormatField;
 
 public class IFrVerRegistros extends JInternalFrame {
@@ -62,7 +62,6 @@ public class IFrVerRegistros extends JInternalFrame {
 	// final SimpleDateFormat formatoBrasileiro = new
 	// SimpleDateFormat("dd-MM-yyyy");
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public IFrVerRegistros() {
 		super("Ver Registros # " + (++IFuLogin.openFrameCount) + "º", false, // resizable
 				true, // closable
@@ -173,7 +172,7 @@ public class IFrVerRegistros extends JInternalFrame {
 		cbTipoRegistro = new JComboBox<>();
 		// Preenchimento do comboBox com valores cadastrados no banco
 		try {
-			cbTipoRegistro.setModel(new DefaultComboBoxModel(qmDao.buscarNomesQuem(true)));
+			cbTipoRegistro.setModel(new ComboBoxModel(qmDao.buscarNomesQuem(true)));
 		} catch (Exception e1) {
 			e1.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Ocorreu um erro, contate o desenvolvedor e informe o código 'VR013'!",

@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 import br.edu.ifc.videira.beans.Usuario;
+import br.edu.ifc.videira.controllers.views.MainInternalFrame;
 import br.edu.ifc.videira.utils.Conexao;
 import br.edu.ifc.videira.utils.LoginPanel;
 
@@ -16,12 +17,12 @@ public class UsuarioDao {
 	/**
 	 * Acessa o banco levando usuario e senha para realizar a autenticação, pode ou não chamar um OptionPane para solicitação dos dados, para autenticações básicas.
 	 * @param abrirJanela
-	 * @param setarIdUser
+	 * @param definirIdUser
 	 * @param usuario
 	 * @param senha
 	 * @return
 	 */
-	public static boolean validar(boolean abrirJanela, boolean setarIdUser, String usuario, String senha) {
+	public static boolean validar(boolean abrirJanela, boolean definirIdUser, String usuario, String senha) {
 		//Falso até que se prove o contrário
 		boolean sucesso = false;
 		
@@ -66,12 +67,13 @@ public class UsuarioDao {
 
 			while (rs.next()) {
 				sucesso = true;
-				if (setarIdUser) {
+				if (definirIdUser) {
 					//Caso confirmado que se deve definir o id, através do parâmetro setarIdUser, tal será pego do banco
 					idUser = Integer.parseInt(rs.getString(1));
 				}
 			}
 			rs.close();
+			sqlPrep.close();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
@@ -101,8 +103,9 @@ public class UsuarioDao {
 			sqlPrep.setString(2, us.getSenha());
 			sqlPrep.setDouble(3, us.getSalario());
 			sqlPrep.execute();
+			sqlPrep.close();
+
 			return true;
-			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
@@ -121,6 +124,7 @@ public class UsuarioDao {
 			sqlPrep.setString(contador++, us.getSenha());
 			sqlPrep.setDouble(contador++, us.getSalario());
 			sqlPrep.execute();
+			sqlPrep.close();
 			JOptionPane.showMessageDialog(null, "Usuário atualizado com sucesso!");
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
@@ -145,11 +149,58 @@ public class UsuarioDao {
 				usuario[1] = rs.getString(4);
 			}
 			state.close();
-
+			rs.close();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 		
 		return usuario;
+	}
+	
+	/**
+	 * Manda o tema escolhido para salvar no usuário
+	 * @param us
+	 */
+	public void salvarTema(String tema) {
+		try {
+			String sql = "UPDATE usuario SET tema=? WHERE idusuario=" + idUser;
+			java.sql.PreparedStatement sqlPrep = Conexao.conectar().prepareStatement(sql);
+			sqlPrep.setString(1, tema);
+			
+			sqlPrep.execute();
+			sqlPrep.close();
+			
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+	}
+	
+	/**
+	 * Recupera o tema do usuário 
+	 * @return
+	 */
+	public String recuperarTema() {
+		String tema = "";
+		try {
+			String sql = "SELECT tema FROM usuario WHERE idusuario=" + idUser;
+			
+			java.sql.Statement state = Conexao.conectar().createStatement();
+			ResultSet rs = state.executeQuery(sql);
+			while (rs.next()) {
+				tema = rs.getString(1);
+			}
+			state.close();
+			rs.close();
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
+		for (int i = 0; i < MainInternalFrame.cbTema.getItemCount(); i++) {
+			if (MainInternalFrame.cbTema.getItemAt(i).toString().split("\\* ")[1].equals(tema)) {
+				return MainInternalFrame.cbTema.getItemAt(i).toString();
+			}
+		}
+		return MainInternalFrame.cbTema.getItemAt(0).toString();
 	}
 }
