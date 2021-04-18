@@ -17,6 +17,7 @@ import br.edu.ifc.videira.beans.Transferencia;
 import br.edu.ifc.videira.utils.JNumberFormatField;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import javax.swing.ImageIcon;
 
 public class IFiTransferir extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
@@ -68,6 +69,7 @@ public class IFiTransferir extends JInternalFrame {
 		getContentPane().add(tfValor);
 
 		btTransferir = new JButton("Transferir");
+		btTransferir.setIcon(new ImageIcon(IFiTransferir.class.getResource("/br/edu/ifc/videira/imgs/transferir.png")));
 		btTransferir.setEnabled(false);
 		btTransferir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -125,8 +127,8 @@ public class IFiTransferir extends JInternalFrame {
 				}
 			}
 		});
-		btTransferir.setFont(MainInternalFrame.fonte4);
-		btTransferir.setBounds(100, 250, 155, 34);
+		btTransferir.setFont(MainInternalFrame.fonteBotoes);
+		btTransferir.setBounds(100, 250, 168, 34);
 		btTransferir.setToolTipText("Selecione uma origem e um destino para habilitar");
 		getContentPane().add(btTransferir);
 
@@ -160,14 +162,15 @@ public class IFiTransferir extends JInternalFrame {
 		getContentPane().add(cbDestino);
 
 		JButton btLimpar = new JButton("Limpar");
+		btLimpar.setIcon(new ImageIcon(IFiTransferir.class.getResource("/br/edu/ifc/videira/imgs/apagador.png")));
 		btLimpar.setToolTipText("Limpar valores");
 		btLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				limpar();
 			}
 		});
-		btLimpar.setFont(MainInternalFrame.fonte4);
-		btLimpar.setBounds(319, 250, 155, 34);
+		btLimpar.setFont(MainInternalFrame.fonteBotoes);
+		btLimpar.setBounds(306, 250, 168, 34);
 		getContentPane().add(btLimpar);
 
 		cbOrigem = new JComboBox<>();

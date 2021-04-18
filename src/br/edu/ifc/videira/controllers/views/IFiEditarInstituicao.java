@@ -27,6 +27,7 @@ import br.edu.ifc.videira.beans.Instituicao;
 import br.edu.ifc.videira.utils.JNumberFormatField;
 import javax.swing.JCheckBox;
 import javax.swing.border.EmptyBorder;
+import javax.swing.ImageIcon;
 
 public class IFiEditarInstituicao extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
@@ -42,7 +43,7 @@ public class IFiEditarInstituicao extends JInternalFrame {
 	private JTextField tfSaldo;
 	private JButton btAtualizar;
 	private JButton btExcluir;
-	private JButton btCadastrar;
+	private JButton btSalvar;
 	private JCheckBox cboxSaldoNegativo;
 	
 	
@@ -80,8 +81,9 @@ public class IFiEditarInstituicao extends JInternalFrame {
 		getContentPane().add(tfInstituicao);
 		tfInstituicao.setColumns(10);
 		
-		btCadastrar = new JButton("Cadastrar");
-		btCadastrar.addActionListener(new ActionListener() {
+		btSalvar = new JButton("Salvar");
+		btSalvar.setIcon(new ImageIcon(IFiEditarInstituicao.class.getResource("/br/edu/ifc/videira/imgs/salvar.png")));
+		btSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//Validação para campo em branco
 				if(!tfInstituicao.getText().equals("") && !(cbTipo.getSelectedIndex()==0)) {
@@ -102,12 +104,13 @@ public class IFiEditarInstituicao extends JInternalFrame {
 				}
 			}
 		});
-		btCadastrar.setToolTipText("Preencha os dados para cadastrar uma nova instituição");
-		btCadastrar.setFont(MainInternalFrame.fonte4);
-		btCadastrar.setBounds(23, 501, 144, 32);
-		getContentPane().add(btCadastrar);
+		btSalvar.setToolTipText("Preencha os dados para cadastrar uma nova instituição");
+		btSalvar.setFont(MainInternalFrame.fonteBotoes);
+		btSalvar.setBounds(15, 510, 155, 41);
+		getContentPane().add(btSalvar);
 		
 		btAtualizar = new JButton("Atualizar");
+		btAtualizar.setIcon(new ImageIcon(IFiEditarInstituicao.class.getResource("/br/edu/ifc/videira/imgs/atualizar.png")));
 		btAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				in.setNome(tfInstituicao.getText());
@@ -127,11 +130,12 @@ public class IFiEditarInstituicao extends JInternalFrame {
 		});
 		btAtualizar.setEnabled(false);
 		btAtualizar.setToolTipText("Selecione uma linha da tabela para atualizar");		
-		btAtualizar.setFont(MainInternalFrame.fonte4);
-		btAtualizar.setBounds(209, 501, 144, 32);
+		btAtualizar.setFont(MainInternalFrame.fonteBotoes);
+		btAtualizar.setBounds(201, 510, 155, 41);
 		getContentPane().add(btAtualizar);
 		
 		btExcluir = new JButton("Excluir");
+		btExcluir.setIcon(new ImageIcon(IFiEditarInstituicao.class.getResource("/br/edu/ifc/videira/imgs/lixeira.png")));
 		btExcluir.setEnabled(false);
 		btExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -163,13 +167,12 @@ public class IFiEditarInstituicao extends JInternalFrame {
 			}
 		});
 		btExcluir.setToolTipText("Selecione uma linha da tabela para excluir");
-		btExcluir.setFont(MainInternalFrame.fonte4);
-		btExcluir.setBounds(390, 501, 144, 32);
+		btExcluir.setFont(MainInternalFrame.fonteBotoes);
+		btExcluir.setBounds(379, 510, 155, 41);
 		getContentPane().add(btExcluir);
 		
 		tfCod = new JTextField();
 		tfCod.setEnabled(false);
-		tfCod.setFont(MainInternalFrame.fonte4);
 		tfCod.setColumns(10);
 		tfCod.setBounds(0, 532, 31, 28);
 		tfCod.setVisible(false);
@@ -228,8 +231,8 @@ public class IFiEditarInstituicao extends JInternalFrame {
 				
 				btAtualizar.setEnabled(true);
 				btAtualizar.setToolTipText("Atualizar instituição");
-				btCadastrar.setEnabled(false);
-				btCadastrar.setToolTipText("Limpe a seleção para habilitar");
+				btSalvar.setEnabled(false);
+				btSalvar.setToolTipText("Limpe a seleção para habilitar");
 			}
 		});
 		table.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -303,14 +306,15 @@ public class IFiEditarInstituicao extends JInternalFrame {
 		getContentPane().add(lblSaldo);
 		
 		JButton btLimpar = new JButton("Limpar");
+		btLimpar.setIcon(new ImageIcon(IFiEditarInstituicao.class.getResource("/br/edu/ifc/videira/imgs/apagador.png")));
 		btLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				limpar();
 			}
 		});
 		btLimpar.setToolTipText("Limpar sele\u00E7\u00E3o/valores");
-		btLimpar.setFont(new Font("Sitka Subheading", Font.PLAIN, 25));
-		btLimpar.setBounds(390, 458, 144, 32);
+		btLimpar.setFont(MainInternalFrame.fonteBotoes);
+		btLimpar.setBounds(379, 458, 155, 41);
 		getContentPane().add(btLimpar);
 				
 		cbTipo = new JComboBox<>();
@@ -365,8 +369,8 @@ public class IFiEditarInstituicao extends JInternalFrame {
 		cbTipo.setSelectedIndex(0);
 		cboxSaldoNegativo.setSelected(false);
 		
-		btCadastrar.setEnabled(true);
-		btCadastrar.setToolTipText("Cadastrar nova instituição");
+		btSalvar.setEnabled(true);
+		btSalvar.setToolTipText("Cadastrar nova instituição");
 		
 		btAtualizar.setEnabled(false);
 		btAtualizar.setToolTipText("Selecione uma linha da tabela para atualizar");

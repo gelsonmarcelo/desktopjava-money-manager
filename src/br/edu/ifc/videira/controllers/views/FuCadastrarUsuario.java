@@ -13,6 +13,7 @@ import javax.swing.SwingConstants;
 
 import br.edu.ifc.videira.DAOs.UsuarioDao;
 import br.edu.ifc.videira.beans.Usuario;
+import javax.swing.ImageIcon;
 
 public class FuCadastrarUsuario extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -90,6 +91,7 @@ public class FuCadastrarUsuario extends JFrame {
 		getContentPane().add(lblConfirmarSenha);
 		
 		JButton btSalvar = new JButton("Salvar");
+		btSalvar.setIcon(new ImageIcon(FuCadastrarUsuario.class.getResource("/br/edu/ifc/videira/imgs/salvar.png")));
 		btSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -124,18 +126,19 @@ public class FuCadastrarUsuario extends JFrame {
 				}
 			}
 		});
-		btSalvar.setFont(MainInternalFrame.fonte4);
-		btSalvar.setBounds(52, 284, 155, 34);
+		btSalvar.setFont(MainInternalFrame.fonteBotoes);
+		btSalvar.setBounds(52, 284, 155, 42);
 		getContentPane().add(btSalvar);
 		
 		JButton btCancelar = new JButton("Cancelar");
+		btCancelar.setIcon(new ImageIcon(FuCadastrarUsuario.class.getResource("/br/edu/ifc/videira/imgs/cancelar.png")));
 		btCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
 			}
 		});
-		btCancelar.setFont(MainInternalFrame.fonte4);
-		btCancelar.setBounds(301, 284, 155, 34);
+		btCancelar.setFont(MainInternalFrame.fonteBotoes);
+		btCancelar.setBounds(301, 284, 155, 42);
 		getContentPane().add(btCancelar);
 	}
 }

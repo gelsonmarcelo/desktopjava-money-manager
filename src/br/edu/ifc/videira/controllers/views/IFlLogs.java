@@ -31,6 +31,7 @@ import com.toedter.calendar.JTextFieldDateEditor;
 
 import br.edu.ifc.videira.DAOs.LogDao;
 import br.edu.ifc.videira.beans.Log;
+import javax.swing.ImageIcon;
 
 public class IFlLogs extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
@@ -55,7 +56,7 @@ public class IFlLogs extends JInternalFrame {
 
 		JLabel lbBuscar = new JLabel("Buscar:");
 		lbBuscar.setFont(MainInternalFrame.fonte4);
-		lbBuscar.setBounds(625, 65, 100, 34);
+		lbBuscar.setBounds(625, 60, 100, 34);
 		getContentPane().add(lbBuscar);
 
 		tfBusca = new JTextField("digite o que procura");
@@ -111,7 +112,7 @@ public class IFlLogs extends JInternalFrame {
 				}
 			}
 		});
-		tfBusca.setBounds(724, 66, 197, 34);
+		tfBusca.setBounds(724, 61, 197, 34);
 		getContentPane().add(tfBusca);
 		tfBusca.setColumns(10);
 
@@ -125,7 +126,7 @@ public class IFlLogs extends JInternalFrame {
 		JTextFieldDateEditor dcInicioEditor = (JTextFieldDateEditor) dcInicio.getDateEditor();
 		// Deixa máscara do campo visível
 		dcInicioEditor.setMaskVisible(true);
-		dcInicio.setBounds(76, 65, 128, 27);
+		dcInicio.setBounds(76, 60, 128, 34);
 		dcInicio.setFont(new Font("Calibri", Font.PLAIN, 20));
 		getContentPane().add(dcInicio);
 
@@ -135,7 +136,7 @@ public class IFlLogs extends JInternalFrame {
 		// Deixa máscara do campo visível
 		dcFimEditor.setMaskVisible(true);
 		dcFim.setFont(new Font("Calibri", Font.PLAIN, 20));
-		dcFim.setBounds(254, 65, 128, 27);
+		dcFim.setBounds(254, 60, 128, 34);
 		getContentPane().add(dcFim);
 
 		JLabel lblFim = new JLabel("at\u00E9");
@@ -184,7 +185,8 @@ public class IFlLogs extends JInternalFrame {
 		lbTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(lbTitulo);
 
-		JButton btBuscaPeriodo = new JButton("Lupa");
+		JButton btBuscaPeriodo = new JButton("");
+		btBuscaPeriodo.setIcon(new ImageIcon(IFlLogs.class.getResource("/br/edu/ifc/videira/imgs/procurar-data.png")));
 		btBuscaPeriodo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (dcInicio.getDate() != null && dcFim.getDate() != null) {
@@ -219,12 +221,13 @@ public class IFlLogs extends JInternalFrame {
 				}
 			}
 		});
-		btBuscaPeriodo.setToolTipText("Inserir \u00EDcone de lupa");
+		btBuscaPeriodo.setToolTipText("Pesquisar data");
 		btBuscaPeriodo.setFont(new Font("IrisUPC", Font.PLAIN, 20));
-		btBuscaPeriodo.setBounds(401, 60, 60, 32);
+		btBuscaPeriodo.setBounds(401, 60, 42, 32);
 		getContentPane().add(btBuscaPeriodo);
 
-		JButton btLimparFiltro = new JButton("Apagador");
+		JButton btLimparFiltro = new JButton("");
+		btLimparFiltro.setIcon(new ImageIcon(IFlLogs.class.getResource("/br/edu/ifc/videira/imgs/apagador.png")));
 		btLimparFiltro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Preciso dessa ação para forçar a desceleção da linha na tabela, pois se
@@ -239,9 +242,9 @@ public class IFlLogs extends JInternalFrame {
 				}
 			}
 		});
-		btLimparFiltro.setToolTipText("Inserir \u00EDcone de Apagador");
+		btLimparFiltro.setToolTipText("Limpar sele\u00E7\u00E3o");
 		btLimparFiltro.setFont(new Font("IrisUPC", Font.PLAIN, 20));
-		btLimparFiltro.setBounds(932, 68, 42, 32);
+		btLimparFiltro.setBounds(931, 60, 42, 34);
 		getContentPane().add(btLimparFiltro);
 
 		lbAvisoSelecao = new JLabel("Limpe a sele\u00E7\u00E3o para pesquisar novamente!");

@@ -25,6 +25,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
 import javax.swing.JCheckBox;
+import javax.swing.ImageIcon;
 
 public class IFpEditarPessoas extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
@@ -39,7 +40,7 @@ public class IFpEditarPessoas extends JInternalFrame {
 	QuemDao qd = new QuemDao();
 	private JTextField tfContato;
 	private JCheckBox cboxSaldoNegativo;
-	private JButton btRegistrar;
+	private JButton btSalvar;
 	private JButton btAtualizar;
 
 	public IFpEditarPessoas() {
@@ -92,8 +93,8 @@ public class IFpEditarPessoas extends JInternalFrame {
 					}else {
 						cboxSaldoNegativo.setSelected(false);
 					}
-					btRegistrar.setEnabled(false);
-					btRegistrar.setToolTipText("Clique no botão de limpar para habilitar um novo registro");
+					btSalvar.setEnabled(false);
+					btSalvar.setToolTipText("Clique no botão de limpar para habilitar um novo registro");
 					btAtualizar.setEnabled(true);
 					btAtualizar.setToolTipText("Atualizar a pessoa modificada");
 				}
@@ -123,8 +124,9 @@ public class IFpEditarPessoas extends JInternalFrame {
 		table.getColumnModel().getColumn(1).setPreferredWidth(383);
 		atualizarTabela();
 
-		btRegistrar = new JButton("Registrar");
-		btRegistrar.addActionListener(new ActionListener() {
+		btSalvar = new JButton("Salvar");
+		btSalvar.setIcon(new ImageIcon(IFpEditarPessoas.class.getResource("/br/edu/ifc/videira/imgs/salvar.png")));
+		btSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				if (!tfNome.getText().isEmpty()) {
@@ -153,12 +155,13 @@ public class IFpEditarPessoas extends JInternalFrame {
 				}
 			}
 		});
-		btRegistrar.setToolTipText("Salvar um novo registro");
-		btRegistrar.setFont(MainInternalFrame.fonte4);
-		btRegistrar.setBounds(23, 448, 144, 32);
-		getContentPane().add(btRegistrar);
+		btSalvar.setToolTipText("Salvar um novo registro");
+		btSalvar.setFont(MainInternalFrame.fonteBotoes);
+		btSalvar.setBounds(23, 448, 149, 39);
+		getContentPane().add(btSalvar);
 
 		btAtualizar = new JButton("Atualizar");
+		btAtualizar.setIcon(new ImageIcon(IFpEditarPessoas.class.getResource("/br/edu/ifc/videira/imgs/atualizar.png")));
 		btAtualizar.setEnabled(false);
 		btAtualizar.setToolTipText("Selecione uma pessoa na tabela para habilitar a atualização");
 		btAtualizar.addActionListener(new ActionListener() {
@@ -184,8 +187,8 @@ public class IFpEditarPessoas extends JInternalFrame {
 			}
 		});
 		// ### - btAtualizar.setToolTipText("Necessita autentica\u00E7\u00E3o");
-		btAtualizar.setFont(MainInternalFrame.fonte4);
-		btAtualizar.setBounds(209, 448, 144, 32);
+		btAtualizar.setFont(MainInternalFrame.fonteBotoes);
+		btAtualizar.setBounds(209, 448, 149, 39);
 		getContentPane().add(btAtualizar);
 
 		tfCod = new JTextField();
@@ -207,14 +210,15 @@ public class IFpEditarPessoas extends JInternalFrame {
 		getContentPane().add(lbSaldo);
 
 		JButton btLimpar = new JButton("Limpar");
+		btLimpar.setIcon(new ImageIcon(IFpEditarPessoas.class.getResource("/br/edu/ifc/videira/imgs/apagador.png")));
 		btLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				limpar();
 			}
 		});
 		btLimpar.setToolTipText("Limpar seleção/valores inseridos");
-		btLimpar.setFont(MainInternalFrame.fonte4);
-		btLimpar.setBounds(390, 448, 144, 32);
+		btLimpar.setFont(MainInternalFrame.fonteBotoes);
+		btLimpar.setBounds(385, 448, 149, 39);
 		getContentPane().add(btLimpar);
 
 		JLabel lbContato = new JLabel("Contato:");
@@ -251,8 +255,8 @@ public class IFpEditarPessoas extends JInternalFrame {
 		cboxSaldoNegativo.setSelected(false);
 		btAtualizar.setEnabled(false);
 		btAtualizar.setToolTipText("Selecione uma pessoa na tabela para habilitar a atualização");
-		btRegistrar.setEnabled(true);
-		btRegistrar.setToolTipText("Salvar um novo registro");
+		btSalvar.setEnabled(true);
+		btSalvar.setToolTipText("Salvar um novo registro");
 		table.clearSelection();
 
 	}

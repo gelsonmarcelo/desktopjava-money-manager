@@ -20,6 +20,7 @@ import br.edu.ifc.videira.DAOs.UsuarioDao;
 import br.edu.ifc.videira.utils.ComboBoxModel;
 
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 
 public class MainInternalFrame extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
@@ -39,6 +40,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 	static final Font fonte6 = new Font("Sitka Subheading", Font.PLAIN, 15);
 	static final Font fonte7 = new Font("Sitka Subheading", Font.PLAIN, 10);
 	static final Font fonte8 = new Font("Sitka Subheading", Font.PLAIN, 05);
+	static final Font fonteBotoes = new Font("Sitka Subheading", Font.PLAIN, 22);
 	static final Font fonteTabela = new Font("Trebuchet MS", Font.PLAIN, 15);
 	static final Font FonteJNumberFormatField = new Font("Calibri", Font.PLAIN, 20);
 	public static JComboBox<Object> cbTema;
@@ -166,6 +168,10 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 			}
 		});
 		desktop.add(cbTema);
+		
+		JLabel lbAtribuicao = new JLabel("\u00CDcones feitos por Freepik, xnimrodx, Pixel perfect, Good Ware, Becris, ");
+		lbAtribuicao.setBounds(10, 576, 423, 14);
+		desktop.add(lbAtribuicao);
 
 		menuBar.setFont(fonte5);
 		setJMenuBar(createMenuBar());

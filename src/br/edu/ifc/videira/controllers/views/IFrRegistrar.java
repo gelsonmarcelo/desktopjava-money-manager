@@ -28,6 +28,7 @@ import br.edu.ifc.videira.utils.JNumberFormatField;
 import javax.swing.JTextField;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
 
 public class IFrRegistrar extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
@@ -101,7 +102,8 @@ public class IFrRegistrar extends JInternalFrame {
 		getContentPane().add(tfValor);
 		
 
-		JButton btEditarQuem = new JButton("Editar pessoas");
+		JButton btEditarQuem = new JButton("Editar Pessoas");
+		btEditarQuem.setIcon(new ImageIcon(IFrRegistrar.class.getResource("/br/edu/ifc/videira/imgs/editar.png")));
 		btEditarQuem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				IFpEditarPessoas frame = new IFpEditarPessoas();
@@ -114,8 +116,8 @@ public class IFrRegistrar extends JInternalFrame {
 				}
 			}
 		});
-		btEditarQuem.setFont(MainInternalFrame.fonte5);
-		btEditarQuem.setBounds(254, 303, 161, 26);
+		btEditarQuem.setFont(MainInternalFrame.fonteBotoes);
+		btEditarQuem.setBounds(52, 365, 211, 41);
 		getContentPane().add(btEditarQuem);
 
 		JLabel lblTipoDeRegistro = new JLabel("*Tipo de Registro:");
@@ -254,13 +256,14 @@ public class IFrRegistrar extends JInternalFrame {
 		getContentPane().add(lblLocal);
 
 		JButton btLimpar = new JButton("Limpar");
+		btLimpar.setIcon(new ImageIcon(IFrRegistrar.class.getResource("/br/edu/ifc/videira/imgs/apagador.png")));
 		btLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				limpar();
 			}
 		});
 		btLimpar.setToolTipText("Limpar todos os dados");
-		btLimpar.setFont(MainInternalFrame.fonte4);
+		btLimpar.setFont(MainInternalFrame.fonteBotoes);
 		btLimpar.setBounds(463, 427, 155, 41);
 		getContentPane().add(btLimpar);
 
@@ -306,6 +309,7 @@ public class IFrRegistrar extends JInternalFrame {
 		getContentPane().add(rbConta);
 				
 		btRegistrar = new JButton("Finalizar");
+		btRegistrar.setIcon(new ImageIcon(IFrRegistrar.class.getResource("/br/edu/ifc/videira/imgs/salvar.png")));
 		btRegistrar.setToolTipText("Terminar lan\u00E7amento");
 		btRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -392,7 +396,7 @@ public class IFrRegistrar extends JInternalFrame {
 				}
 			}
 		});
-		btRegistrar.setFont(MainInternalFrame.fonte4);
+		btRegistrar.setFont(MainInternalFrame.fonteBotoes);
 		btRegistrar.setBounds(296, 426, 155, 41);
 		getContentPane().add(btRegistrar);
 		
