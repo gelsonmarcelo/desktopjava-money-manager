@@ -28,6 +28,8 @@ import br.edu.ifc.videira.utils.JNumberFormatField;
 import javax.swing.JCheckBox;
 import javax.swing.border.EmptyBorder;
 import javax.swing.ImageIcon;
+import javax.swing.event.CaretListener;
+import javax.swing.event.CaretEvent;
 
 public class IFiEditarInstituicao extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
@@ -41,7 +43,6 @@ public class IFiEditarInstituicao extends JInternalFrame {
 	private JTextField tfCod;
 //	private JTextField tfSubs;
 	private JTextField tfSaldo;
-	private JButton btAtualizar;
 	private JButton btExcluir;
 	private JButton btSalvar;
 	private JCheckBox cboxSaldoNegativo;
@@ -58,7 +59,7 @@ public class IFiEditarInstituicao extends JInternalFrame {
 		// ...Create the GUI and put it in the window...
 
 		// ...Then set the window size or call pack...
-		setSize(565, 590);
+		setSize(578, 567);
 
 		// Set the window's location.
 		setLocation(IFuLogin.xOffset * IFuLogin.openFrameCount, IFuLogin.yOffset * IFuLogin.openFrameCount);
@@ -66,7 +67,7 @@ public class IFiEditarInstituicao extends JInternalFrame {
 
 		JLabel lbTitle = new JLabel("Editar institui\u00E7\u00E3o");
 		lbTitle.setFont(MainInternalFrame.fonte1);
-		lbTitle.setBounds(0, 0, 549, 55);
+		lbTitle.setBounds(10, 0, 542, 55);
 		lbTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(lbTitle);
 
@@ -77,62 +78,17 @@ public class IFiEditarInstituicao extends JInternalFrame {
 
 		tfInstituicao = new JTextField();
 		tfInstituicao.setFont(MainInternalFrame.fonte4);
-		tfInstituicao.setBounds(158, 320, 376, 34);
+		tfInstituicao.setBounds(158, 320, 391, 34);
 		getContentPane().add(tfInstituicao);
 		tfInstituicao.setColumns(10);
 		
-		btSalvar = new JButton("Salvar");
+		btSalvar = new JButton("Cadastrar");
 		btSalvar.setIcon(new ImageIcon(IFiEditarInstituicao.class.getResource("/br/edu/ifc/videira/imgs/salvar.png")));
-		btSalvar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//Validação para campo em branco
-				if(!tfInstituicao.getText().equals("") && !(cbTipo.getSelectedIndex()==0)) {
-					in.setNome(tfInstituicao.getText());
-					in.setIdTipo(String.valueOf(cbTipo.getSelectedItem()));
-					in.setSaldo(tfSaldo.getText(), cboxSaldoNegativo.isSelected());
-					try {
-						inDao.cadastrarInstituicao(in);
-						JOptionPane.showMessageDialog(null, "Instituição cadastrada com sucesso!");
-					} catch (Exception e1) {
-						JOptionPane.showMessageDialog(null, "Ocorreu um erro, o cadastro da instituição não foi executado corretamente, contate o desenvolvedor e informe o código ''!", "Erro inesperado", JOptionPane.ERROR_MESSAGE);
-					}
-					atualizarTabela();
-					limpar();
-					
-				}else {
-					JOptionPane.showMessageDialog(null, "Informe pelo menos o nome e tipo da instituição para cadastrar!", "Campo obrigatório em branco", JOptionPane.WARNING_MESSAGE);
-				}
-			}
-		});
-		btSalvar.setToolTipText("Preencha os dados para cadastrar uma nova instituição");
+		btSalvar.addActionListener(new AcaoSalvar());
+		btSalvar.setToolTipText("Preencha os dados para cadastrar uma nova instituição ou selecione uma linha da tabela para atualizar.");
 		btSalvar.setFont(MainInternalFrame.fonteBotoes);
-		btSalvar.setBounds(15, 510, 155, 41);
+		btSalvar.setBounds(15, 477, 170, 41);
 		getContentPane().add(btSalvar);
-		
-		btAtualizar = new JButton("Atualizar");
-		btAtualizar.setIcon(new ImageIcon(IFiEditarInstituicao.class.getResource("/br/edu/ifc/videira/imgs/atualizar.png")));
-		btAtualizar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				in.setNome(tfInstituicao.getText());
-				in.setIdTipo(String.valueOf(cbTipo.getSelectedItem()));
-				in.setSaldo(tfSaldo.getText(), cboxSaldoNegativo.isSelected());
-				in.setCodigo(tfCod.getText());
-				
-				try {
-					inDao.atualizarInstituicao(in);
-					atualizarTabela();
-					limpar();
-					
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		btAtualizar.setEnabled(false);
-		btAtualizar.setToolTipText("Selecione uma linha da tabela para atualizar");		
-		btAtualizar.setFont(MainInternalFrame.fonteBotoes);
-		btAtualizar.setBounds(201, 510, 155, 41);
-		getContentPane().add(btAtualizar);
 		
 		btExcluir = new JButton("Excluir");
 		btExcluir.setIcon(new ImageIcon(IFiEditarInstituicao.class.getResource("/br/edu/ifc/videira/imgs/lixeira.png")));
@@ -168,13 +124,24 @@ public class IFiEditarInstituicao extends JInternalFrame {
 		});
 		btExcluir.setToolTipText("Selecione uma linha da tabela para excluir");
 		btExcluir.setFont(MainInternalFrame.fonteBotoes);
-		btExcluir.setBounds(379, 510, 155, 41);
+		btExcluir.setBounds(379, 477, 170, 41);
 		getContentPane().add(btExcluir);
 		
 		tfCod = new JTextField();
+		tfCod.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent arg0) {
+				if(btSalvar.getText().equals("Cadastrar")) {
+					btSalvar.setText("Atualizar");
+					btSalvar.setIcon(new ImageIcon(IFiEditarInstituicao.class.getResource("/br/edu/ifc/videira/imgs/atualizar.png")));
+				}else {
+					btSalvar.setText("Cadastrar");
+					btSalvar.setIcon(new ImageIcon(IFiEditarInstituicao.class.getResource("/br/edu/ifc/videira/imgs/salvar.png")));
+				}
+			}
+		});
 		tfCod.setEnabled(false);
 		tfCod.setColumns(10);
-		tfCod.setBounds(0, 532, 31, 28);
+		tfCod.setBounds(0, 509, 31, 28);
 		tfCod.setVisible(false);
 		getContentPane().add(tfCod);
 		
@@ -200,7 +167,7 @@ public class IFiEditarInstituicao extends JInternalFrame {
 //		getContentPane().add(btAdicionar);
 		
 		JScrollPane spInstituicao = new JScrollPane();
-		spInstituicao.setBounds(23, 66, 511, 242);
+		spInstituicao.setBounds(23, 66, 526, 242);
 		getContentPane().add(spInstituicao);
 
 		table = new JTable();
@@ -228,11 +195,6 @@ public class IFiEditarInstituicao extends JInternalFrame {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
-				btAtualizar.setEnabled(true);
-				btAtualizar.setToolTipText("Atualizar instituição");
-				btSalvar.setEnabled(false);
-				btSalvar.setToolTipText("Limpe a seleção para habilitar");
 			}
 		});
 		table.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -314,7 +276,7 @@ public class IFiEditarInstituicao extends JInternalFrame {
 		});
 		btLimpar.setToolTipText("Limpar sele\u00E7\u00E3o/valores");
 		btLimpar.setFont(MainInternalFrame.fonteBotoes);
-		btLimpar.setBounds(379, 458, 155, 41);
+		btLimpar.setBounds(197, 477, 170, 41);
 		getContentPane().add(btLimpar);
 				
 		cbTipo = new JComboBox<>();
@@ -326,7 +288,7 @@ public class IFiEditarInstituicao extends JInternalFrame {
 			JOptionPane.showMessageDialog(null, "Ocorreu um erro, contate o desenvolvedor e informe o código ''!", "Erro inesperado", JOptionPane.ERROR_MESSAGE);
 		}
 		cbTipo.setFont(MainInternalFrame.fonte5);
-		cbTipo.setBounds(158, 369, 376, 34);
+		cbTipo.setBounds(158, 369, 391, 34);
 		getContentPane().add(cbTipo);
 		
 		JLabel lblTipo = new JLabel("Tipo:");
@@ -368,16 +330,61 @@ public class IFiEditarInstituicao extends JInternalFrame {
 		tfCod.setText("");
 		cbTipo.setSelectedIndex(0);
 		cboxSaldoNegativo.setSelected(false);
-		
-		btSalvar.setEnabled(true);
-		btSalvar.setToolTipText("Cadastrar nova instituição");
-		
-		btAtualizar.setEnabled(false);
-		btAtualizar.setToolTipText("Selecione uma linha da tabela para atualizar");
-		
+
 		btExcluir.setEnabled(false);
 		btExcluir.setToolTipText("É necessário selecionar uma linha da tabela para excluir");
 		
 		table.clearSelection();
+	}
+	
+	/**
+	 * Método que vai definir qual ação será tomada quando o usuário clicar em salvar
+	 * Se o usuário tiver selecionado algum item da tabela essa função fará uma atualização do item
+	 * Se ele nao tiver selecionado nada, significa que é um novo cadastro.
+	 * @author Gelson
+	 *
+	 */
+	private class AcaoSalvar implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			//Se o campo de código estiver vazio o usuário nao selecionou nada da tabela.
+			if (tfCod.getText().isEmpty()) {
+				//Validação para campo em branco
+				if (!tfInstituicao.getText().equals("") && !(cbTipo.getSelectedIndex() == 0)) {
+					in.setNome(tfInstituicao.getText());
+					in.setIdTipo(String.valueOf(cbTipo.getSelectedItem()));
+					in.setSaldo(tfSaldo.getText(), cboxSaldoNegativo.isSelected());
+					try {
+						inDao.cadastrarInstituicao(in);
+						JOptionPane.showMessageDialog(null, "Instituição cadastrada com sucesso!");
+					} catch (Exception e1) {
+						JOptionPane.showMessageDialog(null,
+								"Ocorreu um erro, o cadastro da instituição não foi executado corretamente, contate o desenvolvedor e informe o código ''!",
+								"Erro inesperado", JOptionPane.ERROR_MESSAGE);
+					}
+					atualizarTabela();
+					limpar();
+
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"Informe pelo menos o nome e tipo da instituição para cadastrar!",
+							"Campo obrigatório em branco", JOptionPane.WARNING_MESSAGE);
+				} 
+			}else{
+				//Senão vai atualizar
+				in.setNome(tfInstituicao.getText());
+				in.setIdTipo(String.valueOf(cbTipo.getSelectedItem()));
+				in.setSaldo(tfSaldo.getText(), cboxSaldoNegativo.isSelected());
+				in.setCodigo(tfCod.getText());
+				
+				try {
+					inDao.atualizarInstituicao(in);
+					atualizarTabela();
+					limpar();
+					
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
 	}
 }

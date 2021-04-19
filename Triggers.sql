@@ -163,7 +163,7 @@ BEGIN
 END$$
 DELIMITER ;
 
-/*Usuário*/
+/*Usuário
 DROP TRIGGER IF EXISTS `mm`.`usuario_AFTER_UPDATE`;
 
 DELIMITER $$
@@ -179,3 +179,31 @@ BEGIN
 	);
 END$$
 DELIMITER ;
+*/
+DROP TRIGGER IF EXISTS `mm`.`usuario_AFTER_UPDATE`;
+
+DELIMITER $$
+USE `mm`$$
+CREATE DEFINER=`root`@`localhost` TRIGGER `usuario_AFTER_UPDATE` AFTER UPDATE ON `usuario` FOR EACH ROW BEGIN
+	set @mensagem = "Realizada alteração no(s) dado(s) do usuário: ";
+    if(old.senha != new.senha) THEN
+		set @mensagem = concat(@mensagem, "<senha alterada> ");
+    end if;
+	if(old.salario != new.salario) THEN
+		set @mensagem = concat(@mensagem, "<salário alterado de ", old.salario, " para ", new.salario, "> ");
+    end if;
+    if(old.tema != new.tema) THEN
+		set @mensagem = concat(@mensagem, "<tema preferido atualizado para ", new.tema, ">");
+    end if;
+    if(@mensagem != "Realizada alteração no(s) dado(s) do usuário: ") THEN
+		INSERT INTO mm.log values (
+			default, 
+			'Atualização', 
+			now(), 
+			@mensagem,
+			new.idusuario
+		);
+	end if;
+END$$
+DELIMITER ;
+

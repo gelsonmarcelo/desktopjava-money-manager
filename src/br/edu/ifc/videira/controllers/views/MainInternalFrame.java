@@ -152,6 +152,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 		cbTema.setFont(new Font("Sitka Subheading", Font.PLAIN, 20));
 		cbTema.setBounds(182, 24, 363, 26);
 		cbTema.addItemListener(new ItemListener() {
+			//### - Arrumar bug está executando esse código 2 vezes quando seleciona 1 vez o item.
 			public void itemStateChanged(ItemEvent e) {
 				try {
 					tema = cbTema.getSelectedItem().toString().split("\\* ")[1];
