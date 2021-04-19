@@ -2,7 +2,6 @@ package br.edu.ifc.videira.controllers.views;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +13,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 import javax.swing.table.DefaultTableModel;
 
 import br.edu.ifc.videira.DAOs.QuemDao;
@@ -41,7 +42,6 @@ public class IFpEditarPessoas extends JInternalFrame {
 	private JTextField tfContato;
 	private JCheckBox cboxSaldoNegativo;
 	private JButton btSalvar;
-	private JButton btAtualizar;
 
 	public IFpEditarPessoas() {
 		super("Editar Pessoas # " + (++IFuLogin.openFrameCount) + "º", false, // resizable
@@ -90,108 +90,52 @@ public class IFpEditarPessoas extends JInternalFrame {
 					tfSaldo.setText(saldo);
 					if (Double.parseDouble(saldo) < 0) {
 						cboxSaldoNegativo.setSelected(true);
-					}else {
+					} else {
 						cboxSaldoNegativo.setSelected(false);
 					}
-					btSalvar.setEnabled(false);
-					btSalvar.setToolTipText("Clique no botão de limpar para habilitar um novo registro");
-					btAtualizar.setEnabled(true);
-					btAtualizar.setToolTipText("Atualizar a pessoa modificada");
 				}
 			}
 		});
 		table.setFont(MainInternalFrame.fonteTabela);
 		spPessoas.setViewportView(table);
 		table.setModel(
-				new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"C\u00F3digo", "Nome", "Saldo", "Contato"
-			}
-		) {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
+				new DefaultTableModel(new Object[][] {}, new String[] { "C\u00F3digo", "Nome", "Saldo", "Contato" }) {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+					boolean[] columnEditables = new boolean[] { false, false, false, false };
+
+					public boolean isCellEditable(int row, int column) {
+						return columnEditables[column];
+					}
+				});
 		table.getColumnModel().getColumn(1).setPreferredWidth(383);
 		atualizarTabela();
 
-		btSalvar = new JButton("Salvar");
+		btSalvar = new JButton("Cadastrar");
 		btSalvar.setIcon(new ImageIcon(IFpEditarPessoas.class.getResource("/br/edu/ifc/videira/imgs/salvar.png")));
-		btSalvar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-				if (!tfNome.getText().isEmpty()) {
-					qm.setNome(tfNome.getText());
-					if (cboxSaldoNegativo.isSelected()) {
-						qm.setSaldo(tfSaldo.getText(), true);
-					} else {
-						qm.setSaldo(tfSaldo.getText(), false);
-					}
-
-					try {
-						qd.cadastrarPessoa(qm);
-						limpar();
-						atualizarTabela();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				} else {
-					JOptionPane.showMessageDialog(null,
-							"Pelo menos o nome da pessoa deve ser preenchido para cadastrar.",
-							"Campo obrigatório em branco", JOptionPane.WARNING_MESSAGE);
-				}
-			}
-		});
-		btSalvar.setToolTipText("Salvar um novo registro");
+		btSalvar.addActionListener(new AcaoSalvar());
+		btSalvar.setToolTipText(
+				"Preencha os dados para cadastrar uma nova pessoa ou selecione uma linha da tabela para atualizar.");
 		btSalvar.setFont(MainInternalFrame.fonteBotoes);
-		btSalvar.setBounds(23, 448, 149, 39);
+		btSalvar.setBounds(80, 448, 170, 39);
 		getContentPane().add(btSalvar);
 
-		btAtualizar = new JButton("Atualizar");
-		btAtualizar.setIcon(new ImageIcon(IFpEditarPessoas.class.getResource("/br/edu/ifc/videira/imgs/atualizar.png")));
-		btAtualizar.setEnabled(false);
-		btAtualizar.setToolTipText("Selecione uma pessoa na tabela para habilitar a atualização");
-		btAtualizar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-				if (!tfNome.getText().isEmpty()) {
-					qm.setCodigo(Integer.parseInt(tfCod.getText()));
-					qm.setNome(tfNome.getText());
-					qm.setSaldo(tfSaldo.getText(), cboxSaldoNegativo.isSelected());
-					try {
-						qd.atualizarPessoa(qm);
-						atualizarTabela();
-						limpar();
-
-					} catch (Exception e1) {
-						e1.printStackTrace();
-					}
+		tfCod = new JTextField();
+		tfCod.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent arg0) {
+				if (btSalvar.getText().equals("Cadastrar")) {
+					btSalvar.setText("Atualizar");
+					btSalvar.setIcon(new ImageIcon(
+							IFiEditarInstituicao.class.getResource("/br/edu/ifc/videira/imgs/atualizar.png")));
 				} else {
-					JOptionPane.showMessageDialog(null,
-							"Pelo menos o nome da pessoa deve ser preenchido para atualizar",
-							"Campo obrigatório em branco", JOptionPane.WARNING_MESSAGE);
+					btSalvar.setText("Cadastrar");
+					btSalvar.setIcon(new ImageIcon(
+							IFiEditarInstituicao.class.getResource("/br/edu/ifc/videira/imgs/salvar.png")));
 				}
 			}
 		});
-		// ### - btAtualizar.setToolTipText("Necessita autentica\u00E7\u00E3o");
-		btAtualizar.setFont(MainInternalFrame.fonteBotoes);
-		btAtualizar.setBounds(209, 448, 149, 39);
-		getContentPane().add(btAtualizar);
-
-		tfCod = new JTextField();
 		tfCod.setFont(MainInternalFrame.fonte4);
 		tfCod.setColumns(10);
 		tfCod.setBounds(0, 483, 31, 28);
@@ -218,7 +162,7 @@ public class IFpEditarPessoas extends JInternalFrame {
 		});
 		btLimpar.setToolTipText("Limpar seleção/valores inseridos");
 		btLimpar.setFont(MainInternalFrame.fonteBotoes);
-		btLimpar.setBounds(385, 448, 149, 39);
+		btLimpar.setBounds(300, 448, 170, 39);
 		getContentPane().add(btLimpar);
 
 		JLabel lbContato = new JLabel("Contato:");
@@ -253,12 +197,7 @@ public class IFpEditarPessoas extends JInternalFrame {
 		tfNome.setText("");
 		tfSaldo.setText("");
 		cboxSaldoNegativo.setSelected(false);
-		btAtualizar.setEnabled(false);
-		btAtualizar.setToolTipText("Selecione uma pessoa na tabela para habilitar a atualização");
-		btSalvar.setEnabled(true);
-		btSalvar.setToolTipText("Salvar um novo registro");
 		table.clearSelection();
-
 	}
 
 	/**
@@ -276,4 +215,61 @@ public class IFpEditarPessoas extends JInternalFrame {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 	}
+
+	/**
+	 * Método que vai definir qual ação será tomada quando o usuário clicar em
+	 * salvar Se o usuário tiver selecionado algum item da tabela essa função fará
+	 * uma atualização do item Se ele nao tiver selecionado nada, significa que é um
+	 * novo cadastro.
+	 * 
+	 * @author Gelson
+	 *
+	 */
+	private class AcaoSalvar implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			// Se o campo de código estiver vazio o usuário nao selecionou nada da tabela.
+			if (tfCod.getText().isEmpty()) {
+				if (!tfNome.getText().isEmpty()) {
+					qm.setNome(tfNome.getText());
+					if (cboxSaldoNegativo.isSelected()) {
+						qm.setSaldo(tfSaldo.getText(), true);
+					} else {
+						qm.setSaldo(tfSaldo.getText(), false);
+					}
+
+					try {
+						qd.cadastrarPessoa(qm);
+						limpar();
+						atualizarTabela();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"Pelo menos o nome da pessoa deve ser preenchido para cadastrar.",
+							"Campo obrigatório em branco", JOptionPane.WARNING_MESSAGE);
+				}
+			} else {
+				// Senão vai atualizar
+				if (!tfNome.getText().isEmpty()) {
+					qm.setCodigo(Integer.parseInt(tfCod.getText()));
+					qm.setNome(tfNome.getText());
+					qm.setSaldo(tfSaldo.getText(), cboxSaldoNegativo.isSelected());
+					try {
+						qd.atualizarPessoa(qm);
+						atualizarTabela();
+						limpar();
+
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"Pelo menos o nome da pessoa deve ser preenchido para atualizar",
+							"Campo obrigatório em branco", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		}
+	}
+
 }
