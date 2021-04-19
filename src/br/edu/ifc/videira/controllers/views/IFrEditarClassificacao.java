@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import br.edu.ifc.videira.DAOs.ClassificacaoDao;
 import br.edu.ifc.videira.DAOs.UsuarioDao;
 import br.edu.ifc.videira.beans.Classificacao;
-import java.awt.Font;
+import javax.swing.ImageIcon;
 
 public class IFrEditarClassificacao extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
@@ -31,7 +31,7 @@ public class IFrEditarClassificacao extends JInternalFrame {
 	Classificacao cf = new Classificacao();
 	private JTextField tfCod;
 	private JButton btAtualizar;
-	private JButton btCadastrar;
+	private JButton btSalvar;
 	private JButton btExcluir;
 
 	public IFrEditarClassificacao() {
@@ -70,8 +70,9 @@ public class IFrEditarClassificacao extends JInternalFrame {
 		spClassificacao.setBounds(23, 66, 511, 396);
 		getContentPane().add(spClassificacao);
 
-		btCadastrar = new JButton("Cadastrar");
-		btCadastrar.addActionListener(new ActionListener() {
+		btSalvar = new JButton("Salvar");
+		btSalvar.setIcon(new ImageIcon(IFrEditarClassificacao.class.getResource("/br/edu/ifc/videira/imgs/salvar.png")));
+		btSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Validação para campo em branco
 				if (!tfClassificacao.getText().isEmpty()) {
@@ -92,12 +93,13 @@ public class IFrEditarClassificacao extends JInternalFrame {
 				}
 			}
 		});
-		btCadastrar.setToolTipText("Cadastrar uma nova classificação");
-		btCadastrar.setFont(MainInternalFrame.fonte4);
-		btCadastrar.setBounds(23, 562, 144, 32);
-		getContentPane().add(btCadastrar);
+		btSalvar.setToolTipText("Cadastrar uma nova classificação");
+		btSalvar.setFont(MainInternalFrame.fonteBotoes);
+		btSalvar.setBounds(23, 562, 156, 32);
+		getContentPane().add(btSalvar);
 
 		btAtualizar = new JButton("Atualizar");
+		btAtualizar.setIcon(new ImageIcon(IFrEditarClassificacao.class.getResource("/br/edu/ifc/videira/imgs/atualizar.png")));
 		btAtualizar.setEnabled(false);
 		btAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -127,26 +129,26 @@ public class IFrEditarClassificacao extends JInternalFrame {
 			}
 		});
 		btAtualizar.setToolTipText("Selecione uma classificação da tabela para atualizar");
-		btAtualizar.setFont(MainInternalFrame.fonte4);
-		btAtualizar.setBounds(209, 562, 144, 32);
+		btAtualizar.setFont(MainInternalFrame.fonteBotoes);
+		btAtualizar.setBounds(200, 562, 156, 32);
 		getContentPane().add(btAtualizar);
 
 		JButton btLimpar = new JButton("Limpar");
+		btLimpar.setIcon(new ImageIcon(IFrEditarClassificacao.class.getResource("/br/edu/ifc/videira/imgs/apagador.png")));
 		btLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				limpar();
 			}
 		});
 		btLimpar.setToolTipText("Limpar sele\u00E7\u00E3o/valores");
-		btLimpar.setFont(MainInternalFrame.fonte4);
-		btLimpar.setBounds(390, 519, 144, 32);
+		btLimpar.setFont(MainInternalFrame.fonteBotoes);
+		btLimpar.setBounds(378, 519, 156, 32);
 		getContentPane().add(btLimpar);
 
 		tfCod = new JTextField("");
 		tfCod.setEnabled(false);
-		tfCod.setFont(MainInternalFrame.fonte4);
 		tfCod.setColumns(10);
-		tfCod.setBounds(23, 534, 31, 28);
+		tfCod.setBounds(0, 576, 31, 28);
 		tfCod.setVisible(false);
 		getContentPane().add(tfCod);
 
@@ -157,8 +159,8 @@ public class IFrEditarClassificacao extends JInternalFrame {
 				tfClassificacao.setText(String.valueOf(table.getValueAt(table.getSelectedRow(), 1)));
 				btAtualizar.setEnabled(true);
 				btAtualizar.setToolTipText("Atualizar classificação selecionada");
-				btCadastrar.setEnabled(false);
-				btCadastrar.setToolTipText("Limpe os dados para habilitar");
+				btSalvar.setEnabled(false);
+				btSalvar.setToolTipText("Limpe os dados para habilitar");
 				btExcluir.setEnabled(true);
 				btExcluir.setToolTipText("Excluir classificação selecionada");
 			}
@@ -183,6 +185,7 @@ public class IFrEditarClassificacao extends JInternalFrame {
 				});
 
 		btExcluir = new JButton("Excluir");
+		btExcluir.setIcon(new ImageIcon(IFrEditarClassificacao.class.getResource("/br/edu/ifc/videira/imgs/lixeira.png")));
 		btExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Se voltarValor é diferente de 2 significa que o usuário não cancelou a
@@ -200,8 +203,8 @@ public class IFrEditarClassificacao extends JInternalFrame {
 		});
 		btExcluir.setEnabled(false);
 		btExcluir.setToolTipText("Selecione uma classificação da tabela para excluir");
-		btExcluir.setFont(new Font("Sitka Subheading", Font.PLAIN, 25));
-		btExcluir.setBounds(390, 562, 144, 32);
+		btExcluir.setFont(MainInternalFrame.fonteBotoes);
+		btExcluir.setBounds(378, 562, 156, 32);
 		getContentPane().add(btExcluir);
 		table.getColumnModel().getColumn(0).setPreferredWidth(15);
 
@@ -216,8 +219,8 @@ public class IFrEditarClassificacao extends JInternalFrame {
 		tfClassificacao.setText("");
 		btAtualizar.setEnabled(false);
 		btAtualizar.setToolTipText("Selecione uma classificação da tabela para atualizar");
-		btCadastrar.setEnabled(true);
-		btCadastrar.setToolTipText("Cadastrar uma nova classificação");
+		btSalvar.setEnabled(true);
+		btSalvar.setToolTipText("Cadastrar uma nova classificação");
 		btExcluir.setEnabled(false);
 		btExcluir.setToolTipText("Selecione uma classificação da tabela para excluir");
 		table.clearSelection();

@@ -40,6 +40,7 @@ import br.edu.ifc.videira.DAOs.UsuarioDao;
 import br.edu.ifc.videira.beans.Registro;
 import br.edu.ifc.videira.utils.ComboBoxModel;
 import br.edu.ifc.videira.utils.JNumberFormatField;
+import javax.swing.ImageIcon;
 
 public class IFrVerRegistros extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
@@ -79,7 +80,7 @@ public class IFrVerRegistros extends JInternalFrame {
 
 		JLabel lblNewLabel = new JLabel("Buscar:");
 		lblNewLabel.setFont(MainInternalFrame.fonte4);
-		lblNewLabel.setBounds(625, 65, 100, 34);
+		lblNewLabel.setBounds(625, 60, 100, 34);
 		getContentPane().add(lblNewLabel);
 
 		tfBusca = new JTextField("digite o que procura");
@@ -137,7 +138,7 @@ public class IFrVerRegistros extends JInternalFrame {
 				}
 			}
 		});
-		tfBusca.setBounds(724, 66, 197, 34);
+		tfBusca.setBounds(724, 61, 197, 34);
 		getContentPane().add(tfBusca);
 		tfBusca.setColumns(10);
 
@@ -151,7 +152,7 @@ public class IFrVerRegistros extends JInternalFrame {
 		JTextFieldDateEditor dcInicioEditor = (JTextFieldDateEditor) dcInicio.getDateEditor();
 		// Deixa máscara do campo visível
 		dcInicioEditor.setMaskVisible(true);
-		dcInicio.setBounds(76, 65, 128, 27);
+		dcInicio.setBounds(76, 60, 128, 34);
 		dcInicio.setFont(new Font("Calibri", Font.PLAIN, 20));
 		getContentPane().add(dcInicio);
 
@@ -161,7 +162,7 @@ public class IFrVerRegistros extends JInternalFrame {
 		// Deixa máscara do campo visível
 		dcFimEditor.setMaskVisible(true);
 		dcFim.setFont(new Font("Calibri", Font.PLAIN, 20));
-		dcFim.setBounds(254, 65, 128, 27);
+		dcFim.setBounds(254, 60, 128, 32);
 		getContentPane().add(dcFim);
 
 		JLabel lblFim = new JLabel("at\u00E9");
@@ -243,7 +244,8 @@ public class IFrVerRegistros extends JInternalFrame {
 		table.getTableHeader().setReorderingAllowed(false);
 		table.setRowHeight(20);
 
-		btExcluirRegistro = new JButton("Excluir registro");
+		btExcluirRegistro = new JButton("Excluir");
+		btExcluirRegistro.setIcon(new ImageIcon(IFrVerRegistros.class.getResource("/br/edu/ifc/videira/imgs/lixeira.png")));
 		btExcluirRegistro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int voltarValor;
@@ -284,12 +286,14 @@ public class IFrVerRegistros extends JInternalFrame {
 				}
 			}
 		});
-		btExcluirRegistro.setToolTipText("Necessita autentica\u00E7\u00E3o");
-		btExcluirRegistro.setFont(MainInternalFrame.fonte4);
-		btExcluirRegistro.setBounds(254, 568, 215, 32);
+		btExcluirRegistro.setToolTipText("Eliminar o registro");
+		btExcluirRegistro.setFont(MainInternalFrame.fonteBotoes);
+		btExcluirRegistro.setBounds(552, 568, 173, 41);
 		getContentPane().add(btExcluirRegistro);
 
-		btEditarRegistro = new JButton("Editar Registro");
+		btEditarRegistro = new JButton("Editar");
+		btEditarRegistro.setIcon(new ImageIcon(IFrVerRegistros.class.getResource("/br/edu/ifc/videira/imgs/editar.png")));
+		btEditarRegistro.setToolTipText("Alterar o registro");
 		btEditarRegistro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Se o retorno do método getSelectedRow tem valor diferente de -1, significa
@@ -373,8 +377,8 @@ public class IFrVerRegistros extends JInternalFrame {
 				}
 			}
 		});
-		btEditarRegistro.setFont(MainInternalFrame.fonte4);
-		btEditarRegistro.setBounds(521, 568, 215, 32);
+		btEditarRegistro.setFont(MainInternalFrame.fonteBotoes);
+		btEditarRegistro.setBounds(296, 568, 173, 41);
 		getContentPane().add(btEditarRegistro);
 
 		JLabel lbTitulo = new JLabel("Ver Registros         ");
@@ -383,7 +387,8 @@ public class IFrVerRegistros extends JInternalFrame {
 		lbTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(lbTitulo);
 
-		JButton btBuscaPeriodo = new JButton("Lupa");
+		JButton btBuscaPeriodo = new JButton("");
+		btBuscaPeriodo.setIcon(new ImageIcon(IFrVerRegistros.class.getResource("/br/edu/ifc/videira/imgs/procurar-data.png")));
 		btBuscaPeriodo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (dcInicio.getDate() != null && dcFim.getDate() != null) {
@@ -418,12 +423,13 @@ public class IFrVerRegistros extends JInternalFrame {
 				}
 			}
 		});
-		btBuscaPeriodo.setToolTipText("Inserir \u00EDcone de lupa");
+		btBuscaPeriodo.setToolTipText("Buscar registros no per\u00EDodo selecionado");
 		btBuscaPeriodo.setFont(new Font("IrisUPC", Font.PLAIN, 20));
-		btBuscaPeriodo.setBounds(401, 60, 60, 32);
+		btBuscaPeriodo.setBounds(401, 60, 42, 32);
 		getContentPane().add(btBuscaPeriodo);
 
-		JButton btLimparFiltro = new JButton("Apagador");
+		JButton btLimparFiltro = new JButton("");
+		btLimparFiltro.setIcon(new ImageIcon(IFrVerRegistros.class.getResource("/br/edu/ifc/videira/imgs/apagador.png")));
 		btLimparFiltro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Preciso dessa ação para forçar a desceleção da linha na tabela, pois se
@@ -438,9 +444,9 @@ public class IFrVerRegistros extends JInternalFrame {
 				}
 			}
 		});
-		btLimparFiltro.setToolTipText("Inserir \u00EDcone de Apagador");
-		btLimparFiltro.setFont(new Font("IrisUPC", Font.PLAIN, 20));
-		btLimparFiltro.setBounds(932, 68, 42, 32);
+		btLimparFiltro.setToolTipText("Limpar sele\u00E7\u00E3o da tabela");
+		btLimparFiltro.setFont(MainInternalFrame.fonteBotoes);
+		btLimparFiltro.setBounds(932, 60, 42, 32);
 		getContentPane().add(btLimparFiltro);
 
 		lbAvisoSelecao = new JLabel("Limpe a sele\u00E7\u00E3o para pesquisar novamente!");

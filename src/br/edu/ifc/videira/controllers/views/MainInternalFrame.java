@@ -12,6 +12,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import java.awt.event.*;
+import java.net.URL;
 import java.sql.SQLException;
 import java.awt.*;
 import javax.swing.border.BevelBorder;
@@ -21,6 +22,8 @@ import br.edu.ifc.videira.utils.ComboBoxModel;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
 public class MainInternalFrame extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
@@ -55,12 +58,17 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(null, "Falha ao carregar tema\n" + ex.getMessage(), "Falha",
 					JOptionPane.WARNING_MESSAGE);
 		}
+		
+		//### - Adicionar imagem ícone do sistema
+		URL url = this.getClass().getResource("");
+		Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+		this.setIconImage(imagemTitulo);
 
 		// Make the big window be indented 50 pixels from each edge
 		// of the screen.
 		int inset = 50;
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		setBounds(inset, inset, screenSize.width - inset * 2, screenSize.height - inset * 2);
+		//Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setBounds(inset, inset, 2000, 2000);
 
 		// Set up the GUI.
 		desktop = new JDesktopPane(); // a specialized layered pane
@@ -142,7 +150,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 				"Solarized Light (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatSolarizedLightIJTheme",
 				"Solarized Light Contrast (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatSolarizedLightContrastIJTheme" }));
 		cbTema.setFont(new Font("Sitka Subheading", Font.PLAIN, 20));
-		cbTema.setBounds(10, 11, 363, 26);
+		cbTema.setBounds(182, 11, 363, 26);
 		cbTema.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				try {
@@ -169,9 +177,22 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 		});
 		desktop.add(cbTema);
 		
-		JLabel lbAtribuicao = new JLabel("\u00CDcones feitos por Freepik, xnimrodx, Pixel perfect, Good Ware, Becris, ");
-		lbAtribuicao.setBounds(10, 576, 423, 14);
+		JLabel lbAtribuicao = new JLabel("\u00CDcones feitos por Freepik, xnimrodx, Pixel perfect, Good Ware, Becris, dDara e ultimatearm. Photo by Michael Longmire on Unsplash.");
+		lbAtribuicao.setForeground(Color.BLACK);
+		lbAtribuicao.setHorizontalAlignment(SwingConstants.TRAILING);
+		lbAtribuicao.setBounds(605, 0, 759, 32);
 		desktop.add(lbAtribuicao);
+		
+		JLabel lbTema = new JLabel("Personalizar tema:");
+		lbTema.setForeground(Color.BLACK);
+		lbTema.setFont(MainInternalFrame.fonte5);
+		lbTema.setBounds(10, 11, 184, 26);
+		desktop.add(lbTema);
+		
+		JLabel lbImagemFundo = new JLabel("");
+		lbImagemFundo.setIcon(new ImageIcon(MainInternalFrame.class.getResource("/br/edu/ifc/videira/imgs/fundo-money-grande.jpg")));
+		lbImagemFundo.setBounds(0, 0, 1364, 721);
+		desktop.add(lbImagemFundo);
 
 		menuBar.setFont(fonte5);
 		setJMenuBar(createMenuBar());
@@ -326,7 +347,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 	// Create a new internal frame.
 	protected void login() {
 		IFuLogin frame = new IFuLogin();
-		frame.setLocation(219, 0);
+		frame.setLocation(312, 144);
 		menuBar.setVisible(false);
 		frame.setVisible(true);
 		frame.centralizarJanela();

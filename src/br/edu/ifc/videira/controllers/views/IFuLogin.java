@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 import br.edu.ifc.videira.DAOs.UsuarioDao;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
 
 public class IFuLogin extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
@@ -39,26 +40,26 @@ public class IFuLogin extends JInternalFrame {
 
 		// ...Then set the window size or call pack...
 
-		setSize(378, 319);
+		setSize(360, 292);
 
 		// Set the window's location.
 		setLocation(xOffset * openFrameCount, yOffset * openFrameCount);
 		getContentPane().setLayout(null);
 
 		JLabel lbTitle = new JLabel("Login");
-		lbTitle.setFont(MainInternalFrame.fonte3);
-		lbTitle.setBounds(0, 0, 362, 55);
+		lbTitle.setFont(MainInternalFrame.fonte4);
+		lbTitle.setBounds(0, 0, 326, 34);
 		lbTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(lbTitle);
 
-		JLabel lblNewLabel = new JLabel("Usu\u00E1rio:");
-		lblNewLabel.setFont(MainInternalFrame.fonte4);
-		lblNewLabel.setBounds(34, 71, 115, 34);
-		getContentPane().add(lblNewLabel);
+		JLabel lbUsuario = new JLabel("Usu\u00E1rio:");
+		lbUsuario.setFont(MainInternalFrame.fonte5);
+		lbUsuario.setBounds(29, 45, 115, 32);
+		getContentPane().add(lbUsuario);
 
 		JLabel lblSenha = new JLabel("Senha:");
-		lblSenha.setFont(MainInternalFrame.fonte4);
-		lblSenha.setBounds(34, 124, 100, 34);
+		lblSenha.setFont(MainInternalFrame.fonte5);
+		lblSenha.setBounds(27, 92, 100, 32);
 		getContentPane().add(lblSenha);
 
 		tfLogin = new JTextField();
@@ -74,7 +75,7 @@ public class IFuLogin extends JInternalFrame {
 			}
 		});
 		tfLogin.setFont(MainInternalFrame.fonte5);
-		tfLogin.setBounds(134, 73, 197, 34);
+		tfLogin.setBounds(127, 44, 197, 34);
 		getContentPane().add(tfLogin);
 		tfLogin.setColumns(10);
 
@@ -90,10 +91,11 @@ public class IFuLogin extends JInternalFrame {
 		});
 		psSenha.setFont(MainInternalFrame.fonte5);
 		psSenha.setColumns(10);
-		psSenha.setBounds(134, 126, 197, 32);
+		psSenha.setBounds(127, 92, 197, 32);
 		getContentPane().add(psSenha);
 
 		btAcessar = new JButton("Acessar");
+		btAcessar.setIcon(new ImageIcon(IFuLogin.class.getResource("/br/edu/ifc/videira/imgs/entrar.png")));
 		btAcessar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				/**
@@ -113,18 +115,19 @@ public class IFuLogin extends JInternalFrame {
 				btAcessar.setText("Acessar");
 			}
 		});
-		btAcessar.setFont(MainInternalFrame.fonte5);
-		btAcessar.setBounds(118, 197, 139, 34);
+		btAcessar.setFont(MainInternalFrame.fonteBotoes);
+		btAcessar.setBounds(27, 163, 139, 34);
 		getContentPane().add(btAcessar);
 
 		JButton btSair = new JButton("Sair");
+		btSair.setIcon(new ImageIcon(IFuLogin.class.getResource("/br/edu/ifc/videira/imgs/cancelar.png")));
 		btSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
-		btSair.setFont(MainInternalFrame.fonte5);
-		btSair.setBounds(192, 242, 139, 34);
+		btSair.setFont(MainInternalFrame.fonteBotoes);
+		btSair.setBounds(185, 163, 139, 34);
 		getContentPane().add(btSair);
 
 		JLabel lbSenhaPerdida = new JLabel("Perdi a senha!");
@@ -139,18 +142,19 @@ public class IFuLogin extends JInternalFrame {
 			}
 		});
 		lbSenhaPerdida.setFont(MainInternalFrame.fonte6);
-		lbSenhaPerdida.setBounds(134, 161, 123, 14);
+		lbSenhaPerdida.setBounds(127, 127, 123, 14);
 		getContentPane().add(lbSenhaPerdida);
 
 		JButton btCadastrar = new JButton("Cadastrar");
+		btCadastrar.setIcon(new ImageIcon(IFuLogin.class.getResource("/br/edu/ifc/videira/imgs/cadastro.png")));
 		btCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FuCadastrarUsuario frame = new FuCadastrarUsuario();
 				frame.setVisible(true);
 			}
 		});
-		btCadastrar.setFont(MainInternalFrame.fonte5);
-		btCadastrar.setBounds(34, 242, 139, 34);
+		btCadastrar.setFont(MainInternalFrame.fonteBotoes);
+		btCadastrar.setBounds(86, 208, 164, 34);
 		getContentPane().add(btCadastrar);
 	}
 

@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 
 import br.edu.ifc.videira.DAOs.UsuarioDao;
 import br.edu.ifc.videira.beans.Usuario;
+import javax.swing.ImageIcon;
 
 public class IFuEditarUsuario extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
@@ -41,7 +42,7 @@ public class IFuEditarUsuario extends JInternalFrame {
 		// ...Create the GUI and put it in the window...
 
 		// ...Then set the window size or call pack...
-		setSize(413, 374);
+		setSize(427, 374);
 
 		// Set the window's location.
 		setLocation(IFuLogin.xOffset * IFuLogin.openFrameCount, IFuLogin.yOffset * IFuLogin.openFrameCount);
@@ -118,6 +119,7 @@ public class IFuEditarUsuario extends JInternalFrame {
 		getContentPane().add(lblConfirmarSenha);
 		
 		JButton btSalvar = new JButton("Salvar");
+		btSalvar.setIcon(new ImageIcon(IFuEditarUsuario.class.getResource("/br/edu/ifc/videira/imgs/salvar.png")));
 		btSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//Se não tem campos vazios
@@ -157,17 +159,18 @@ public class IFuEditarUsuario extends JInternalFrame {
 				}
 			}
 		});
-		btSalvar.setFont(MainInternalFrame.fonte5);
+		btSalvar.setFont(MainInternalFrame.fonteBotoes);
 		btSalvar.setBounds(58, 287, 155, 34);
 		getContentPane().add(btSalvar);
 		
 		JButton btCancelar = new JButton("Cancelar");
+		btCancelar.setIcon(new ImageIcon(IFuEditarUsuario.class.getResource("/br/edu/ifc/videira/imgs/cancelar.png")));
 		btCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
 			}
 		});
-		btCancelar.setFont(MainInternalFrame.fonte5);
+		btCancelar.setFont(MainInternalFrame.fonteBotoes);
 		btCancelar.setBounds(221, 287, 155, 34);
 		getContentPane().add(btCancelar);
 	}
