@@ -40,7 +40,7 @@ public class IFuLogin extends JInternalFrame {
 
 		// ...Then set the window size or call pack...
 
-		setSize(360, 292);
+		setSize(393, 292);
 
 		// Set the window's location.
 		setLocation(xOffset * openFrameCount, yOffset * openFrameCount);
@@ -48,7 +48,7 @@ public class IFuLogin extends JInternalFrame {
 
 		JLabel lbTitle = new JLabel("Login");
 		lbTitle.setFont(MainInternalFrame.fonte4);
-		lbTitle.setBounds(0, 0, 326, 34);
+		lbTitle.setBounds(0, 0, 367, 34);
 		lbTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(lbTitle);
 
@@ -75,7 +75,7 @@ public class IFuLogin extends JInternalFrame {
 			}
 		});
 		tfLogin.setFont(MainInternalFrame.fonte5);
-		tfLogin.setBounds(127, 44, 197, 34);
+		tfLogin.setBounds(127, 44, 240, 34);
 		getContentPane().add(tfLogin);
 		tfLogin.setColumns(10);
 
@@ -91,7 +91,7 @@ public class IFuLogin extends JInternalFrame {
 		});
 		psSenha.setFont(MainInternalFrame.fonte5);
 		psSenha.setColumns(10);
-		psSenha.setBounds(127, 92, 197, 32);
+		psSenha.setBounds(127, 92, 240, 32);
 		getContentPane().add(psSenha);
 
 		btAcessar = new JButton("Acessar");
@@ -103,7 +103,7 @@ public class IFuLogin extends JInternalFrame {
 				 */
 				if (UsuarioDao.validar(false, true, tfLogin.getText(), psSenha.getText())) {
 					MainInternalFrame.menuBar.setVisible(true);
-					JOptionPane.showMessageDialog(null, "Id do usuário: " + UsuarioDao.idUser);
+//					JOptionPane.showMessageDialog(null, "Id do usuário: " + UsuarioDao.idUser);
 					//Define o tema trazido do banco com base no usuário
 					MainInternalFrame.cbTema.setSelectedItem(usDao.recuperarTema());
 					
@@ -116,7 +116,7 @@ public class IFuLogin extends JInternalFrame {
 			}
 		});
 		btAcessar.setFont(MainInternalFrame.fonteBotoes);
-		btAcessar.setBounds(27, 163, 139, 34);
+		btAcessar.setBounds(27, 163, 164, 34);
 		getContentPane().add(btAcessar);
 
 		JButton btSair = new JButton("Sair");
@@ -127,7 +127,7 @@ public class IFuLogin extends JInternalFrame {
 			}
 		});
 		btSair.setFont(MainInternalFrame.fonteBotoes);
-		btSair.setBounds(185, 163, 139, 34);
+		btSair.setBounds(203, 163, 164, 34);
 		getContentPane().add(btSair);
 
 		JLabel lbSenhaPerdida = new JLabel("Perdi a senha!");
@@ -154,7 +154,7 @@ public class IFuLogin extends JInternalFrame {
 			}
 		});
 		btCadastrar.setFont(MainInternalFrame.fonteBotoes);
-		btCadastrar.setBounds(86, 208, 164, 34);
+		btCadastrar.setBounds(112, 208, 164, 34);
 		getContentPane().add(btCadastrar);
 	}
 

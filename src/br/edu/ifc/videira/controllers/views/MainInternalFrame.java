@@ -150,7 +150,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 				"Solarized Light (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatSolarizedLightIJTheme",
 				"Solarized Light Contrast (Material) * com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatSolarizedLightContrastIJTheme" }));
 		cbTema.setFont(new Font("Sitka Subheading", Font.PLAIN, 20));
-		cbTema.setBounds(182, 11, 363, 26);
+		cbTema.setBounds(182, 24, 363, 26);
 		cbTema.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				try {
@@ -177,16 +177,16 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 		});
 		desktop.add(cbTema);
 		
-		JLabel lbAtribuicao = new JLabel("\u00CDcones feitos por Freepik, xnimrodx, Pixel perfect, Good Ware, Becris, dDara e ultimatearm. Photo by Michael Longmire on Unsplash.");
+		JLabel lbAtribuicao = new JLabel("Photo by Michael Longmire on Unsplash. \u00CDcones feitos por Freepik, xnimrodx, Pixel perfect, Good Ware, Becris, dDara, ultimatearm, Payungkead, Icongeek26, Iconixar, turkkub, xnimrodx. ");
 		lbAtribuicao.setForeground(Color.BLACK);
 		lbAtribuicao.setHorizontalAlignment(SwingConstants.TRAILING);
-		lbAtribuicao.setBounds(605, 0, 759, 32);
+		lbAtribuicao.setBounds(10, 0, 1344, 19);
 		desktop.add(lbAtribuicao);
 		
 		JLabel lbTema = new JLabel("Personalizar tema:");
 		lbTema.setForeground(Color.BLACK);
 		lbTema.setFont(MainInternalFrame.fonte5);
-		lbTema.setBounds(10, 11, 184, 26);
+		lbTema.setBounds(10, 24, 184, 26);
 		desktop.add(lbTema);
 		
 		JLabel lbImagemFundo = new JLabel("");
@@ -204,11 +204,13 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 
 		// Set up the lone menu.
 		JMenu mnUsuario = new JMenu("Usu\u00E1rio");
+		mnUsuario.setIcon(new ImageIcon(MainInternalFrame.class.getResource("/br/edu/ifc/videira/imgs/usuario.png")));
 		mnUsuario.setFont(fonte5);
 		mnUsuario.setMnemonic(KeyEvent.VK_D);
 		menuBar.add(mnUsuario);
 
 		miEditarDados = new JMenuItem("Editar dados");
+		miEditarDados.setIcon(new ImageIcon(MainInternalFrame.class.getResource("/br/edu/ifc/videira/imgs/editar.png")));
 		miEditarDados.setFont(fonte5);
 		miEditarDados.setMnemonic(KeyEvent.VK_N);
 		miEditarDados.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.ALT_MASK));
@@ -217,6 +219,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 		mnUsuario.add(miEditarDados);
 
 		JMenuItem miLogout = new JMenuItem("Logout");
+		miLogout.setIcon(new ImageIcon(MainInternalFrame.class.getResource("/br/edu/ifc/videira/imgs/logout.png")));
 		miLogout.setFont(fonte5);
 		miLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -228,6 +231,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 
 		// Set up the second menu item.
 		miEncerrar = new JMenuItem("Encerrar");
+		miEncerrar.setIcon(new ImageIcon(MainInternalFrame.class.getResource("/br/edu/ifc/videira/imgs/cancelar.png")));
 		miEncerrar.setFont(fonte5);
 		miEncerrar.setMnemonic(KeyEvent.VK_Q);
 		miEncerrar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.ALT_MASK));
@@ -236,56 +240,66 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 		mnUsuario.add(miEncerrar);
 
 		JMenu mnRegistro = new JMenu("Registro");
+		mnRegistro.setIcon(new ImageIcon(MainInternalFrame.class.getResource("/br/edu/ifc/videira/imgs/registro.png")));
 		mnRegistro.setFont(fonte5);
 		menuBar.add(mnRegistro);
 
 		JMenuItem miRegistrar = new JMenuItem("Lançar");
+		miRegistrar.setIcon(new ImageIcon(MainInternalFrame.class.getResource("/br/edu/ifc/videira/imgs/registrar.png")));
 		miRegistrar.setFont(fonte5);
 		miRegistrar.setActionCommand("registrar");
 		miRegistrar.addActionListener(this);
 		mnRegistro.add(miRegistrar);
 
 		JMenuItem miVerRegistro = new JMenuItem("Ver lançamentos");
+		miVerRegistro.setIcon(new ImageIcon(MainInternalFrame.class.getResource("/br/edu/ifc/videira/imgs/ver-registros.png")));
 		miVerRegistro.setFont(fonte5);
 		miVerRegistro.setActionCommand("verRegistros");
 		miVerRegistro.addActionListener(this);
 		mnRegistro.add(miVerRegistro);
 
 		JMenuItem miEditarClassificao = new JMenuItem("Editar classifica\u00E7\u00E3o");
+		miEditarClassificao.setIcon(new ImageIcon(MainInternalFrame.class.getResource("/br/edu/ifc/videira/imgs/editar.png")));
 		miEditarClassificao.setFont(fonte5);
 		miEditarClassificao.setActionCommand("editarClassificacao");
 		miEditarClassificao.addActionListener(this);
 		mnRegistro.add(miEditarClassificao);
 
 		JMenu mnInstituicoes = new JMenu("Institui\u00E7\u00F5es");
+		mnInstituicoes.setIcon(new ImageIcon(MainInternalFrame.class.getResource("/br/edu/ifc/videira/imgs/instituicao.png")));
 		mnInstituicoes.setFont(fonte5);
 		menuBar.add(mnInstituicoes);
 
 		JMenuItem miTransferencia = new JMenuItem("Transferir valores");
+		miTransferencia.setIcon(new ImageIcon(MainInternalFrame.class.getResource("/br/edu/ifc/videira/imgs/transferir.png")));
 		miTransferencia.setFont(fonte5);
 		miTransferencia.setActionCommand("transferencia");
 		miTransferencia.addActionListener(this);
 		mnInstituicoes.add(miTransferencia);
 
 		JMenuItem miEditarInstituicao = new JMenuItem("Editar");
+		miEditarInstituicao.setIcon(new ImageIcon(MainInternalFrame.class.getResource("/br/edu/ifc/videira/imgs/editar.png")));
 		miEditarInstituicao.setFont(fonte5);
 		miEditarInstituicao.setActionCommand("editarInstituicao");
 		miEditarInstituicao.addActionListener(this);
 		mnInstituicoes.add(miEditarInstituicao);
 
 		JMenu mnContasMensais = new JMenu("Contas Mensais");
+		mnContasMensais.setIcon(new ImageIcon(MainInternalFrame.class.getResource("/br/edu/ifc/videira/imgs/contas.png")));
 		mnContasMensais.setFont(fonte5);
 		menuBar.add(mnContasMensais);
 		mnContasMensais.setEnabled(false);
 		mnContasMensais.setToolTipText("Não disponível");
 
 		JMenuItem miExibir = new JMenuItem("Exibir");
+		miExibir.setIcon(new ImageIcon(MainInternalFrame.class.getResource("/br/edu/ifc/videira/imgs/ver-registros.png")));
 		miExibir.setFont(fonte5);
 		miExibir.setActionCommand("verContas");
 		miExibir.addActionListener(this);
 		mnContasMensais.add(miExibir);
 
 		JMenuItem miCriar = new JMenuItem("Criar");
+		miCriar.setIcon(new ImageIcon(MainInternalFrame.class.getResource("/br/edu/ifc/videira/imgs/registrar.png")));
 		miCriar.setFont(fonte5);
 		miCriar.setActionCommand("registrar");
 		miCriar.setToolTipText("### - Travar no registro de contas");
@@ -293,20 +307,24 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 		mnContasMensais.add(miCriar);
 
 		JMenu mnPessoas = new JMenu("Pessoas");
+		mnPessoas.setIcon(new ImageIcon(MainInternalFrame.class.getResource("/br/edu/ifc/videira/imgs/pessoas.png")));
 		mnPessoas.setFont(fonte5);
 		menuBar.add(mnPessoas);
 
 		JMenuItem miAcessar = new JMenuItem("Acessar");
+		miAcessar.setIcon(new ImageIcon(MainInternalFrame.class.getResource("/br/edu/ifc/videira/imgs/registrar.png")));
 		miAcessar.setFont(fonte5);
 		miAcessar.setActionCommand("editarPessoas");
 		miAcessar.addActionListener(this);
 		mnPessoas.add(miAcessar);
 
 		JMenu mnLogsDoSistema = new JMenu("Logs do sistema");
+		mnLogsDoSistema.setIcon(new ImageIcon(MainInternalFrame.class.getResource("/br/edu/ifc/videira/imgs/logspng.png")));
 		mnLogsDoSistema.setFont(fonte5);
 		menuBar.add(mnLogsDoSistema);
 
 		JMenuItem miVer = new JMenuItem("Ver");
+		miVer.setIcon(new ImageIcon(MainInternalFrame.class.getResource("/br/edu/ifc/videira/imgs/ver-registros.png")));
 		miVer.setFont(fonte5);
 		miVer.setActionCommand("verLogs");
 		miVer.addActionListener(this);
