@@ -23,6 +23,8 @@ import br.edu.ifc.videira.DAOs.ClassificacaoDao;
 import br.edu.ifc.videira.DAOs.UsuarioDao;
 import br.edu.ifc.videira.beans.Classificacao;
 import javax.swing.ImageIcon;
+import javax.swing.Box;
+import java.awt.Component;
 
 public class IFrEditarClassificacao extends JInternalFrame {
 
@@ -45,55 +47,32 @@ public class IFrEditarClassificacao extends JInternalFrame {
 		// ...Create the GUI and put it in the window...
 
 		// ...Then set the window size or call pack...
-		setSize(600, 634);
+		setSize(496, 595);
 
 		// Set the window's location.
 		setLocation(IFuLogin.xOffset * IFuLogin.openFrameCount, IFuLogin.yOffset * IFuLogin.openFrameCount);
 		getContentPane().setLayout(null);
 
-		JLabel lbTitle = new JLabel("Editar classifica\u00E7\u00E3o");
-		lbTitle.setFont(MainInternalFrame.fonte1);
-		lbTitle.setBounds(0, 0, 574, 55);
+		JLabel lbTitle = new JLabel("Editar Classifica\u00E7\u00E3o");
+		lbTitle.setFont(MainInternalFrame.fonte3);
+		lbTitle.setBounds(10, 0, 454, 55);
 		lbTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(lbTitle);
 
 		JLabel lblClassificacao = new JLabel("Classifica\u00E7\u00E3o:");
 		lblClassificacao.setFont(MainInternalFrame.fonte4);
-		lblClassificacao.setBounds(23, 473, 164, 34);
+		lblClassificacao.setBounds(10, 464, 164, 34);
 		getContentPane().add(lblClassificacao);
 
 		tfClassificacao = new JTextField();
 		tfClassificacao.setFont(MainInternalFrame.fonte4);
-		tfClassificacao.setBounds(197, 474, 377, 34);
+		tfClassificacao.setBounds(184, 464, 286, 34);
 		getContentPane().add(tfClassificacao);
 		tfClassificacao.setColumns(10);
 
 		JScrollPane spClassificacao = new JScrollPane();
-		spClassificacao.setBounds(23, 66, 551, 396);
+		spClassificacao.setBounds(10, 56, 460, 396);
 		getContentPane().add(spClassificacao);
-
-		btSalvar = new JButton("Cadastrar");
-		btSalvar.setIcon(
-				new ImageIcon(IFrEditarClassificacao.class.getResource("/br/edu/ifc/videira/imgs/salvar.png")));
-		btSalvar.addActionListener(new AcaoSalvar());
-		btSalvar.setToolTipText(
-				"Preencha os dados para cadastrar uma nova classificação ou selecione uma linha da tabela para atualizar.");
-		btSalvar.setFont(MainInternalFrame.fonteBotoes);
-		btSalvar.setBounds(23, 562, 170, 32);
-		getContentPane().add(btSalvar);
-
-		JButton btLimpar = new JButton("Limpar");
-		btLimpar.setIcon(
-				new ImageIcon(IFrEditarClassificacao.class.getResource("/br/edu/ifc/videira/imgs/apagador.png")));
-		btLimpar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				limpar();
-			}
-		});
-		btLimpar.setToolTipText("Limpar sele\u00E7\u00E3o/valores");
-		btLimpar.setFont(MainInternalFrame.fonteBotoes);
-		btLimpar.setBounds(214, 562, 170, 32);
-		getContentPane().add(btLimpar);
 
 		tfCod = new JTextField("");
 		tfCod.addCaretListener(new CaretListener() {
@@ -111,7 +90,7 @@ public class IFrEditarClassificacao extends JInternalFrame {
 		});
 		tfCod.setEnabled(false);
 		tfCod.setColumns(10);
-		tfCod.setBounds(0, 576, 31, 28);
+		tfCod.setBounds(0, 545, 20, 20);
 		tfCod.setVisible(false);
 		getContentPane().add(tfCod);
 
@@ -130,41 +109,67 @@ public class IFrEditarClassificacao extends JInternalFrame {
 		// Impede movimentação das colunas pelo usuário
 		table.getTableHeader().setReorderingAllowed(false);
 		table.setModel(
-				new DefaultTableModel(new Object[][] {}, new String[] { "C\u00F3digo", "Classifica\u00E7\u00E3o" }) {
-					/**
-					 * 
-					 */
-					private static final long serialVersionUID = 1L;
-					boolean[] columnEditables = new boolean[] { false, false };
+				new DefaultTableModel(new Object[][] {}, new String[] { "C\u00F3digo", "Classifica\u00E7\u00E3o" }));
+		
+		Box horizontalBox = Box.createHorizontalBox();
+		horizontalBox.setBounds(0, 508, 480, 43);
+		getContentPane().add(horizontalBox);
+						
+						Component horizontalGlue_1 = Box.createHorizontalGlue();
+						horizontalBox.add(horizontalGlue_1);
+				
+						btSalvar = new JButton("Cadastrar");
+						horizontalBox.add(btSalvar);
+						btSalvar.setIcon(
+								new ImageIcon(IFrEditarClassificacao.class.getResource("/br/edu/ifc/videira/imgs/salvar.png")));
+						btSalvar.addActionListener(new AcaoSalvar());
+						btSalvar.setToolTipText(
+								"Preencha os dados para cadastrar uma nova classificação ou selecione uma linha da tabela para atualizar.");
+						btSalvar.setFont(MainInternalFrame.fonteBotoes);
+								
+								Component horizontalStrut = Box.createHorizontalStrut(20);
+								horizontalBox.add(horizontalStrut);
+						
+								JButton btLimpar = new JButton("Limpar");
+								horizontalBox.add(btLimpar);
+								btLimpar.setIcon(
+										new ImageIcon(IFrEditarClassificacao.class.getResource("/br/edu/ifc/videira/imgs/apagador.png")));
+								btLimpar.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent arg0) {
+										limpar();
+									}
+								});
+								btLimpar.setToolTipText("Limpar sele\u00E7\u00E3o/valores");
+								btLimpar.setFont(MainInternalFrame.fonteBotoes);
+										
+										Component horizontalStrut_1 = Box.createHorizontalStrut(20);
+										horizontalBox.add(horizontalStrut_1);
+								
+										btExcluir = new JButton("Excluir");
+										horizontalBox.add(btExcluir);
+										btExcluir.setIcon(
+												new ImageIcon(IFrEditarClassificacao.class.getResource("/br/edu/ifc/videira/imgs/lixeira.png")));
+										btExcluir.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent arg0) {
+												// Se voltarValor é diferente de 2 significa que o usuário não cancelou a
+												// operação e faz a autenticação do usuário
+												if (UsuarioDao.validar(true, false, null, null)) {
+													// Definindo o código da linha selecionada
+													cf.setCodigo(Integer.parseInt(String.valueOf(table.getValueAt(table.getSelectedRow(), 0))));
+													// Enviando para o método responsável na classe RegistroDao
+													cfDao.deletarClassificacao(cf);
 
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
-				});
-
-		btExcluir = new JButton("Excluir");
-		btExcluir.setIcon(
-				new ImageIcon(IFrEditarClassificacao.class.getResource("/br/edu/ifc/videira/imgs/lixeira.png")));
-		btExcluir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				// Se voltarValor é diferente de 2 significa que o usuário não cancelou a
-				// operação e faz a autenticação do usuário
-				if (UsuarioDao.validar(true, false, null, null)) {
-					// Definindo o código da linha selecionada
-					cf.setCodigo(Integer.parseInt(String.valueOf(table.getValueAt(table.getSelectedRow(), 0))));
-					// Enviando para o método responsável na classe RegistroDao
-					cfDao.deletarClassificacao(cf);
-
-					limpar();
-					atualizarTabela();
-				} // Se não validar a autenticação o próprio método vai devolver a mensagem.
-			}
-		});
-		btExcluir.setEnabled(false);
-		btExcluir.setToolTipText("Selecione uma classificação da tabela para excluir");
-		btExcluir.setFont(MainInternalFrame.fonteBotoes);
-		btExcluir.setBounds(404, 562, 170, 32);
-		getContentPane().add(btExcluir);
+													limpar();
+													atualizarTabela();
+												} // Se não validar a autenticação o próprio método vai devolver a mensagem.
+											}
+										});
+										btExcluir.setEnabled(false);
+										btExcluir.setToolTipText("Selecione uma classificação da tabela para excluir");
+										btExcluir.setFont(MainInternalFrame.fonteBotoes);
+										
+										Component horizontalGlue = Box.createHorizontalGlue();
+										horizontalBox.add(horizontalGlue);
 		table.getColumnModel().getColumn(0).setPreferredWidth(15);
 		table.getColumnModel().getColumn(1).setPreferredWidth(300);
 

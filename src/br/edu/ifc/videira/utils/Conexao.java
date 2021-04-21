@@ -17,7 +17,7 @@ public class Conexao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			/* Casa */
 			Connection conexao = DriverManager.getConnection(
-					"jdbc:mysql://localhost/mm?user=root&password=password&useTimezone=true&serverTimezone=UTC");
+					"jdbc:mysql://localhost/db_money_manager?user=root&password=password&useTimezone=true&serverTimezone=UTC");
 			return conexao;
 		} catch (ClassNotFoundException | SQLException e) {
 			throw new Exception(e.getMessage());

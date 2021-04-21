@@ -59,7 +59,7 @@ public class IFiEditarInstituicao extends JInternalFrame {
 		// ...Create the GUI and put it in the window...
 
 		// ...Then set the window size or call pack...
-		setSize(578, 567);
+		setSize(562, 567);
 
 		// Set the window's location.
 		setLocation(IFuLogin.xOffset * IFuLogin.openFrameCount, IFuLogin.yOffset * IFuLogin.openFrameCount);
@@ -78,7 +78,7 @@ public class IFiEditarInstituicao extends JInternalFrame {
 
 		tfInstituicao = new JTextField();
 		tfInstituicao.setFont(MainInternalFrame.fonte4);
-		tfInstituicao.setBounds(158, 320, 391, 34);
+		tfInstituicao.setBounds(158, 320, 360, 34);
 		getContentPane().add(tfInstituicao);
 		tfInstituicao.setColumns(10);
 		
@@ -87,7 +87,7 @@ public class IFiEditarInstituicao extends JInternalFrame {
 		btSalvar.addActionListener(new AcaoSalvar());
 		btSalvar.setToolTipText("Preencha os dados para cadastrar uma nova instituição ou selecione uma linha da tabela para atualizar.");
 		btSalvar.setFont(MainInternalFrame.fonteBotoes);
-		btSalvar.setBounds(15, 477, 170, 41);
+		btSalvar.setBounds(23, 477, 150, 41);
 		getContentPane().add(btSalvar);
 		
 		btExcluir = new JButton("Excluir");
@@ -124,7 +124,7 @@ public class IFiEditarInstituicao extends JInternalFrame {
 		});
 		btExcluir.setToolTipText("Selecione uma linha da tabela para excluir");
 		btExcluir.setFont(MainInternalFrame.fonteBotoes);
-		btExcluir.setBounds(379, 477, 170, 41);
+		btExcluir.setBounds(368, 477, 150, 41);
 		getContentPane().add(btExcluir);
 		
 		tfCod = new JTextField();
@@ -141,7 +141,7 @@ public class IFiEditarInstituicao extends JInternalFrame {
 		});
 		tfCod.setEnabled(false);
 		tfCod.setColumns(10);
-		tfCod.setBounds(0, 509, 31, 28);
+		tfCod.setBounds(0, 517, 25, 20);
 		tfCod.setVisible(false);
 		getContentPane().add(tfCod);
 		
@@ -167,7 +167,7 @@ public class IFiEditarInstituicao extends JInternalFrame {
 //		getContentPane().add(btAdicionar);
 		
 		JScrollPane spInstituicao = new JScrollPane();
-		spInstituicao.setBounds(23, 66, 526, 242);
+		spInstituicao.setBounds(23, 66, 495, 242);
 		getContentPane().add(spInstituicao);
 
 		table = new JTable();
@@ -209,18 +209,7 @@ public class IFiEditarInstituicao extends JInternalFrame {
 			new String[] {
 				"Codigo", "Nome", "Saldo", "Tipo"
 			}
-		) {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
+		));
 		table.getColumnModel().getColumn(0).setPreferredWidth(15);
 		table.getColumnModel().getColumn(1).setPreferredWidth(250);
 		table.getColumnModel().getColumn(2).setPreferredWidth(25);
@@ -276,7 +265,7 @@ public class IFiEditarInstituicao extends JInternalFrame {
 		});
 		btLimpar.setToolTipText("Limpar sele\u00E7\u00E3o/valores");
 		btLimpar.setFont(MainInternalFrame.fonteBotoes);
-		btLimpar.setBounds(197, 477, 170, 41);
+		btLimpar.setBounds(196, 477, 150, 41);
 		getContentPane().add(btLimpar);
 				
 		cbTipo = new JComboBox<>();
@@ -288,7 +277,7 @@ public class IFiEditarInstituicao extends JInternalFrame {
 			JOptionPane.showMessageDialog(null, "Ocorreu um erro, contate o desenvolvedor e informe o código ''!", "Erro inesperado", JOptionPane.ERROR_MESSAGE);
 		}
 		cbTipo.setFont(MainInternalFrame.fonte5);
-		cbTipo.setBounds(158, 369, 391, 34);
+		cbTipo.setBounds(158, 369, 360, 34);
 		getContentPane().add(cbTipo);
 		
 		JLabel lblTipo = new JLabel("Tipo:");

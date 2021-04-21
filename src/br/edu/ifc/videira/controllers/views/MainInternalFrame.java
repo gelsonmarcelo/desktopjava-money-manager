@@ -43,7 +43,7 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 	static final Font fonte6 = new Font("Sitka Subheading", Font.PLAIN, 15);
 	static final Font fonte7 = new Font("Sitka Subheading", Font.PLAIN, 10);
 	static final Font fonte8 = new Font("Sitka Subheading", Font.PLAIN, 05);
-	static final Font fonteBotoes = new Font("Sitka Subheading", Font.PLAIN, 22);
+	static final Font fonteBotoes = new Font("Sitka Subheading", Font.PLAIN, 20);
 	static final Font fonteTabela = new Font("Trebuchet MS", Font.PLAIN, 15);
 	static final Font FonteJNumberFormatField = new Font("Calibri", Font.PLAIN, 20);
 	public static JComboBox<Object> cbTema;
@@ -167,7 +167,6 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 						UIManager.setLookAndFeel(tema);
 					} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 							| UnsupportedLookAndFeelException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					System.out.println("Falha ao carregar tema.");

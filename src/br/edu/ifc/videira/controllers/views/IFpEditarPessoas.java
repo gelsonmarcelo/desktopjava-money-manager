@@ -27,6 +27,8 @@ import java.awt.event.MouseEvent;
 import java.awt.Font;
 import javax.swing.JCheckBox;
 import javax.swing.ImageIcon;
+import javax.swing.Box;
+import java.awt.Component;
 
 public class IFpEditarPessoas extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
@@ -52,31 +54,31 @@ public class IFpEditarPessoas extends JInternalFrame {
 		// ...Create the GUI and put it in the window...
 
 		// ...Then set the window size or call pack...
-		setSize(565, 540);
+		setSize(509, 533);
 
 		// Set the window's location.
 		setLocation(IFuLogin.xOffset * IFuLogin.openFrameCount, IFuLogin.yOffset * IFuLogin.openFrameCount);
 		getContentPane().setLayout(null);
 
 		JLabel lblTitulo = new JLabel("Editar pessoas/entidades");
-		lblTitulo.setFont(MainInternalFrame.fonte1);
-		lblTitulo.setBounds(0, 0, 549, 55);
+		lblTitulo.setFont(MainInternalFrame.fonte3);
+		lblTitulo.setBounds(10, 0, 473, 55);
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(lblTitulo);
 
 		JLabel lbNome = new JLabel("*Nome:");
 		lbNome.setFont(MainInternalFrame.fonte4);
-		lbNome.setBounds(23, 300, 102, 34);
+		lbNome.setBounds(10, 300, 115, 34);
 		getContentPane().add(lbNome);
 
 		tfNome = new JTextField();
 		tfNome.setFont(MainInternalFrame.fonte4);
-		tfNome.setBounds(124, 301, 410, 34);
+		tfNome.setBounds(124, 301, 359, 34);
 		getContentPane().add(tfNome);
 		tfNome.setColumns(10);
 
 		JScrollPane spPessoas = new JScrollPane();
-		spPessoas.setBounds(23, 66, 511, 223);
+		spPessoas.setBounds(10, 66, 473, 223);
 		getContentPane().add(spPessoas);
 
 		table = new JTable();
@@ -99,28 +101,11 @@ public class IFpEditarPessoas extends JInternalFrame {
 		table.setFont(MainInternalFrame.fonteTabela);
 		spPessoas.setViewportView(table);
 		table.setModel(
-				new DefaultTableModel(new Object[][] {}, new String[] { "C\u00F3digo", "Nome", "Saldo", "Contato" }) {
-					/**
-					 * 
-					 */
-					private static final long serialVersionUID = 1L;
-					boolean[] columnEditables = new boolean[] { false, false, false, false };
-
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
-				});
-		table.getColumnModel().getColumn(1).setPreferredWidth(383);
+				new DefaultTableModel(new Object[][] {}, new String[] { "C\u00F3digo", "Nome", "Saldo", "Contato" }));
+		table.getColumnModel().getColumn(1).setPreferredWidth(250);
+		// Impede movimentação das colunas pelo usuário
+		table.getTableHeader().setReorderingAllowed(false);
 		atualizarTabela();
-
-		btSalvar = new JButton("Cadastrar");
-		btSalvar.setIcon(new ImageIcon(IFpEditarPessoas.class.getResource("/br/edu/ifc/videira/imgs/salvar.png")));
-		btSalvar.addActionListener(new AcaoSalvar());
-		btSalvar.setToolTipText(
-				"Preencha os dados para cadastrar uma nova pessoa ou selecione uma linha da tabela para atualizar.");
-		btSalvar.setFont(MainInternalFrame.fonteBotoes);
-		btSalvar.setBounds(80, 448, 170, 39);
-		getContentPane().add(btSalvar);
 
 		tfCod = new JTextField();
 		tfCod.addCaretListener(new CaretListener() {
@@ -138,7 +123,7 @@ public class IFpEditarPessoas extends JInternalFrame {
 		});
 		tfCod.setFont(MainInternalFrame.fonte4);
 		tfCod.setColumns(10);
-		tfCod.setBounds(0, 483, 31, 28);
+		tfCod.setBounds(2, 483, 20, 20);
 		tfCod.setVisible(false);
 		getContentPane().add(tfCod);
 
@@ -150,10 +135,49 @@ public class IFpEditarPessoas extends JInternalFrame {
 
 		JLabel lbSaldo = new JLabel("Saldo:");
 		lbSaldo.setFont(MainInternalFrame.fonte4);
-		lbSaldo.setBounds(23, 390, 102, 34);
+		lbSaldo.setBounds(10, 390, 115, 34);
 		getContentPane().add(lbSaldo);
 
+		JLabel lbContato = new JLabel("Contato:");
+		lbContato.setToolTipText("N\u00E3o dispon\u00EDvel ainda");
+		lbContato.setEnabled(false);
+		lbContato.setFont(new Font("Sitka Subheading", Font.PLAIN, 25));
+		lbContato.setBounds(10, 345, 115, 34);
+		getContentPane().add(lbContato);
+
+		tfContato = new JTextField();
+		tfContato.setToolTipText("N\u00E3o dispon\u00EDvel ainda");
+		tfContato.setEnabled(false);
+		tfContato.setFont(new Font("Sitka Subheading", Font.PLAIN, 25));
+		tfContato.setColumns(10);
+		tfContato.setBounds(124, 345, 359, 34);
+		getContentPane().add(tfContato);
+
+		cboxSaldoNegativo = new JCheckBox("Saldo negativo");
+		cboxSaldoNegativo.setFont(MainInternalFrame.fonte5);
+		cboxSaldoNegativo.setBounds(279, 397, 204, 23);
+		getContentPane().add(cboxSaldoNegativo);
+
+		Box horizontalBox = Box.createHorizontalBox();
+		horizontalBox.setBounds(0, 449, 493, 38);
+		getContentPane().add(horizontalBox);
+
+		Component horizontalGlue = Box.createHorizontalGlue();
+		horizontalBox.add(horizontalGlue);
+
+		btSalvar = new JButton("Cadastrar");
+		horizontalBox.add(btSalvar);
+		btSalvar.setIcon(new ImageIcon(IFpEditarPessoas.class.getResource("/br/edu/ifc/videira/imgs/salvar.png")));
+		btSalvar.addActionListener(new AcaoSalvar());
+		btSalvar.setToolTipText(
+				"Preencha os dados para cadastrar uma nova pessoa ou selecione uma linha da tabela para atualizar.");
+		btSalvar.setFont(MainInternalFrame.fonteBotoes);
+
+		Component horizontalGlue_2 = Box.createHorizontalGlue();
+		horizontalBox.add(horizontalGlue_2);
+
 		JButton btLimpar = new JButton("Limpar");
+		horizontalBox.add(btLimpar);
 		btLimpar.setIcon(new ImageIcon(IFpEditarPessoas.class.getResource("/br/edu/ifc/videira/imgs/apagador.png")));
 		btLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -162,28 +186,9 @@ public class IFpEditarPessoas extends JInternalFrame {
 		});
 		btLimpar.setToolTipText("Limpar seleção/valores inseridos");
 		btLimpar.setFont(MainInternalFrame.fonteBotoes);
-		btLimpar.setBounds(300, 448, 170, 39);
-		getContentPane().add(btLimpar);
 
-		JLabel lbContato = new JLabel("Contato:");
-		lbContato.setToolTipText("N\u00E3o dispon\u00EDvel ainda");
-		lbContato.setEnabled(false);
-		lbContato.setFont(new Font("Sitka Subheading", Font.PLAIN, 25));
-		lbContato.setBounds(23, 345, 102, 34);
-		getContentPane().add(lbContato);
-
-		tfContato = new JTextField();
-		tfContato.setToolTipText("N\u00E3o dispon\u00EDvel ainda");
-		tfContato.setEnabled(false);
-		tfContato.setFont(new Font("Sitka Subheading", Font.PLAIN, 25));
-		tfContato.setColumns(10);
-		tfContato.setBounds(124, 345, 410, 34);
-		getContentPane().add(tfContato);
-
-		cboxSaldoNegativo = new JCheckBox("Saldo negativo");
-		cboxSaldoNegativo.setFont(MainInternalFrame.fonte5);
-		cboxSaldoNegativo.setBounds(279, 397, 255, 23);
-		getContentPane().add(cboxSaldoNegativo);
+		Component horizontalGlue_1 = Box.createHorizontalGlue();
+		horizontalBox.add(horizontalGlue_1);
 
 		atualizarTabela();
 
@@ -271,5 +276,4 @@ public class IFpEditarPessoas extends JInternalFrame {
 			}
 		}
 	}
-
 }

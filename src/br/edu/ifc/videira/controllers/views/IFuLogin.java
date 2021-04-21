@@ -116,7 +116,7 @@ public class IFuLogin extends JInternalFrame {
 			}
 		});
 		btAcessar.setFont(MainInternalFrame.fonteBotoes);
-		btAcessar.setBounds(27, 163, 164, 34);
+		btAcessar.setBounds(27, 163, 150, 34);
 		getContentPane().add(btAcessar);
 
 		JButton btSair = new JButton("Sair");
@@ -127,7 +127,7 @@ public class IFuLogin extends JInternalFrame {
 			}
 		});
 		btSair.setFont(MainInternalFrame.fonteBotoes);
-		btSair.setBounds(203, 163, 164, 34);
+		btSair.setBounds(203, 163, 150, 34);
 		getContentPane().add(btSair);
 
 		JLabel lbSenhaPerdida = new JLabel("Perdi a senha!");
@@ -154,7 +154,7 @@ public class IFuLogin extends JInternalFrame {
 			}
 		});
 		btCadastrar.setFont(MainInternalFrame.fonteBotoes);
-		btCadastrar.setBounds(112, 208, 164, 34);
+		btCadastrar.setBounds(112, 208, 150, 34);
 		getContentPane().add(btCadastrar);
 	}
 

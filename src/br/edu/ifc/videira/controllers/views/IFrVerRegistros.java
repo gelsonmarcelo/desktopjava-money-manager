@@ -222,18 +222,7 @@ public class IFrVerRegistros extends JInternalFrame {
 			new String[] {
 				"C\u00F3digo", "Registro", "Valor", "Quem", "Descri\u00E7\u00E3o", "Data", "Institui\u00E7\u00E3o", "Classifica\u00E7\u00E3o"
 			}
-		) {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		} 
+		)
 		);
 		table.getColumnModel().getColumn(0).setPreferredWidth(15);
 		table.getColumnModel().getColumn(1).setPreferredWidth(50);
