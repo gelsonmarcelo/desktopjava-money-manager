@@ -12,18 +12,22 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import java.awt.event.*;
-import java.net.URL;
 import java.sql.SQLException;
 import java.awt.*;
 import javax.swing.border.BevelBorder;
 
 import br.edu.ifc.videira.DAOs.UsuarioDao;
 import br.edu.ifc.videira.utils.ComboBoxModel;
+import br.edu.ifc.videira.utils.JNumberFormatField;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 
 public class MainInternalFrame extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
@@ -47,6 +51,10 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 	static final Font fonteTabela = new Font("Trebuchet MS", Font.PLAIN, 15);
 	static final Font FonteJNumberFormatField = new Font("Calibri", Font.PLAIN, 20);
 	public static JComboBox<Object> cbTema;
+	public static JTextField tfSaldoTotal;
+	private final Action alternaVisualizacaoSaldo = new SwingAction();
+	private JLabel lbSaldo;
+	private JButton btAlternaVisualizacaoSaldo;
 
 	public MainInternalFrame() {
 		/*
@@ -59,10 +67,8 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 					JOptionPane.WARNING_MESSAGE);
 		}
 		
-		//### - Adicionar imagem ícone do sistema
-		URL url = this.getClass().getResource("");
-		Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
-		this.setIconImage(imagemTitulo);
+		// Adicionar imagem ícone do sistema
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(MainInternalFrame.class.getResource("/br/edu/ifc/videira/imgs/icone-principal-32.png")));
 
 		// Make the big window be indented 50 pixels from each edge
 		// of the screen.
@@ -188,6 +194,26 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 		lbTema.setFont(MainInternalFrame.fonte5);
 		lbTema.setBounds(10, 24, 184, 26);
 		desktop.add(lbTema);
+		
+		tfSaldoTotal = new JNumberFormatField();
+		tfSaldoTotal.setBounds(176, 61, 166, 32);
+		tfSaldoTotal.setFont(FonteJNumberFormatField);
+		desktop.add(tfSaldoTotal);
+		tfSaldoTotal.setColumns(10);
+		tfSaldoTotal.setVisible(false);
+		
+		lbSaldo = new JLabel("Saldo Total:");
+		lbSaldo.setFont(fonte5);
+		lbSaldo.setBounds(62, 61, 113, 32);
+		lbSaldo.setVisible(false);
+		desktop.add(lbSaldo);
+		
+		btAlternaVisualizacaoSaldo = new JButton("");
+		btAlternaVisualizacaoSaldo.setBackground(Color.WHITE);
+		btAlternaVisualizacaoSaldo.setAction(alternaVisualizacaoSaldo);
+		btAlternaVisualizacaoSaldo.setIcon(new ImageIcon(MainInternalFrame.class.getResource("/br/edu/ifc/videira/imgs/mostrar.png")));
+		btAlternaVisualizacaoSaldo.setBounds(10, 61, 42, 32);
+		desktop.add(btAlternaVisualizacaoSaldo);
 		
 		JLabel lbImagemFundo = new JLabel("");
 		lbImagemFundo.setIcon(new ImageIcon(MainInternalFrame.class.getResource("/br/edu/ifc/videira/imgs/fundo-money-grande.jpg")));
@@ -499,7 +525,12 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 		// Set maximized
 		frame.setExtendedState(MAXIMIZED_BOTH);
 	}
-
+	
+	/**
+	 * Ação do botão que alterna visualização do saldo
+	 * @param args
+	 */
+	
 	public static void main(String[] args) {
 		// Schedule a job for the event-dispatching thread:
 		// creating and showing this application's GUI.
@@ -508,5 +539,22 @@ public class MainInternalFrame extends JFrame implements ActionListener {
 				createAndShowGUI();
 			}
 		});
+	}
+	private class SwingAction extends AbstractAction {
+		private static final long serialVersionUID = 1L;
+		public SwingAction() {
+			putValue(SHORT_DESCRIPTION, "Alternar visualização do saldo total");
+		}
+		public void actionPerformed(ActionEvent e) {
+			if(lbSaldo.isVisible()) {
+				lbSaldo.setVisible(false);
+				tfSaldoTotal.setVisible(false);
+				btAlternaVisualizacaoSaldo.setIcon(new ImageIcon(MainInternalFrame.class.getResource("/br/edu/ifc/videira/imgs/mostrar.png")));
+			}else {
+				lbSaldo.setVisible(true);
+				tfSaldoTotal.setVisible(true);
+				btAlternaVisualizacaoSaldo.setIcon(new ImageIcon(MainInternalFrame.class.getResource("/br/edu/ifc/videira/imgs/ocultar.png")));
+			}
+		}
 	}
 }

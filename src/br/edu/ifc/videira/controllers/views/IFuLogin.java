@@ -15,6 +15,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import br.edu.ifc.videira.DAOs.TotalDao;
 import br.edu.ifc.videira.DAOs.UsuarioDao;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -25,6 +26,7 @@ public class IFuLogin extends JInternalFrame {
 	static int openFrameCount = 0;
 	static final int xOffset = 10, yOffset = 0;
 	UsuarioDao usDao = new UsuarioDao();
+	TotalDao ttDao = new TotalDao();
 
 	private JTextField tfLogin;
 	private JTextField psSenha;
@@ -106,6 +108,7 @@ public class IFuLogin extends JInternalFrame {
 //					JOptionPane.showMessageDialog(null, "Id do usuário: " + UsuarioDao.idUser);
 					//Define o tema trazido do banco com base no usuário
 					MainInternalFrame.cbTema.setSelectedItem(usDao.recuperarTema());
+					ttDao.atualizarTotal();
 					
 					dispose();
 				} else {

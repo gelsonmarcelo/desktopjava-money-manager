@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `idusuario` INT NOT NULL AUTO_INCREMENT,
   `login` VARCHAR(60) NOT NULL,
   `senha` VARCHAR(45) NOT NULL,
-  `salario` DOUBLE NOT NULL,
+  `salario` DECIMAL(10,2) NULL,
   `tema` VARCHAR(100) NULL,
   PRIMARY KEY (`idusuario`))
 ENGINE = InnoDB;
@@ -46,7 +46,7 @@ DROP TABLE IF EXISTS `instituicao` ;
 CREATE TABLE IF NOT EXISTS `instituicao` (
   `idinstituicao` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NOT NULL,
-  `saldo` DOUBLE NOT NULL,
+  `saldo` DECIMAL(10,2) NOT NULL,
   `idusuario` INT NOT NULL,
   `idtipo` INT NOT NULL,
   PRIMARY KEY (`idinstituicao`),
@@ -73,7 +73,7 @@ DROP TABLE IF EXISTS `quem` ;
 CREATE TABLE IF NOT EXISTS `quem` (
   `idquem` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(200) NOT NULL,
-  `saldo` DOUBLE NULL,
+  `saldo` DECIMAL(10,2) NULL,
   `idusuario` INT NOT NULL,
   PRIMARY KEY (`idquem`),
   INDEX `idusuario_quem_idx` (`idusuario` ASC) VISIBLE,
@@ -116,7 +116,7 @@ DROP TABLE IF EXISTS `registro` ;
 
 CREATE TABLE IF NOT EXISTS `registro` (
   `idregistro` INT NOT NULL AUTO_INCREMENT,
-  `valor` DOUBLE NOT NULL,
+  `valor` DECIMAL(10,2) NOT NULL,
   `descricao` MEDIUMTEXT NULL,
   `data` DATE NOT NULL,
   `momento_registro` TIMESTAMP NULL,

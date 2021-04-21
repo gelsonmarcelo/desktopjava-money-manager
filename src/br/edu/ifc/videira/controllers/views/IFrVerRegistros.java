@@ -346,7 +346,7 @@ public class IFrVerRegistros extends JInternalFrame {
 						frame.cbQuem.setSelectedItem(qmDao.RecuperarQuem(idRegistro));
 						// Chama método que busca "classificacao" e monta String como no comboBox para
 						// pré-selecioná-la.
-						frame.cbClassificacao.setSelectedItem(clDao.RecuperarClassificacao(idRegistro));
+						frame.cbClassificacao.setSelectedItem(clDao.recuperarClassificacao(idRegistro));
 						// Define a descrição na tela de registro
 						frame.txDescricao.setText(String.valueOf(table.getValueAt(table.getSelectedRow(), 4)));
 						// Chama método que busca "instituicao" e monta String como no comboBox para

@@ -134,7 +134,7 @@ public class ClassificacaoDao {
 	 * @return String do nome com dados montada
 	 * @throws Exception
 	 */
-	public String RecuperarClassificacao(int codigoRegistro) throws Exception {
+	public String recuperarClassificacao(int codigoRegistro) throws Exception {
 		String dadosClassificacao = "";
 		try {
 			// Essa SQL unirá o ID da classificacao ao nome, a partir do id do registro, montando uma string com formato exato das opções do combobox para pré-selecionar o item exato quando chamar a janela de registro.
